@@ -30,6 +30,8 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -48,6 +50,7 @@ import java.util.TreeSet;
  * output.
  *
  * @author Daniel Dyer
+ * @author Sergei Stepanov
  */
 public class HTMLReporter extends AbstractReporter {
     private static final String FRAMES_PROPERTY = "e2e.tips.reportng.frames";
@@ -76,6 +79,7 @@ public class HTMLReporter extends AbstractReporter {
     private static final String ONLY_FAILURES_KEY = "onlyReportFailures";
 
     private static final String REPORT_DIRECTORY = "e2e";
+    private static final String REPORT_DIRECTORY_IMAGES = "images";
 
     private static final Comparator<ITestNGMethod> METHOD_COMPARATOR = new TestMethodComparator();
     private static final Comparator<ITestResult> RESULT_COMPARATOR = new TestResultComparator();
@@ -196,8 +200,15 @@ public class HTMLReporter extends AbstractReporter {
         try {
             if (AbstractReporter.META.allowSlackNotification()) {
                 final File imageFile = new File(outputDirectory, RESULT_IMAGE_FILE);
-                final File zipFile = new File(outputDirectory, RESULT_ZIP_FILE);
-                ZipUtils.zip(outputDirectory.getPath(), zipFile);
+                // delete all images before zipping
+                final Path imagesPath = Paths.get(outputDirectory.getPath(), REPORT_DIRECTORY_IMAGES);
+                if (Files.exists(imagesPath)) {
+                    Files.walk(imagesPath)
+                            .sorted(Comparator.reverseOrder())
+                            .map(Path::toFile)
+                            .forEach(File::delete);
+                }
+                final File zipFile = ZipUtils.zip(outputDirectory.getPath(), "e2e");
 
                 final SlackClient.Slack slack = SlackClient.initialize();
                 SlackClient.sendTestReportImageToSlack(

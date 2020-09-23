@@ -7,7 +7,7 @@
     <name>ReportNG</name>
     <groupId>e2e.tips</groupId>
     <artifactId>reportng</artifactId>
-    <version>1.2.4</version>
+    <version>1.2.5</version>
     <packaging>jar</packaging>
 
     <properties>
@@ -82,6 +82,10 @@
                         </goals>
                     </execution>
                 </executions>
+                <configuration>
+                    <source>8</source>
+                    <target>8</target>
+                </configuration>
             </plugin>
         </plugins>
     </build>

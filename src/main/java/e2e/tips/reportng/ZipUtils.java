@@ -10,8 +10,10 @@ import java.util.zip.ZipOutputStream;
 
 public final class ZipUtils {
 
-    public static void zip(String sourceDirPath, File zipFilePath) throws IOException {
-        Path p = Files.createFile(Paths.get(String.valueOf(zipFilePath)));
+    public static File zip(String sourceDirPath, String zipFileName) throws IOException {
+        final File tempZipFile = File.createTempFile(zipFileName, ".zip");
+        tempZipFile.deleteOnExit();
+        Path p = Paths.get(String.valueOf(tempZipFile));
         try (ZipOutputStream zs = new ZipOutputStream(Files.newOutputStream(p))) {
             Path pp = Paths.get(sourceDirPath);
             Files.walk(pp)
@@ -27,5 +29,6 @@ public final class ZipUtils {
                         }
                     });
         }
+        return tempZipFile;
     }
 }

@@ -83,7 +83,7 @@
                 #foreach( $screenshot in $screenshots )
                     ##<!--<a href="file:///$screenshot">$screenshot</a><br/>-->
                     ##<a href="$screenshot">$screenshot</a><br/>
-                   <img src="data:image/png;base64,$screenshot" width="50%" height="50%" alt="$id"><br/>
+                   <img id="screenshot-$id" class="screenshot" src="data:image/png;base64,$screenshot" onclick="modalImage($id)" width="50%" height="50%" alt="$id"><br/>
                 #end
             </div>
         #end

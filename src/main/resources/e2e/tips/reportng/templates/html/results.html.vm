@@ -17,6 +17,10 @@
 <p>
   $messages.getString("testDuration"): $utils.formatDuration($utils.getDuration($result.testContext))s
 </p>
+<div id="modal" class="modal" onclick="modalClose()">
+  <span class="close" onclick="modalClose()">&times;</span>
+  <img id="modalImage" class="modal-content" onclick="modalClose()">
+</div>
 
 #set ($id = 0)
 #if ($failedConfigurations.size() > 0)

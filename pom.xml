@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <name>ReportNG</name>
-    <groupId>e2e.tips</groupId>
+    <groupId>testee.it</groupId>
     <artifactId>reportng</artifactId>
     <version>1.2.6</version>
     <packaging>jar</packaging>

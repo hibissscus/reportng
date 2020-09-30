@@ -71,8 +71,8 @@
         your <a href="http://ant.apache.org">Ant</a> build file. This attribute takes a comma-separated list of
         reporter class names. The class names for the ReportNG reporters are:
     </p>
-    <pre>    e2e.tips.reportng.HTMLReporter
-    e2e.tips.reportng.JUnitXMLReporter</pre>
+    <pre>    testee.it.reportng.HTMLReporter
+    testee.it.reportng.JUnitXMLReporter</pre>
     <p>
         You may also want to disable the default TestNG reporters by setting the <code>useDefaultListeners</code>
         attribute to "false".
@@ -84,9 +84,9 @@
             outputdir="${test-results.dir}"
             haltonfailure="true"
             useDefaultListeners="false"
-            listeners="e2e.tips.reportng.HTMLReporter,e2e.tips.reportng.JUnitXMLReporter"&gt;
+            listeners="testee.it.reportng.HTMLReporter,testee.it.reportng.JUnitXMLReporter"&gt;
       &lt;xmlfileset dir="." includes="testng.xml"/&gt;
-      &lt;sysproperty key="e2e.tips.reportng.title" value="My Test Report"/&gt;
+      &lt;sysproperty key="testee.it.reportng.title" value="My Test Report"/&gt;
     &lt;/testng&gt;</pre>
     <p>
         The <code>reportng-1.1.4.jar</code> and <code>velocity-dep-1.4.jar</code> files must be
@@ -115,9 +115,9 @@
         within the <code>&lt;testng&gt;</code> element) in order to customise the report output:
     </p>
     <dl>
-        <dt><code>e2e.tips.reportng.coverage-report</code></dt>
+        <dt><code>testee.it.reportng.coverage-report</code></dt>
         <dd>A relative or absolute URL that links to a test coverage report.</dd>
-        <dt><code>e2e.tips.reportng.escape-output</code></dt>
+        <dt><code>testee.it.reportng.escape-output</code></dt>
         <dd>
             Used to turn off escaping for log output in the reports (not recommended).
             The default is for output to be escaped, since this prevents characters such as
@@ -125,18 +125,18 @@
             text is included as raw HTML/XML, which allows for the insertion of hyperlinks and
             other nasty hacks.
         </dd>
-        <dt><code>e2e.tips.reportng.failures-only</code></dt>
+        <dt><code>testee.it.reportng.failures-only</code></dt>
         <dd>
             Defaults to <code>"false"</code>. If set to <code>"true"</code>, the generated report will
             not list successful tests.
         </dd>
-        <dt><code>e2e.tips.reportng.frames</code></dt>
+        <dt><code>testee.it.reportng.frames</code></dt>
         <dd>
             Defaults to <code>"true"</code>. If set to <code>"false"</code>, generates the HTML report
             without using a frameset. No navigation page is generated and the overview page becomes the
             index page.
         </dd>
-        <dt><code>e2e.tips.reportng.locale</code></dt>
+        <dt><code>testee.it.reportng.locale</code></dt>
         <dd>
             Over-rides the default locale for localised messages in generated reports. If not
             specified, the JVM default locale is used. If there are no translations available for
@@ -149,30 +149,30 @@
                 open an issue in the
                 <a href="https://github.com/dwdyer/reportng/issues">issue tracker</a> and attach
                 a translated version of
-                <a href="https://github.com/dwdyer/reportng/blob/master/reportng/src/java/resources/e2e/tips/reportng/messages/reportng.properties">the
+                <a href="https://github.com/dwdyer/reportng/blob/master/reportng/src/java/resources/testee/it/reportng/messages/reportng.properties">the
                     properties file</a>.
             </em>
         </dd>
-        <dt><code>e2e.tips.reportng.show-expected-exceptions</code></dt>
+        <dt><code>testee.it.reportng.show-expected-exceptions</code></dt>
         <dd>
             Set to <code>"true"</code> or <code>"false"</code> to specify whether the stack-traces of expected
             exceptions should be included in the output for passed test cases. The default is "false" because
             the presence of stack-traces for successful tests may be confusing.
         </dd>
-        <dt><code>e2e.tips.reportng.stylesheet</code></dt>
+        <dt><code>testee.it.reportng.stylesheet</code></dt>
         <dd>
             The path to a custom CSS file that over-rides some or all of the default styles used by
             the <code>HTMLReporter</code>. This allows the appearance of reports to be customised.
             See the <a
-                href="https://github.com/dwdyer/reportng/blob/master/reportng/src/java/resources/e2e/tips/reportng/templates/html/reportng.css">default
+                href="https://github.com/dwdyer/reportng/blob/master/reportng/src/java/resources/testee/it/reportng/templates/html/reportng.css">default
             stylesheet</a> for the classes and selectors that can be styled.
             For an example, see <a href="sample/custom/index.html">this version</a> of the
             <a href="sample/index.html">sample report</a>, which uses the bundled hudsonesque.css file
             to customise the report's appearance.
         </dd>
-        <dt><code>e2e.tips.reportng.title</code></dt>
+        <dt><code>testee.it.reportng.title</code></dt>
         <dd>Used to over-ride the report title.</dd>
-        <dt><code>e2e.tips.reportng.xml-dialect</code></dt>
+        <dt><code>testee.it.reportng.xml-dialect</code></dt>
         <dd>
             Controls the XML generated by <code>JUnitXMLReporter</code>. If set to <code>"testng"</code>
             (the default), then skipped tests appear as "skipped" in the XML. This is suitable for use with
@@ -182,7 +182,7 @@
             do not have a notion of skipped tests. For these tools the dialect can be set to
             <code>"junit"</code> and skipped tests will be marked as failures.
         </dd>
-        <dt><code>e2e.tips.reportng.velocity-log</code></dt>
+        <dt><code>testee.it.reportng.velocity-log</code></dt>
         <dd>
             Since version 1.1.3, ReportNG will no longer generate a Velocity log file
             by default. If you want a log file you should set this property to "true".

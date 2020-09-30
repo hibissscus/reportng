@@ -4,7 +4,7 @@
 
     <test name="ReportNG">
         <packages>
-            <package name="e2e.tips.reportng"/>
+            <package name="testee.it.reportng"/>
         </packages>
     </test>
 

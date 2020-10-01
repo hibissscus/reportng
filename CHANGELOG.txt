@@ -1,3 +1,8 @@
+Changes in version 1.2.7
+------------------------
+* Proper css for highlighting of inline images
+
+
 Changes in version 1.2.6
 ------------------------
 * Html inline images for failed tests are now clickable

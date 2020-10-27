@@ -1,0 +1,30 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+<suite verbose="1" configfailurepolicy="continue" thread-count="3" parallel="tests" name="testee">
+    <parameter name="headless" value="false"/>
+    <test parallel="classes" name="successful tests 100%">
+        <packages>
+            <package name="testee.it.reportng.example.successful"/>
+        </packages>
+    </test>
+    <test parallel="classes" name="partial tests 50%">
+        <packages>
+            <package name="testee.it.reportng.example.partial"/>
+        </packages>
+    </test>
+    <test parallel="classes" name="allkind tests 33%">
+        <packages>
+            <package name="testee.it.reportng.example.allkind"/>
+        </packages>
+    </test>
+
+    <test parallel="classes" name="skipped tests 0%">
+        <packages>
+            <package name="testee.it.reportng.example.skipped"/>
+        </packages>
+    </test>
+    <test parallel="classes" name="failed tests 0%">
+        <packages>
+            <package name="testee.it.reportng.example.failed"/>
+        </packages>
+    </test>
+</suite>

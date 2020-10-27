@@ -23,7 +23,7 @@ import java.util.Iterator;
 
 /**
  * An example of using a TestNG DataProviderTest.  This used in the sample
- * report to verfiy that ReportNG can deal with this scenario correctly.
+ * report to verify that ReportNG can deal with this scenario correctly.
  *
  * @author Daniel Dyer
  */

@@ -13,17 +13,15 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 //=============================================================================
-package testee.it.reportng.sample;
+package testee.it.reportng.example.failed;
 
 import org.testng.Reporter;
 import org.testng.annotations.Test;
 
 /**
- * Some test failures to be included in the sample output.
- *
- * @author Daniel Dyer
+ * Failed tests.
  */
-@Test(groups = "should-fail")
+@Test(groups = "failed")
 public class FailedTests {
     @Test
     public void assertionFailure() {

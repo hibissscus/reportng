@@ -13,26 +13,18 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 //=============================================================================
-package testee.it.reportng.sample;
+package testee.it.reportng.example.skipped;
 
+import org.testng.SkipException;
 import org.testng.annotations.Test;
 
 /**
- * These tests are skipped because they depend on failed tests in
- * another class.
- *
- * @author Daniel Dyer
+ * Skipped tests 0%.
  */
-@Test(groups = "should-skip")
+@Test(groups = "skipped")
 public class SkippedTests {
-    @Test(dependsOnGroups = "should-fail")
-    public void skippedDueToDependentGroup() {
-        assert false : "This method is supposed to be skipped.";
-    }
-
-
-    @Test(dependsOnMethods = "skippedDueToDependentGroup")
-    public void skippedDueToDependentMethod() {
-        assert false : "This method is supposed to be skipped.";
+    @Test
+    public void skipped() {
+        throw new SkipException("Skipping this test");
     }
 }

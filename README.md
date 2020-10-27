@@ -1,4 +1,4 @@
-`ReportNG` provides colour-coded TestNG results.
+`ReportNG` provides colour-coded `TestNG` results.
 =================================
 ![e2e_result](https://user-images.githubusercontent.com/1389501/97297276-14c87b00-1852-11eb-89a3-31c69ade0960.png)
  

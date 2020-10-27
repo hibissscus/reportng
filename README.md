@@ -7,7 +7,7 @@ because the default report is comprehensive but is not so easy to understand at-
 
 `Slack` test result image with archived `Zip` report 
 =================================
-![e2e_slack](https://user-images.githubusercontent.com/1389501/97305237-21060580-185d-11eb-9f8b-5a950b09f5be.png)
+![e2e_slack](https://user-images.githubusercontent.com/1389501/97305564-8d810480-185d-11eb-8a02-d227106c16f8.png)
 
 ### Authors
 © 2006-2013 Daniel W. Dyer  https://www.dandyer.co.uk (Initial idea & implementation)  <br>

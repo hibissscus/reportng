@@ -1,3 +1,10 @@
+Changes in version 1.2.8
+------------------------
+* Adapt reportNG css for highlighting of inline images
+* Surefire test plugin for reportNG example generation
+* Initial documentation
+
+
 Changes in version 1.2.7
 ------------------------
 * Proper css for highlighting of inline images

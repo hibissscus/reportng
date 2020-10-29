@@ -216,13 +216,12 @@ public class HTMLReporter extends AbstractReporter {
                         AbstractReporter.META.getSlackToken(),
                         AbstractReporter.META.getSlackChanel(),
                         imageFile);
-                Thread.sleep(10000L);
+                Thread.sleep(5000L);
                 SlackClient.sendTestReportZipToSlack(
                         slack,
                         AbstractReporter.META.getSlackToken(),
                         AbstractReporter.META.getSlackChanel(),
                         zipFile);
-                Thread.sleep(5000L);
             }
         } catch (Exception e) {
             throw new ReportNGException("Failed to send slack test result notification.", e);

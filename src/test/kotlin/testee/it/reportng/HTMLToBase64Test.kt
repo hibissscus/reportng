@@ -9,6 +9,6 @@ class HTMLToBase64Test {
     @Throws(IOException::class)
     fun testHTMLToBase64() {
         assert(HTMLToBase64.htmlToBase64(
-                HTMLToBase64.html, 1024, 768, "e2e.png").isNotEmpty()) { "Wrong html to base64 encoding" }
+                HTMLToBase64.HTML_EXAMPLE, 1024, 768, "e2e.png").isNotEmpty()) { "Wrong html to base64 encoding" }
     }
 }

@@ -45,17 +45,9 @@
                         </goals>
                         <configuration>
                             <sourceDirs>
-                                <source>src/main/java</source>
                                 <source>src/main/kotlin</source>
                             </sourceDirs>
                         </configuration>
-                    </execution>
-                    <execution>
-                        <id>test-compile</id>
-                        <phase>test-compile</phase>
-                        <goals>
-                            <goal>test-compile</goal>
-                        </goals>
                     </execution>
                 </executions>
                 <configuration>

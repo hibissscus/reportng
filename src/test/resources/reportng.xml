@@ -1,5 +1,5 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
-<suite verbose="1" configfailurepolicy="continue" thread-count="3" parallel="tests" name="testee">
+<suite verbose="1" configfailurepolicy="continue" thread-count="1" parallel="tests" name="testee">
     <parameter name="headless" value="false"/>
     <test parallel="classes" name="successful tests 100%">
         <packages>

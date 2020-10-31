@@ -15,7 +15,7 @@ class ReportMetadataTest {
         // Make sure we know what the default locale is before we start.
         Locale.setDefault(Locale("en", "GB"))
         val metadata = ReportMetadata()
-        val locale = metadata.locale.toString()
+        val locale = metadata.getLocale().toString()
         assert(locale == "en_GB") { "Wrong locale: $locale" }
     }
 
@@ -24,7 +24,7 @@ class ReportMetadataTest {
         // Unset any previously set property.
         System.setProperty(ReportMetadata.LOCALE_KEY, "fr")
         val metadata = ReportMetadata()
-        val locale = metadata.locale.toString()
+        val locale = metadata.getLocale().toString()
         assert(locale == "fr") { "Wrong locale: $locale" }
     }
 
@@ -33,7 +33,7 @@ class ReportMetadataTest {
         // Unset any previously set property.
         System.setProperty(ReportMetadata.LOCALE_KEY, "fr_CA")
         val metadata = ReportMetadata()
-        val locale = metadata.locale.toString()
+        val locale = metadata.getLocale().toString()
         assert(locale == "fr_CA") { "Wrong locale: $locale" }
     }
 
@@ -42,7 +42,7 @@ class ReportMetadataTest {
         // Unset any previously set property.
         System.setProperty(ReportMetadata.LOCALE_KEY, "fr_CA_POSIX")
         val metadata = ReportMetadata()
-        val locale = metadata.locale.toString()
+        val locale = metadata.getLocale().toString()
         assert(locale == "fr_CA_POSIX") { "Wrong locale: $locale" }
     }
 }

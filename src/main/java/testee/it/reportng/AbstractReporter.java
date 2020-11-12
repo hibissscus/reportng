@@ -35,8 +35,6 @@ import java.util.ResourceBundle;
 
 /**
  * Convenient base class for the ReportNG reporters.  Provides common functionality.
- *
- * @author Daniel Dyer
  */
 public abstract class AbstractReporter implements IReporter {
     protected static final String TEMPLATE_EXTENSION = ".vm";

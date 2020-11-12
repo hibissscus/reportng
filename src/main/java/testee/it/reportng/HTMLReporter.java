@@ -48,9 +48,6 @@ import java.util.TreeSet;
 /**
  * Enhanced HTML reporter for TestNG that uses Velocity templates to generate its
  * output.
- *
- * @author Daniel Dyer
- * @author Sergei Stepanov
  */
 public class HTMLReporter extends AbstractReporter {
     private static final String FRAMES_PROPERTY = "testee.it.reportng.frames";
@@ -210,6 +207,7 @@ public class HTMLReporter extends AbstractReporter {
                 }
                 final File zipFile = ZipUtils.zip(outputDirectory.getPath(), "e2e");
 
+                // todo async, remove thread sleep
                 final SlackClient.Slack slack = SlackClient.initialize();
                 SlackClient.sendTestReportImageToSlack(
                         slack,

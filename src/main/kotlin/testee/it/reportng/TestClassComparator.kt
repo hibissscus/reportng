@@ -5,8 +5,6 @@ import java.util.Comparator
 
 /**
  * Comparator for sorting classes alphabetically by fully-qualified name.
- *
- * @author Daniel Dyer
  */
 internal class TestClassComparator : Comparator<IClass> {
     override fun compare(class1: IClass, class2: IClass): Int {

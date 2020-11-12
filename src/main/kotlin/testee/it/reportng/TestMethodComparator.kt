@@ -6,8 +6,6 @@ import java.util.Comparator
 /**
  * Comparator for sorting TestNG test methods.  Sorts method alphabeticaly
  * (first by fully-qualified class name, then by method name).
- *
- * @author Daniel Dyer
  */
 internal class TestMethodComparator : Comparator<ITestNGMethod> {
     override fun compare(method1: ITestNGMethod,

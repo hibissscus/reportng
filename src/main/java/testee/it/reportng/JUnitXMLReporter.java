@@ -33,8 +33,6 @@ import java.util.Set;
 /**
  * JUnit XML reporter for TestNG that uses Velocity templates to generate its
  * output.
- *
- * @author Daniel Dyer
  */
 public class JUnitXMLReporter extends AbstractReporter {
     private static final String RESULTS_KEY = "results";

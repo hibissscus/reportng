@@ -44,12 +44,12 @@ class ReportNGUtilsTest {
     @Test
     fun testFormatIntegerPercentage() {
         val percentage = utils.formatPercentage(10, 100)
-        assert("10,00%" == percentage) { "Wrongly formatted percentage: $percentage" }
+        assert("10.00%" == percentage) { "Wrongly formatted percentage: $percentage" }
     }
 
     @Test
     fun testFormatFractionalPercentage() {
         val percentage = utils.formatPercentage(2, 3)
-        assert("66,67%" == percentage) { "Wrongly formatted percentage: $percentage" }
+        assert("66.67%" == percentage) { "Wrongly formatted percentage: $percentage" }
     }
 }

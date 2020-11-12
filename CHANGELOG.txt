@@ -1,3 +1,8 @@
+Changes in version 1.3.0
+------------------------
+* Java to Kotlin migration
+
+
 Changes in version 1.2.8
 ------------------------
 * Adapt reportNG css for highlighting of inline images

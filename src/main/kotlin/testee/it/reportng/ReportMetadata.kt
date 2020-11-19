@@ -16,8 +16,8 @@ class ReportMetadata {
     companion object {
         const val PROPERTY_KEY_PREFIX = "testee.it.reportng."
         const val SLACK = PROPERTY_KEY_PREFIX + "slack"
-        const val SLACK_TOKEN = SLACK + ".token"
-        const val SLACK_CHANEL = SLACK + ".chanel"
+        const val SLACK_TOKEN = "$SLACK.token"
+        const val SLACK_CHANNEL = "$SLACK.channel"
         const val TITLE_KEY = PROPERTY_KEY_PREFIX + "title"
         const val DEFAULT_TITLE = "Test Results Report"
         const val COVERAGE_KEY = PROPERTY_KEY_PREFIX + "coverage-report"
@@ -54,7 +54,7 @@ class ReportMetadata {
      * @return string representation of the slack channel.
      */
     fun getSlackChanel(): String? {
-        return System.getProperty(ReportMetadata.SLACK_CHANEL)
+        return System.getProperty(ReportMetadata.SLACK_CHANNEL)
     }
 
     /**

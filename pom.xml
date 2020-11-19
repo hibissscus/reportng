@@ -178,7 +178,7 @@
                                 <testee.it.reportng.title>e2e</testee.it.reportng.title>
                                 <testee.it.reportng.slack>false</testee.it.reportng.slack>
                                 <testee.it.reportng.slack.token>xxxx-xxxx-xxxx-xxxx</testee.it.reportng.slack.token>
-                                <testee.it.reportng.slack.chanel>xxxx</testee.it.reportng.slack.chanel>
+                                <testee.it.reportng.slack.channel>xxxx</testee.it.reportng.slack.channel>
                             </systemPropertyVariables>
                             <properties>
                                 <property>

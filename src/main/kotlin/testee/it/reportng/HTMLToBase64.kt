@@ -99,11 +99,13 @@ object HTMLToBase64 {
         styleSheet.addRule(".tests {display: table-row-group;}")
         styleSheet.addRule(".header.suite {cursor: pointer; clear: right; height: 1.214em; margin-top: 1px;}")
         styleSheet.addRule("div.test {margin-top: 0.1em; clear: right; font-size: 1.8em;}")
-        /* The +/- toggle used in the navigation frame. */styleSheet.addRule(".toggle {font-family: monospace; font-weight: bold; padding-left: 2px; padding-right: 5px; color: #777777;}")
+        /* The +/- toggle used in the navigation frame. */
+        styleSheet.addRule(".toggle {font-family: monospace; font-weight: bold; padding-left: 2px; padding-right: 5px; color: #777777;}")
         styleSheet.addRule(".successIndicator {float: right; font-family: monospace; font-weight: bold; padding-right: 2px; color: #44aa44;}")
         styleSheet.addRule(".skipIndicator {float: right; font-family: monospace; font-weight: bold; padding-right: 2px; color: #ffaa00;}")
         styleSheet.addRule(".failureIndicator {float: right; font-family: monospace; font-weight: bold; padding-right: 2px; color: #ff4444;}")
-        /* These classes are for information about an individual test result. */styleSheet.addRule(".result {font-size: 1.1em; vertical-align: middle;}")
+        /* These classes are for information about an individual test result. */
+        styleSheet.addRule(".result {font-size: 1.1em; vertical-align: middle;}")
         styleSheet.addRule(".dependency {font-family: Lucida Console, Monaco, Courier New, monospace; font-weight: bold;}")
         styleSheet.addRule(".arguments {font-family: Lucida Console, Monaco, Courier New, monospace; font-weight: bold;}")
         styleSheet.addRule(".testOutput {font-family: Lucida Console, Monaco, Courier New, monospace; color: #666666;}")
@@ -112,7 +114,8 @@ object HTMLToBase64 {
         styleSheet.addRule(".description {border-bottom: 1px dotted #006699;}")
         styleSheet.addRule("#meta {font-size: 1.1em; text-align: right; float: right;}")
         styleSheet.addRule("#systemInfo {color: #666666;}")
-        /* Report er log output (individual test ouput is style by "testOutput" above). */styleSheet.addRule("#log {font-family: Lucida Console, Monaco, Courier New, monospace; font-size: 1.8em; margin-top: 1.8em;}")
+        /* Report er log output (individual test ouput is style by "testOutput" above). */
+        styleSheet.addRule("#log {font-family: Lucida Console, Monaco, Courier New, monospace; font-size: 1.8em; margin-top: 1.8em;}")
         styleSheet.addRule(".overviewTable {width: 100%; margin-top: 1.8em; line-height: 1.7em; border-spacing: 0.1em;}")
         styleSheet.addRule(".overviewTable tr {height: 1.6em;}")
         styleSheet.addRule(".overviewTable td {padding: 0 1em;}")

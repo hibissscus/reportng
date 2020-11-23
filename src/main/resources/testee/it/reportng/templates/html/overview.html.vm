@@ -3,7 +3,7 @@
         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="$messages.locale.language" lang="$messages.locale.language">
 <head>
-  <title>$meta.reportTitle - $messages.getString("overview")</title>
+  <title>$meta.reportTitle</title>
   <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
   <meta name="description" content="TestNG unit test results." />
   <link href="reportng.css" rel="stylesheet" type="text/css" />
@@ -15,18 +15,10 @@
 <div id="meta">
   $messages.getString("generatedBy")
   $messages.getString("atTime") $meta.reportTime $messages.getString("onDate") $meta.reportDate
-  <br /><span id="systemInfo">$meta.user&nbsp;/&nbsp;$meta.javaInfo&nbsp;/&nbsp;$meta.platform</span>
+  <br/><span id="systemInfo">$meta.user&nbsp;/&nbsp;$meta.javaInfo&nbsp;/&nbsp;$meta.platform</span>
 </div>
 
 <h1>$meta.reportTitle</h1>
-#if (!$utils.allOutput.empty)
-  <p>
-    <a href="output.html">$messages.getString("logOutput")</a>
-    #if ($meta.coverageLink)
-      &#183; <a href="$meta.coverageLink" target="_top">$messages.getString("coverageReport")</a>
-    #end
-  </p>
-#end
 
 #foreach ($suite in $suites)
 <table class="overviewTable">
@@ -43,7 +35,7 @@
         #end
         #if ($utils.hasGroups($suite))
         <a href="suite${suiteId}_groups.html">$messages.getString("groups")</a>
-        #end        
+        #end
       </div>
       ${suite.name}
     </th>

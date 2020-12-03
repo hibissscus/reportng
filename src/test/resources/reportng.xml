@@ -6,9 +6,49 @@
             <package name="testee.it.reportng.example.successful"/>
         </packages>
     </test>
+    <test parallel="classes" name="partial tests 90%">
+        <packages>
+            <package name="testee.it.reportng.example.partial.p90"/>
+        </packages>
+    </test>
+    <test parallel="classes" name="partial tests 80%">
+        <packages>
+            <package name="testee.it.reportng.example.partial.p80"/>
+        </packages>
+    </test>
+    <test parallel="classes" name="partial tests 70%">
+        <packages>
+            <package name="testee.it.reportng.example.partial.p70"/>
+        </packages>
+    </test>
+    <test parallel="classes" name="partial tests 60%">
+        <packages>
+            <package name="testee.it.reportng.example.partial.p60"/>
+        </packages>
+    </test>
     <test parallel="classes" name="partial tests 50%">
         <packages>
-            <package name="testee.it.reportng.example.partial"/>
+            <package name="testee.it.reportng.example.partial.p50"/>
+        </packages>
+    </test>
+    <test parallel="classes" name="partial tests 40%">
+        <packages>
+            <package name="testee.it.reportng.example.partial.p40"/>
+        </packages>
+    </test>
+    <test parallel="classes" name="partial tests 30%">
+        <packages>
+            <package name="testee.it.reportng.example.partial.p30"/>
+        </packages>
+    </test>
+    <test parallel="classes" name="partial tests 20%">
+        <packages>
+            <package name="testee.it.reportng.example.partial.p20"/>
+        </packages>
+    </test>
+    <test parallel="classes" name="partial tests 10%">
+        <packages>
+            <package name="testee.it.reportng.example.partial.p10"/>
         </packages>
     </test>
     <test parallel="classes" name="allkind tests 33%">
@@ -16,7 +56,6 @@
             <package name="testee.it.reportng.example.allkind"/>
         </packages>
     </test>
-
     <test parallel="classes" name="skipped tests 0%">
         <packages>
             <package name="testee.it.reportng.example.skipped"/>

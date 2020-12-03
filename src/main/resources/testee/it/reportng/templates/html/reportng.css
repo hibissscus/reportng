@@ -7,6 +7,9 @@ h2                       {font-family: Arial, Helvetica, sans-serif; font-weight
 p                        {font-size: 1.3em;}
 td                       {font-size: 1.3em;}
 
+.h1                      {font-family: Arial, Helvetica, sans-serif; font-weight: bold; font-size: 2.7em; margin-bottom: 0.6667em;}
+.h2                      {font-family: Arial, Helvetica, sans-serif; font-weight: bold; font-size: 1.8em; margin-bottom: 0;}
+
 .header                  {font-size: 1.4em; font-weight: bold; text-align: left;}
 .passed                  {background-color: #44aa44;}
 .skipped                 {background-color: #ffaa00;}
@@ -67,6 +70,9 @@ div.test                 {margin-top: 0.1em; clear: right; font-size: 1.3em;}
 
 /* Reporter log output (individual test ouput is style by "testOutput" above). */
 #log                     {font-family: Lucida Console, Monaco, Courier New, monospace; font-size: 1.3em; margin-top: 1.8em;}
+
+.titleTable              {width: 100%; margin-top: 1.8em; line-height: 1.7em; border-spacing: 0.1em;}
+.titleTable tr           {height: 1.6em;}
 
 .overviewTable           {width: 100%; margin-top: 1.8em; line-height: 1.7em; border-spacing: 0.1em;}
 .overviewTable tr        {height: 1.6em;}

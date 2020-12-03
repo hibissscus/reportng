@@ -113,9 +113,7 @@ abstract class AbstractReporter protected constructor(private val classpathPrefi
                            sourceFile: File?,
                            targetFileName: String?) {
         val fileStream: InputStream = FileInputStream(sourceFile)
-        fileStream.use { fileStream ->
-            copyStream(outputDirectory, fileStream, targetFileName)
-        }
+        fileStream.use { copyStream(outputDirectory, it, targetFileName) }
     }
 
     /**

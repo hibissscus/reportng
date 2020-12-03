@@ -12,13 +12,16 @@
   #end
 </head>
 <body>
-<div id="meta">
-  $messages.getString("generatedBy")
-  $messages.getString("atTime") $meta.reportTime $messages.getString("onDate") $meta.reportDate
-  <br/><span id="systemInfo">$meta.user&nbsp;/&nbsp;$meta.javaInfo&nbsp;/&nbsp;$meta.platform</span>
-</div>
-
-<h1>$meta.reportTitle</h1>
+<table class="titleTable">
+    <tr>
+        <td class="h1">$meta.reportTitle</td>
+        <td id="meta">
+            $messages.getString("generatedBy")
+            $messages.getString("atTime") $meta.reportTime $messages.getString("onDate") $meta.reportDate
+            <br/><span id="systemInfo">$meta.user&nbsp;/&nbsp;$meta.javaInfo&nbsp;/&nbsp;$meta.platform</span>
+        </td>
+    </tr>
+</table>
 
 #foreach ($suite in $suites)
 <table class="overviewTable">

@@ -32,6 +32,7 @@ td                       {font-size: 1.3em;}
 
 .resultsTable            {border: 0; width: 100%; margin-top: 1.8em; line-height: 1.7em; border-spacing: 0.1em;}
 .resultsTable .method    {width: 18em;}
+.resultsTable .method.pass    {width: 100%;}
 .resultsTable .duration  {width: 6em;}
 .resultsTable td         {vertical-align: top; padding: 0 1em;}
 .resultsTable th         {padding: 0 .5em;}

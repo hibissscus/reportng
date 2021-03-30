@@ -1,17 +1,12 @@
 package testee.it.reportng
 
-import org.testng.IInvokedMethod
-import org.testng.ISuite
-import org.testng.ITestContext
-import org.testng.ITestResult
-import org.testng.Reporter
-import org.testng.SkipException
+import org.testng.*
 import java.io.File
 import java.io.IOException
 import java.text.DecimalFormat
 import java.text.NumberFormat
-import java.util.ArrayList
-import java.util.LinkedList
+import java.time.LocalTime
+import java.util.*
 import javax.imageio.ImageIO
 
 /**
@@ -77,6 +72,21 @@ class ReportNGUtils {
             duration += result.endMillis - result.startMillis
         }
         return duration
+    }
+
+    /**
+     * Get formatted total duration for entire suite
+     *
+     * @param suite test suite
+     * @return formatted total duration for entire suite
+     */
+    fun totalDuration(suite: ISuite): String {
+        var totalDuration: Long = 0
+        for (value in suite.results.values) {
+            totalDuration += getDuration(value.testContext)
+        }
+        val seconds = (totalDuration.toDouble() / 1000).toLong()
+        return LocalTime.MIN.plusSeconds(seconds).toString()
     }
 
     fun formatDuration(startMillis: Long, endMillis: Long): String {
@@ -374,7 +384,7 @@ class ReportNGUtils {
     }
 
     companion object {
-        private val DURATION_FORMAT: NumberFormat = DecimalFormat("#0.000")
+        private val DURATION_FORMAT: NumberFormat = DecimalFormat("#0")
         private val PERCENTAGE_FORMAT: NumberFormat = DecimalFormat("#0.00%")
     }
 }

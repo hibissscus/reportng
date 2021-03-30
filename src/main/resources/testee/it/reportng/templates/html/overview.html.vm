@@ -100,7 +100,8 @@
   #end
 
     <tr class="suite">
-    <td colspan="2" class="totalLabel">$messages.getString("total")</td>
+    <td colspan="1" class="totalLabel">$messages.getString("total")</td>
+      <td class="duration"><span class="number">${utils.totalDuration($suite)}</span></td>
 
     #if ($totalPassed > 0)
       <td class="passed"><span class="number">$totalPassed</span></td>

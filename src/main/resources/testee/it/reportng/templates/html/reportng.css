@@ -27,7 +27,7 @@ td                       {font-size: 1.3em;}
 .suiteLinks              {float: right; font-weight: normal; vertical-align: middle;}
 .suiteLinks a            {color: #ffffff; margin-left: .5em;}
 .passRate                {font-weight: bold; text-align: right;}
-.duration                {text-align: right;}
+.duration                {text-align: left;}
 .thread                  {white-space: nowrap;}
 
 .resultsTable            {border: 0; width: 100%; margin-top: 1.8em; line-height: 1.7em; border-spacing: 0.1em;}

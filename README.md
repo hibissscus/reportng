@@ -11,4 +11,4 @@ because the default report is comprehensive but is not so easy to understand at-
 
 ### Authors
 © 2006-2013 Daniel W. Dyer  https://www.dandyer.co.uk (Initial idea & implementation)  <br>
-© 2019-2020 Sergei Stepanov https://github.com/hibissscus (Maintenance & enhancement)
+© 2019-2021 Sergei Stepanov https://github.com/hibissscus (Maintenance & enhancement)

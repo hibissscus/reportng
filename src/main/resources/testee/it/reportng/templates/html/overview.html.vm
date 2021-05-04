@@ -16,7 +16,7 @@
     <tr>
         <td class="h1">$meta.reportTitle</td>
         <td id="meta">
-            $messages.getString("generatedBy")
+            $messages.getString("generatedBy") $messages.getString("version")
             $messages.getString("atTime") $meta.reportTime $messages.getString("onDate") $meta.reportDate
             <br/><span id="systemInfo">$meta.user&nbsp;/&nbsp;$meta.javaInfo&nbsp;/&nbsp;$meta.platform</span>
         </td>
@@ -66,7 +66,7 @@
       <a href="suite${suiteId}_test${velocityCount}_results.html">${result.testContext.name}</a>
     </td>
     <td class="duration">
-      $utils.formatDuration($utils.getDuration($result.testContext))s
+      $utils.formatDuration($utils.getDuration($result.testContext))
     </td>
 
     #if ($result.testContext.passedTests.size() > 0)

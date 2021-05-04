@@ -1,3 +1,9 @@
+Changes in version 1.3.5
+------------------------
+* Time duration for each test result in (hh:MM:SS) format
+* Added reportNG version tag
+
+
 Changes in version 1.3.4
 ------------------------
 * Kotlin 1.4.32

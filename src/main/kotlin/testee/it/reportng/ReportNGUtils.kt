@@ -83,10 +83,23 @@ class ReportNGUtils {
     fun totalDuration(suite: ISuite): String {
         var totalDuration: Long = 0
         for (value in suite.results.values) {
-            totalDuration += getDuration(value.testContext)
+            val duration = getDuration(value.testContext)
+            if (duration > 0) totalDuration += duration
         }
-        val seconds = (totalDuration.toDouble() / 1000).toLong()
-        return LocalTime.MIN.plusSeconds(seconds).toString()
+        val seconds = (totalDuration.toDouble() / 1000)
+        return formatDurationInTime(seconds.toLong())
+    }
+
+    /**
+     * Time duration in (hh:MM:SS) format
+     */
+    fun formatDurationInTime(seconds: Long): String {
+        if (seconds >= 0) {
+            var time = LocalTime.MIN.plusSeconds(seconds).toString()
+            if (time.length == 5) time = "00:$time"
+            return time
+        }
+        return "**:**:**"
     }
 
     fun formatDuration(startMillis: Long, endMillis: Long): String {
@@ -96,7 +109,7 @@ class ReportNGUtils {
 
     fun formatDuration(elapsed: Long): String {
         val seconds = elapsed.toDouble() / 1000
-        return DURATION_FORMAT.format(seconds)
+        return formatDurationInTime(seconds.toLong())
     }
 
     /**
@@ -384,7 +397,6 @@ class ReportNGUtils {
     }
 
     companion object {
-        private val DURATION_FORMAT: NumberFormat = DecimalFormat("#0")
         private val PERCENTAGE_FORMAT: NumberFormat = DecimalFormat("#0.00%")
     }
 }

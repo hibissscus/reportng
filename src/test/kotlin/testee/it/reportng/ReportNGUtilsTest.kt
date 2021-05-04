@@ -10,6 +10,30 @@ class ReportNGUtilsTest {
     private val utils = ReportNGUtils()
 
     @Test
+    fun testFormatDurationInTime() {
+        val formatDurationA = utils.formatDurationInTime(1L)
+        assert(formatDurationA == "00:00:01") { "Wrong time duration format: $formatDurationA" }
+
+        val formatDurationB = utils.formatDurationInTime(3600L)
+        assert(formatDurationB == "00:01:00") { "Wrong time duration format: $formatDurationB" }
+
+        val formatDurationC = utils.formatDurationInTime(36000L)
+        assert(formatDurationC == "00:10:00") { "Wrong time duration format: $formatDurationC" }
+
+        val formatDurationD = utils.formatDurationInTime(86401L)
+        assert(formatDurationD == "00:00:01") { "Wrong time duration format: $formatDurationD" }
+
+        val formatDurationE = utils.formatDurationInTime(86399L)
+        assert(formatDurationE == "23:59:59") { "Wrong time duration format: $formatDurationE" }
+    }
+
+    @Test
+    fun testFormatNegativeDuration() {
+        val formatDuration = utils.formatDuration(-36000L)
+        assert(formatDuration == "**:**:**") { "Wrong duration format: $formatDuration" }
+    }
+
+    @Test
     fun testEscapeTags() {
         val originalString = "</ns1:ErrorCode>"
         val escapedString = utils.escapeString(originalString)

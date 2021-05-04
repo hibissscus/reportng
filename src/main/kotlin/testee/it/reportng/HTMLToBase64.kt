@@ -84,7 +84,7 @@ object HTMLToBase64 {
         styleSheet.addRule(".suiteLinks {float: right; font-weight: normal; vertical-align: middle;}")
         styleSheet.addRule(".suiteLinks a {color: #ffffff; margin-left: .5em;}")
         styleSheet.addRule(".passRate {font-weight: bold; text-align: right;}")
-        styleSheet.addRule(".duration {text-align: left;}")
+        styleSheet.addRule(".duration {text-align: center;}")
         styleSheet.addRule(".thread {white-space: nowrap;}")
         styleSheet.addRule(".resultsTable {border: 0; width: 100%; margin-top: 1.8em; line-height: 1.7em; border-spacing: 0.1em;}")
         styleSheet.addRule(".resultsTable .method {width: 18em;}")

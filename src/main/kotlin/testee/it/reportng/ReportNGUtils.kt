@@ -1,6 +1,11 @@
 package testee.it.reportng
 
-import org.testng.*
+import org.testng.IInvokedMethod
+import org.testng.ISuite
+import org.testng.ITestContext
+import org.testng.ITestResult
+import org.testng.Reporter
+import org.testng.SkipException
 import java.io.File
 import java.io.IOException
 import java.text.DecimalFormat
@@ -94,12 +99,31 @@ class ReportNGUtils {
      * Time duration in (hh:MM:SS) format
      */
     fun formatDurationInTime(seconds: Long): String {
-        if (seconds >= 0) {
+        return if (seconds >= 0) {
             var time = LocalTime.MIN.plusSeconds(seconds).toString()
             if (time.length == 5) time = "00:$time"
-            return time
+            time
+        } else {
+            "**:**:**"
         }
-        return "**:**:**"
+    }
+
+    /**
+     * Time duration in short format
+     * 00:00:01 ->        1
+     * 00:00:21 ->       21
+     * 00:03:21 ->     3:21
+     * 00:43:21 ->    43:21
+     * 05:43:21 ->  5:43:21
+     * 65:43:21 -> 65:43:21
+     */
+    fun formatDurationInTimeShort(seconds: Long): String {
+        val long = formatDurationInTime(seconds)
+        var short = long.replace("00:00:0", "").replace("00:00:", "").replace("00:0:", "").replace("00:", "")
+        if (short.length > 1 && short[0] == '0') {
+            short = short.replaceFirst("0", "")
+        }
+        return short
     }
 
     fun formatDuration(startMillis: Long, endMillis: Long): String {
@@ -109,7 +133,7 @@ class ReportNGUtils {
 
     fun formatDuration(elapsed: Long): String {
         val seconds = elapsed.toDouble() / 1000
-        return formatDurationInTime(seconds.toLong())
+        return formatDurationInTimeShort(seconds.toLong())
     }
 
     /**

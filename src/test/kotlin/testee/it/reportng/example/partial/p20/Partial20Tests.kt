@@ -15,6 +15,7 @@ class Partial20Tests {
 
     @Test
     fun `successful 02`() {
+        Thread.sleep(2000)
         assert(true)
     }
 

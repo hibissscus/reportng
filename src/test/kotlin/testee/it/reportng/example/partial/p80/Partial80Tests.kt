@@ -45,6 +45,7 @@ class Partial80Tests {
 
     @Test
     fun `successful 08`() {
+        Thread.sleep(8000)
         assert(true)
     }
 

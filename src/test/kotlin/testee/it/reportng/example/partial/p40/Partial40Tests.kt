@@ -10,8 +10,8 @@ class Partial40Tests {
 
     @Test
     fun `successful 01`() {
+        Thread.sleep(1000)
         assert(true)
-        Thread.sleep(2000)
     }
 
     @Test
@@ -26,6 +26,7 @@ class Partial40Tests {
 
     @Test
     fun `successful 04`() {
+        Thread.sleep(4000)
         assert(true)
     }
 

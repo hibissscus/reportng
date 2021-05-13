@@ -1,6 +1,16 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
-<suite verbose="1" configfailurepolicy="continue" thread-count="1" parallel="tests" name="testee">
+<suite verbose="1" configfailurepolicy="continue" thread-count="10" parallel="tests" name="testee">
     <parameter name="headless" value="false"/>
+    <test parallel="classes" name="suite all tests">
+        <packages>
+            <package name="testee.it.reportng.example.*"/>
+        </packages>
+    </test>
+    <test parallel="classes" name="suite all partial tests">
+        <packages>
+            <package name="testee.it.reportng.example.partial.*"/>
+        </packages>
+    </test>
     <test parallel="classes" name="successful tests 100%">
         <packages>
             <package name="testee.it.reportng.example.successful"/>

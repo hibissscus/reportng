@@ -6,10 +6,11 @@ import org.testng.annotations.Test
  * Some successful tests, some not 10%.
  */
 @Test(groups = ["partial"])
-class Partial10Tests {
+class Partial10ATests {
 
     @Test
     fun `successful 01`() {
+        Thread.sleep(1000)
         assert(true)
     }
 

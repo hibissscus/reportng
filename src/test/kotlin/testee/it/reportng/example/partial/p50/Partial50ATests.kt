@@ -6,7 +6,7 @@ import org.testng.annotations.Test
  * Some successful tests, some not 50%.
  */
 @Test(groups = ["partial"])
-class Partial50Tests {
+class Partial50ATests {
 
     @Test
     fun `successful 01`() {
@@ -30,6 +30,7 @@ class Partial50Tests {
 
     @Test
     fun `successful 05`() {
+        Thread.sleep(5000)
         assert(true)
     }
 

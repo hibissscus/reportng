@@ -40,6 +40,7 @@ class Partial70Tests {
 
     @Test
     fun `successful 07`() {
+        Thread.sleep(7000)
         assert(true)
     }
 

@@ -50,6 +50,7 @@ class Partial90Tests {
 
     @Test
     fun `successful 09`() {
+        Thread.sleep(9000)
         assert(true)
     }
 

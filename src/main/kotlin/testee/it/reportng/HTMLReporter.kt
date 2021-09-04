@@ -1,32 +1,16 @@
 package testee.it.reportng
 
-import org.testng.IClass
-import org.testng.IResultMap
-import org.testng.ISuite
-import org.testng.ISuiteResult
-import org.testng.ITestNGMethod
-import org.testng.ITestResult
-import org.testng.Reporter
+import org.testng.*
 import org.testng.xml.XmlSuite
 import testee.it.reportng.HTMLToBase64.htmlToBase64
-import testee.it.reportng.SlackClient.initialize
-import testee.it.reportng.SlackClient.sendTestReportImageToSlack
-import testee.it.reportng.SlackClient.sendTestReportZipToSlack
 import testee.it.reportng.ZipUtils.zip
+import testee.it.reportng.slack.SlackApi
 import java.io.File
 import java.io.IOException
 import java.nio.file.Files
 import java.nio.file.Path
 import java.nio.file.Paths
-import java.util.ArrayList
-import java.util.Collections
-import java.util.Comparator
-import java.util.LinkedHashMap
-import java.util.LinkedList
-import java.util.SortedMap
-import java.util.SortedSet
-import java.util.TreeMap
-import java.util.TreeSet
+import java.util.*
 import kotlin.math.abs
 
 /**
@@ -173,7 +157,7 @@ class HTMLReporter : AbstractReporter(TEMPLATES_PATH) {
     private fun createSlackNotification(outputDirectory: File) {
         try {
             if (META.allowSlackNotification()) {
-                val imageFile = File(outputDirectory, RESULT_IMAGE_FILE)
+                val imageFile: File = File(outputDirectory, RESULT_IMAGE_FILE)
                 // delete all images before zipping
                 val imagesPath = Paths.get(outputDirectory.path, REPORT_DIRECTORY_IMAGES)
                 if (Files.exists(imagesPath)) {
@@ -184,20 +168,9 @@ class HTMLReporter : AbstractReporter(TEMPLATES_PATH) {
                 }
                 val zipFile = zip(outputDirectory.path, "e2e")
 
-                // todo async, remove thread sleep
-                val slack = initialize()
-                sendTestReportImageToSlack(
-                        slack,
-                        META.getSlackToken()!!,
-                        META.getSlackChanel()!!,
-                        imageFile)
-                Thread.sleep(10000L)
-                sendTestReportZipToSlack(
-                        slack,
-                        META.getSlackToken()!!,
-                        META.getSlackChanel()!!,
-                        zipFile)
-                Thread.sleep(5000L)
+                val slack = SlackApi(META.getSlackToken()!!)
+                slack.postFile(META.getSlackChanel()!!, "e2e results", RESULT_IMAGE_FILE, imageFile)
+                slack.postFile(META.getSlackChanel()!!, "e2e.zip", "e2e.zip", zipFile)
             }
         } catch (e: Exception) {
             throw ReportNGException("Failed to send slack test result notification.", e)

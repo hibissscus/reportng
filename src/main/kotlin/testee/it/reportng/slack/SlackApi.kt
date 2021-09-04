@@ -12,6 +12,10 @@ import java.io.File
 
 class SlackApi(val token: String) {
 
+    enum class SlackColor(val color: String) {
+        RED("#c0110f"), GREEN("#2eb886"), YELLOW("#ffef28"), GREY("#b4b7b8");
+    }
+
     /**
      * https://api.slack.com/methods/conversations.history/test
      */

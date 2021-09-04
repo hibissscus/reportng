@@ -93,7 +93,7 @@ class SlackApi(val token: String) {
     companion object {
         @JvmStatic
         fun main(args: Array<String>) {
-            val slackApi = SlackApi("xoxb-570287064214-2443726642001-4r4BXxufYzkBy8XfZkQhgt91")
+            val slackApi = SlackApi("xoxb-************-*************-************************")
             println(slackApi.postMessage("test", "test"))
             println(slackApi.postFile("C02CWMLT8P9", "e2e results", "e2e.png", File("e2e.png")))
             println(slackApi.postFile("C02CWMLT8P9", "e2e.zip", "e2e.zip", File("e2e.zip")))

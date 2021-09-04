@@ -12,6 +12,7 @@ import retrofit.http.Part
 import retrofit.mime.TypedFile
 import java.io.File
 import java.io.IOException
+import java.util.*
 import java.util.concurrent.TimeUnit
 
 object SlackClient {
@@ -140,7 +141,7 @@ object SlackClient {
                 token,
                 channel,
                 "",
-                asUser.toString().toLowerCase(),
+                asUser.toString().lowercase(Locale.getDefault()),
                 "[{\"color\": \"" + color.color + "\", \"title\": \"" + text + "\", \"title_link\": \"" + link + "\"}]",
                 getEmptyCallback())
     }

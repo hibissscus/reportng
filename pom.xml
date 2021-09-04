@@ -57,7 +57,6 @@
                         <configuration>
                             <sourceDirs>
                                 <sourceDir>${project.basedir}/src/main/kotlin</sourceDir>
-                                <sourceDir>${project.basedir}/src/main/java</sourceDir>
                             </sourceDirs>
                         </configuration>
                     </execution>
@@ -69,7 +68,6 @@
                         <configuration>
                             <sourceDirs>
                                 <sourceDir>${project.basedir}/src/test/kotlin</sourceDir>
-                                <sourceDir>${project.basedir}/src/test/java</sourceDir>
                             </sourceDirs>
                         </configuration>
                     </execution>
@@ -94,23 +92,6 @@
                     <execution>
                         <id>default-testCompile</id>
                         <phase>none</phase>
-                    </execution>
-                    <execution>
-                        <id>java-compile</id>
-                        <phase>compile</phase>
-                        <goals>
-                            <goal>compile</goal>
-                        </goals>
-                    </execution>
-                    <execution>
-                        <id>java-test-compile</id>
-                        <phase>test-compile</phase>
-                        <goals>
-                            <goal>testCompile</goal>
-                        </goals>
-                        <configuration>
-                            <skip>true</skip>
-                        </configuration>
                     </execution>
                 </executions>
                 <configuration>
@@ -169,7 +150,13 @@
             <artifactId>velocity</artifactId>
             <version>1.7</version>
         </dependency>
-        <!-- for slack integration, should be excluded from selenium-support -->
+        <!-- for slack integration -->
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-web</artifactId>
+            <version>5.3.9</version>
+            <scope>compile</scope>
+        </dependency>
         <dependency>
             <groupId>com.squareup.retrofit</groupId>
             <artifactId>retrofit</artifactId>
@@ -185,7 +172,6 @@
             <artifactId>json</artifactId>
             <version>20180813</version>
         </dependency>
-
         <!-- kotlin -->
         <dependency>
             <groupId>org.jetbrains.kotlin</groupId>

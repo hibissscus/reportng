@@ -30,7 +30,7 @@ class ReportNGUtilsTest {
     @Test
     fun testFormatDurationInTimeShort() {
         val formatDurationA = utils.formatDurationInTimeShort(1L)
-        assert(formatDurationA == "1") { "Wrong time duration format: $formatDurationA" }
+        assert(formatDurationA == "1s") { "Wrong time duration format: $formatDurationA" }
 
         val formatDurationB = utils.formatDurationInTimeShort(3600L)
         assert(formatDurationB == "1:00") { "Wrong time duration format: $formatDurationB" }
@@ -39,10 +39,13 @@ class ReportNGUtilsTest {
         assert(formatDurationC == "10:00") { "Wrong time duration format: $formatDurationC" }
 
         val formatDurationD = utils.formatDurationInTimeShort(86401L)
-        assert(formatDurationD == "1") { "Wrong time duration format: $formatDurationD" }
+        assert(formatDurationD == "1s") { "Wrong time duration format: $formatDurationD" }
 
         val formatDurationE = utils.formatDurationInTimeShort(86399L)
         assert(formatDurationE == "23:59:59") { "Wrong time duration format: $formatDurationE" }
+
+        val formatDurationF = utils.formatDurationInTimeShort(59L)
+        assert(formatDurationF == "59s") { "Wrong time duration format: $formatDurationF" }
     }
 
     @Test

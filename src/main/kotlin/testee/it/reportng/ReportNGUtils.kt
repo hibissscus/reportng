@@ -1,11 +1,6 @@
 package testee.it.reportng
 
-import org.testng.IInvokedMethod
-import org.testng.ISuite
-import org.testng.ITestContext
-import org.testng.ITestResult
-import org.testng.Reporter
-import org.testng.SkipException
+import org.testng.*
 import java.io.File
 import java.io.IOException
 import java.text.DecimalFormat
@@ -58,10 +53,10 @@ class ReportNGUtils {
         var duration = getDuration(context.passedConfigurations.allResults)
         duration += getDuration(context.passedTests.allResults)
         // You would expect skipped tests to have durations of zero, but apparently not.
-        duration += getDuration(context.skippedConfigurations.allResults)
-        duration += getDuration(context.skippedTests.allResults)
-        duration += getDuration(context.failedConfigurations.allResults)
-        duration += getDuration(context.failedTests.allResults)
+        //duration += getDuration(context.skippedConfigurations.allResults)
+        //duration += getDuration(context.skippedTests.allResults)
+        //duration += getDuration(context.failedConfigurations.allResults)
+        //duration += getDuration(context.failedTests.allResults)
         return duration
     }
 
@@ -110,8 +105,8 @@ class ReportNGUtils {
 
     /**
      * Time duration in short format
-     * 00:00:01 ->        1
-     * 00:00:21 ->       21
+     * 00:00:01 ->        1s
+     * 00:00:21 ->       21s
      * 00:03:21 ->     3:21
      * 00:43:21 ->    43:21
      * 05:43:21 ->  5:43:21
@@ -123,6 +118,7 @@ class ReportNGUtils {
         if (short.length > 1 && short[0] == '0') {
             short = short.replaceFirst("0", "")
         }
+        if (short.length <= 2 && short != "0") short += "s"
         return short
     }
 

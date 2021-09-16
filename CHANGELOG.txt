@@ -1,13 +1,17 @@
+Changes in version 1.3.8
+------------------------
+* Kotlin 1.5.30
+* Time duration format 1->1s, 59->59s, 1:21 -> 1:21
+
+
 Changes in version 1.3.7
 ------------------------
-release 1.3.7
 * Kotlin 1.5.21
 * TestNG 7.4.0
 
 
 Changes in version 1.3.6
 ------------------------
-release 1.3.6
 * Kotlin 1.5.0
 * Add timing in tests
 * Move duration a bit left

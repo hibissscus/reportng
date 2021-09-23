@@ -137,7 +137,7 @@ abstract class AbstractReporter protected constructor(private val classpathPrefi
             var line = reader.readLine()
             while (line != null) {
                 writer.write(line)
-                writer.write('\n'.toInt())
+                writer.write('\n'.code)
                 line = reader.readLine()
             }
             writer.flush()

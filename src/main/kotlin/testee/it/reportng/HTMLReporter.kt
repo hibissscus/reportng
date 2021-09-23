@@ -157,7 +157,7 @@ class HTMLReporter : AbstractReporter(TEMPLATES_PATH) {
     private fun createSlackNotification(outputDirectory: File) {
         try {
             if (META.allowSlackNotification()) {
-                val imageFile: File = File(outputDirectory, RESULT_IMAGE_FILE)
+                val imageFile = File(outputDirectory, RESULT_IMAGE_FILE)
                 // delete all images before zipping
                 val imagesPath = Paths.get(outputDirectory.path, REPORT_DIRECTORY_IMAGES)
                 if (Files.exists(imagesPath)) {

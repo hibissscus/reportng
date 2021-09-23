@@ -66,12 +66,12 @@
             <package name="testee.it.reportng.example.allkind"/>
         </packages>
     </test>
-    <test parallel="classes" name="skipped tests 0%">
+    <test parallel="classes" name="skipped tests">
         <packages>
             <package name="testee.it.reportng.example.skipped"/>
         </packages>
     </test>
-    <test parallel="classes" name="failed tests 0%">
+    <test parallel="classes" name="failed tests">
         <packages>
             <package name="testee.it.reportng.example.failed"/>
         </packages>

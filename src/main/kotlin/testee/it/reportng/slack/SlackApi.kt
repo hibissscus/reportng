@@ -58,6 +58,18 @@ class SlackApi(val token: String) {
     }
 
     /**
+     * https://slack.com/api/files.delete/test
+     */
+    fun deleteFile(file: String): Resp? {
+        return RestTemplate().postForObject(
+                "https://slack.com/api/files.delete?" +
+                        "&token=$token" +
+                        "&file=$file",
+                null,
+                Resp::class.java)
+    }
+
+    /**
      * https://api.slack.com/methods/files.upload
      */
     fun postFile(channel: String, title: String, filename: String, file: File): Resp? {

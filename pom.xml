@@ -211,6 +211,10 @@
                                 </property>
                                 <property>
                                     <name>listener</name>
+                                    <value>testee.it.reportng.RuntimeTestListener</value>
+                                </property>
+                                <property>
+                                    <name>reporter</name>
                                     <value>testee.it.reportng.HTMLReporter</value>
                                 </property>
                                 <property>

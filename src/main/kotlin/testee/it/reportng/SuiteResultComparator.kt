@@ -6,14 +6,15 @@ import java.util.Comparator
 /**
  * Comparator for sorting TestNG test results by passRate and alphabetically by method name.
  */
-internal class SuiteResultComparator : Comparator<ISuiteResult> {
-    override fun compare(result1: ISuiteResult, result2: ISuiteResult): Int {
-        val rate1 = rate(result1)
-        val rate2 = rate(result2)
+internal class SuiteResultComparator : Comparator<Map.Entry<String?, ISuiteResult>> {
+    override fun compare(o1: Map.Entry<String?, ISuiteResult>,
+                         o2: Map.Entry<String?, ISuiteResult>): Int {
+        val rate1 = rate(o1.value)
+        val rate2 = rate(o2.value)
         if (rate1 == rate2) {
-            return result1.testContext.name.compareTo(result2.testContext.name)
+            return o1.value.testContext.name.compareTo(o2.value.testContext.name)
         }
-        return if (rate1 > rate2) 1 else -1
+        return if (rate1 > rate2) -1 else 1
     }
 
     private fun rate(result: ISuiteResult): Double {

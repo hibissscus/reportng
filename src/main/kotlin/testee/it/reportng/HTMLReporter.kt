@@ -5,6 +5,7 @@ import org.testng.xml.XmlSuite
 import testee.it.reportng.HTMLToBase64.htmlToBase64
 import testee.it.reportng.ZipUtils.zip
 import testee.it.reportng.slack.SlackApi
+import testee.it.reportng.slack.model.Resp
 import java.io.File
 import java.io.IOException
 import java.nio.file.Files
@@ -20,6 +21,7 @@ import kotlin.math.abs
 class HTMLReporter : AbstractReporter(TEMPLATES_PATH) {
 
     companion object {
+        var slackImage: Resp? = null
         private const val FRAMES_PROPERTY = "testee.it.reportng.frames"
         private const val ONLY_FAILURES_PROPERTY = "testee.it.reportng.failures-only"
 
@@ -51,7 +53,7 @@ class HTMLReporter : AbstractReporter(TEMPLATES_PATH) {
         private val METHOD_COMPARATOR: Comparator<ITestNGMethod> = TestMethodComparator()
         private val RESULT_COMPARATOR: Comparator<ITestResult> = TestResultComparator()
         private val CLASS_COMPARATOR: Comparator<IClass> = TestClassComparator()
-
+        private val SUITE_RESULT_COMPARATOR = SuiteResultComparator()
 
         private fun sortByValue(unsortedMap: Map<String, ISuiteResult>): Map<String, ISuiteResult> {
             // 1. Convert Map to List of Map
@@ -59,29 +61,7 @@ class HTMLReporter : AbstractReporter(TEMPLATES_PATH) {
 
             // 2. Sort list with Collections.sort(), provide a custom Comparator
             //    Try switch the o1 o2 position for a different order
-            linkedList.sortWith(object : Comparator<Map.Entry<String?, ISuiteResult>> {
-                override fun compare(o1: Map.Entry<String?, ISuiteResult>,
-                                     o2: Map.Entry<String?, ISuiteResult>): Int {
-                    val rate1 = rate(o1.value)
-                    val rate2 = rate(o2.value)
-                    if (rate1 == rate2) {
-                        return o1.value.testContext.name.compareTo(o2.value.testContext.name)
-                    }
-                    return if (rate1 > rate2) -1 else 1
-                }
-
-                private fun rate(result: ISuiteResult): Double {
-                    return if (result.testContext.passedTests.size() <= 0) {
-                        0.0
-                    } else {
-                        val passedTests = result.testContext.passedTests.size().toDouble()
-                        val failedTests = result.testContext.failedTests.size().toDouble()
-                        val skippedTests = result.testContext.skippedTests.size().toDouble()
-                        passedTests / (passedTests + failedTests + skippedTests) * 100
-                    }
-                }
-            })
-
+            linkedList.sortWith(SUITE_RESULT_COMPARATOR)
 
             // 3. Loop the sorted list and put it into a new insertion order Map LinkedHashMap
             val sortedMap: MutableMap<String, ISuiteResult> = LinkedHashMap()
@@ -102,6 +82,12 @@ class HTMLReporter : AbstractReporter(TEMPLATES_PATH) {
     override fun generateReport(xmlSuites: List<XmlSuite>,  // not used
                                 suites: List<ISuite>,
                                 outputDirectoryName: String) {
+        createHTMLReport(suites, outputDirectoryName, true)
+    }
+
+    fun createHTMLReport(suites: List<ISuite>,
+                         outputDirectoryName: String,
+                         includingZip: Boolean) {
         removeEmptyDirectories(File(outputDirectoryName))
         val useFrames = System.getProperty(FRAMES_PROPERTY, "true") == "true"
         val onlyFailures = System.getProperty(ONLY_FAILURES_PROPERTY, "false") == "true"
@@ -125,7 +111,7 @@ class HTMLReporter : AbstractReporter(TEMPLATES_PATH) {
             createLog(outputDirectory, onlyFailures)
             copyResources(outputDirectory)
             createBase64Overview(outputDirectory)
-            createSlackNotification(outputDirectory)
+            createSlackNotification(outputDirectory, includingZip)
         } catch (ex: Exception) {
             throw ReportNGException("Failed generating HTML report.", ex)
         }
@@ -150,27 +136,31 @@ class HTMLReporter : AbstractReporter(TEMPLATES_PATH) {
     }
 
     /**
-     * Send base64 representation of overview.html to slack channel if it's enabled.
+     * Send base64 representation of overview.html to Slack channel if it's enabled.
      *
      * @param outputDirectory where overview.html e2e.png is stored.
      */
-    private fun createSlackNotification(outputDirectory: File) {
+    private fun createSlackNotification(outputDirectory: File, includingZip: Boolean) {
         try {
             if (META.allowSlackNotification()) {
                 val imageFile = File(outputDirectory, RESULT_IMAGE_FILE)
-                // delete all images before zipping
-                val imagesPath = Paths.get(outputDirectory.path, REPORT_DIRECTORY_IMAGES)
-                if (Files.exists(imagesPath)) {
-                    Files.walk(imagesPath)
-                            .sorted()
-                            .map { obj: Path -> obj.toFile() }
-                            .forEach { obj: File -> obj.delete() }
-                }
-                val zipFile = zip(outputDirectory.path, "e2e")
-
                 val slack = SlackApi(META.getSlackToken()!!)
-                slack.postFile(META.getSlackChanel()!!, "e2e results", RESULT_IMAGE_FILE, imageFile)
-                slack.postFile(META.getSlackChanel()!!, "e2e.zip", "e2e.zip", zipFile)
+                if (slackImage?.file?.id != null) {
+                    slack.deleteFile(slackImage?.file?.id!!)
+                }
+                slackImage = slack.postFile(META.getSlackChanel()!!, "e2e results", RESULT_IMAGE_FILE, imageFile)
+                if (includingZip) {
+                    // delete all images before zipping
+                    val imagesPath = Paths.get(outputDirectory.path, REPORT_DIRECTORY_IMAGES)
+                    if (Files.exists(imagesPath)) {
+                        Files.walk(imagesPath)
+                                .sorted()
+                                .map { obj: Path -> obj.toFile() }
+                                .forEach { obj: File -> obj.delete() }
+                    }
+                    val zipFile = zip(outputDirectory.path, "e2e")
+                    slack.postFile(META.getSlackChanel()!!, "e2e.zip", "e2e.zip", zipFile)
+                }
             }
         } catch (e: Exception) {
             throw ReportNGException("Failed to send slack test result notification.", e)

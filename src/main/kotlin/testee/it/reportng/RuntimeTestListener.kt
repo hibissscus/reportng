@@ -9,8 +9,23 @@ class RuntimeTestListener : TestListenerAdapter() {
         val htmlReporter = HTMLReporter()
     }
 
+    @Volatile
+    private var reportAllowed = true
+
+    private val lock = Object()
+
+    private fun sendToSlack(testContext: ITestContext?) {
+        synchronized(lock) {
+            if (reportAllowed) {
+                reportAllowed = false
+                htmlReporter.createHTMLReport(listOf(testContext!!.suite), testContext.outputDirectory, false)
+                reportAllowed = true
+            }
+        }
+    }
+
     override fun onFinish(testContext: ITestContext?) {
         super.onFinish(testContext)
-        htmlReporter.createHTMLReport(listOf(testContext!!.suite), testContext.outputDirectory, false)
+        sendToSlack(testContext)
     }
 }

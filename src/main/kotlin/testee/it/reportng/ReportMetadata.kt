@@ -5,8 +5,7 @@ import java.net.InetAddress
 import java.net.UnknownHostException
 import java.text.DateFormat
 import java.text.SimpleDateFormat
-import java.util.Date
-import java.util.Locale
+import java.util.*
 
 /**
  * Provides access to static information useful when generating a report.

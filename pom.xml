@@ -7,7 +7,7 @@
     <name>ReportNG</name>
     <groupId>testee.it</groupId>
     <artifactId>reportng</artifactId>
-    <version>1.4.0</version>
+    <version>1.4.1</version>
     <packaging>jar</packaging>
 
     <properties>
@@ -211,7 +211,7 @@
                                 </property>
                                 <property>
                                     <name>listener</name>
-                                    <value>testee.it.reportng.RuntimeTestListener</value>
+                                    <value>testee.it.reportng.HTMLReporterRuntime</value>
                                 </property>
                                 <property>
                                     <name>reporter</name>

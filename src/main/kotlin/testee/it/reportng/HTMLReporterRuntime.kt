@@ -3,7 +3,10 @@ package testee.it.reportng
 import org.testng.ITestContext
 import org.testng.TestListenerAdapter
 
-class RuntimeTestListener : TestListenerAdapter() {
+/**
+ * Generating intermediate reports during test execution with multithreading support
+ */
+class HTMLReporterRuntime : TestListenerAdapter() {
 
     companion object {
         val htmlReporter = HTMLReporter()
@@ -18,7 +21,7 @@ class RuntimeTestListener : TestListenerAdapter() {
         synchronized(lock) {
             if (reportAllowed) {
                 reportAllowed = false
-                htmlReporter.createHTMLReport(listOf(testContext!!.suite), testContext.outputDirectory, false)
+                htmlReporter.createHTMLReport(listOf(testContext!!.suite), testContext.outputDirectory, true)
                 reportAllowed = true
             }
         }

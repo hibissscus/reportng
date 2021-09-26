@@ -1,7 +1,6 @@
 package testee.it.reportng
 
 import org.testng.ISuiteResult
-import java.util.Comparator
 
 /**
  * Comparator for sorting TestNG test results by passRate and alphabetically by method name.

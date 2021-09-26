@@ -21,7 +21,9 @@ import kotlin.math.abs
 class HTMLReporter : AbstractReporter(TEMPLATES_PATH) {
 
     companion object {
-        var slackImage: Resp? = null
+        private var slackImage: Resp? = null
+        private var slackZip: Resp? = null
+
         private const val FRAMES_PROPERTY = "testee.it.reportng.frames"
         private const val ONLY_FAILURES_PROPERTY = "testee.it.reportng.failures-only"
 
@@ -158,8 +160,18 @@ class HTMLReporter : AbstractReporter(TEMPLATES_PATH) {
                                 .map { obj: Path -> obj.toFile() }
                                 .forEach { obj: File -> obj.delete() }
                     }
+                    val e2ePath = Paths.get(outputDirectory.path, REPORT_DIRECTORY)
+                    if (Files.exists(e2ePath)) {
+                        Files.walk(e2ePath)
+                                .sorted()
+                                .map { obj: Path -> obj.toFile() }
+                                .forEach { obj: File -> obj.delete() }
+                    }
+                    if (slackZip?.file?.id != null) {
+                        slack.deleteFile(slackZip?.file?.id!!)
+                    }
                     val zipFile = zip(outputDirectory.path, "e2e")
-                    slack.postFile(META.getSlackChanel()!!, "e2e.zip", "e2e.zip", zipFile)
+                    slackZip = slack.postFile(META.getSlackChanel()!!, RESULT_ZIP_FILE, RESULT_ZIP_FILE, zipFile)
                 }
             }
         } catch (e: Exception) {

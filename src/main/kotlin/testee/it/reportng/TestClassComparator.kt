@@ -1,7 +1,6 @@
 package testee.it.reportng
 
 import org.testng.IClass
-import java.util.Comparator
 
 /**
  * Comparator for sorting classes alphabetically by fully-qualified name.

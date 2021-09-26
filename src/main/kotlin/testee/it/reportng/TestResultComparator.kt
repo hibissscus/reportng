@@ -1,7 +1,6 @@
 package testee.it.reportng
 
 import org.testng.ITestResult
-import java.util.Comparator
 
 /**
  * Comparator for sorting TestNG test results alphabetically by method name.

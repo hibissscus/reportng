@@ -1,3 +1,8 @@
+Changes in version 1.4.1
+------------------------
+* zip
+
+
 Changes in version 1.4.0
 ------------------------
 * RuntimeTestListener: generate intermediate reports during test execution with multithreading support and progress bar

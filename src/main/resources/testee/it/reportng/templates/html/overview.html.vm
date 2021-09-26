@@ -24,6 +24,36 @@
 </table>
 
 #foreach ($suite in $suites)
+  #set ($totalTests = 0)
+  #set ($totalPassed = 0)
+  #set ($totalSkipped = 0)
+  #set ($totalFailed = 0)
+  #set ($all = $suite.allMethods.size())
+  #foreach ($result in $suite.results)
+  #set ($notPassedTests = $result.testContext.skippedTests.size() + $result.testContext.failedTests.size())
+  #set ($total = $result.testContext.passedTests.size() + $notPassedTests)
+  #set ($totalTests = $totalTests + $total)
+  #set ($totalPassed = $totalPassed + $result.testContext.passedTests.size())
+  #set ($totalSkipped = $totalSkipped + $result.testContext.skippedTests.size())
+  #set ($totalFailed = $totalFailed + $result.testContext.failedTests.size())
+  #set ($entirePercentage = $utils.formatPercentage($totalTests, $all))
+  #set ($passedPercentage = $utils.formatPercentage($totalPassed, $totalTests))
+  #set ($skippedPercentage = $utils.formatPercentage($totalSkipped, $totalTests))
+  #set ($failedPercentage = $utils.formatPercentage($totalFailed, $totalTests))
+  #end
+#end
+<table class="progressTable" border="0" cellspacing="0" cellpadding="0" style="width:${entirePercentage};">
+  <tbody>
+  <tr class="progressLine" style="height: 3px">
+    <td class="progressLine" style="width:0%;background-color:#999999;"></td>
+    <td class="progressLine" style="width:${passedPercentage};background-color:#44aa44;"></td>
+    <td class="progressLine" style="width:${skippedPercentage};background-color:#ffaa00;"></td>
+    <td class="progressLine" style="width:${failedPercentage};background-color:#ff4444;"></td>
+  </tr>
+  </tbody>
+</table>
+
+#foreach ($suite in $suites)
 <table class="overviewTable">
   #set ($suiteId = $velocityCount)
   #set ($totalTests = 0)

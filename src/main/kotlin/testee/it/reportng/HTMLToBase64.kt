@@ -83,6 +83,7 @@ object HTMLToBase64 {
         styleSheet.addRule(".group {background-color: #cccccc7a; color: #000000; font-weight: bold;}")
         styleSheet.addRule(".suiteLinks {float: right; font-weight: normal; vertical-align: middle;}")
         styleSheet.addRule(".suiteLinks a {color: #ffffff; margin-left: .5em;}")
+        styleSheet.addRule(".suiteLinks th {color: #ffffff; margin-left: .5em;}")
         styleSheet.addRule(".passRate {font-weight: bold; text-align: right;}")
         styleSheet.addRule(".duration {text-align: left;}")
         styleSheet.addRule(".thread {white-space: nowrap;}")
@@ -128,6 +129,8 @@ object HTMLToBase64 {
         styleSheet.addRule(".overviewTable .duration {width: 6em;}")
         styleSheet.addRule(".overviewTable .passRate {width: 6em;}")
         styleSheet.addRule(".overviewTable .number {width: 5em;}")
+        styleSheet.addRule(".progressTable {margin-top: 10px;")
+        styleSheet.addRule(".progressLine {font-size: 0.8em;}")
         return styleSheet
     }
 

@@ -15,7 +15,7 @@
 <body>
 <h1>$result.testContext.name</h1>
 <p>
-  $messages.getString("testDuration"): $utils.formatDuration($utils.getDuration($result.testContext))s
+  $messages.getString("testDuration"): $utils.formatDuration($utils.getDuration($result.testContext))
 </p>
 <div id="modal" class="modal" onclick="modalClose()">
   <span class="close" onclick="modalClose()">&times;</span>

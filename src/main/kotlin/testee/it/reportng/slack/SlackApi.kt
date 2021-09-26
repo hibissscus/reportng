@@ -1,13 +1,18 @@
 package testee.it.reportng.slack
 
-import org.springframework.http.*
+import java.io.File
+import org.springframework.http.ContentDisposition
+import org.springframework.http.HttpEntity
+import org.springframework.http.HttpHeaders
+import org.springframework.http.HttpMethod
+import org.springframework.http.MediaType
+import org.springframework.http.ResponseEntity
 import org.springframework.util.LinkedMultiValueMap
 import org.springframework.util.MultiValueMap
 import org.springframework.web.client.HttpClientErrorException
 import org.springframework.web.client.RestTemplate
 import testee.it.reportng.slack.model.Msg
 import testee.it.reportng.slack.model.Resp
-import java.io.File
 
 
 class SlackApi(val token: String) {

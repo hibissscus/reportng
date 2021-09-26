@@ -1,17 +1,28 @@
 package testee.it.reportng
 
-import org.testng.*
-import org.testng.xml.XmlSuite
-import testee.it.reportng.HTMLToBase64.htmlToBase64
-import testee.it.reportng.ZipUtils.zip
-import testee.it.reportng.slack.SlackApi
-import testee.it.reportng.slack.model.Resp
 import java.io.File
 import java.io.IOException
 import java.nio.file.Files
 import java.nio.file.Path
 import java.nio.file.Paths
-import java.util.*
+import java.util.Collections
+import java.util.LinkedList
+import java.util.SortedMap
+import java.util.SortedSet
+import java.util.TreeMap
+import java.util.TreeSet
+import org.testng.IClass
+import org.testng.IResultMap
+import org.testng.ISuite
+import org.testng.ISuiteResult
+import org.testng.ITestNGMethod
+import org.testng.ITestResult
+import org.testng.Reporter
+import org.testng.xml.XmlSuite
+import testee.it.reportng.HTMLToBase64.htmlToBase64
+import testee.it.reportng.ZipUtils.zip
+import testee.it.reportng.slack.SlackApi
+import testee.it.reportng.slack.model.Resp
 import kotlin.math.abs
 
 /**

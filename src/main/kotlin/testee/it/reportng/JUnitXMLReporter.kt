@@ -1,11 +1,11 @@
 package testee.it.reportng
 
+import java.io.File
+import java.util.LinkedList
 import org.testng.IClass
 import org.testng.ISuite
 import org.testng.ITestResult
 import org.testng.xml.XmlSuite
-import java.io.File
-import java.util.*
 
 /**
  * JUnit XML reporter for TestNG that uses Velocity templates to generate its

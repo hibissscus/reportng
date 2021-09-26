@@ -1,10 +1,21 @@
 package testee.it.reportng
 
+import java.io.BufferedReader
+import java.io.BufferedWriter
+import java.io.File
+import java.io.FileFilter
+import java.io.FileInputStream
+import java.io.FileOutputStream
+import java.io.FileWriter
+import java.io.IOException
+import java.io.InputStream
+import java.io.InputStreamReader
+import java.io.OutputStreamWriter
+import java.io.Writer
+import java.util.ResourceBundle
 import org.apache.velocity.VelocityContext
 import org.apache.velocity.app.Velocity
 import org.testng.IReporter
-import java.io.*
-import java.util.*
 
 /**
  * Convenient base class for the ReportNG reporters.

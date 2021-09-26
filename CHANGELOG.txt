@@ -1,6 +1,7 @@
 Changes in version 1.4.1
 ------------------------
-* zip
+* HTMLReporterRuntime and HTMLReporter
+* Zipped snapshot with test results
 
 
 Changes in version 1.4.0

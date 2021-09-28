@@ -1,5 +1,6 @@
 Changes in version 1.4.2
 ------------------------
+* fix HTMLToBase64 representation
 * fix property naming "channel"
 
 

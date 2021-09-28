@@ -44,16 +44,16 @@ class ReportMetadata {
     }
 
     /**
-     * @return string representation of the slack token.
+     * @return string representation of the Slack token.
      */
     fun getSlackToken(): String? {
         return System.getProperty(ReportMetadata.SLACK_TOKEN)
     }
 
     /**
-     * @return string representation of the slack channel.
+     * @return string representation of the Slack channel.
      */
-    fun getSlackChanel(): String? {
+    fun getSlackChannel(): String? {
         return System.getProperty(ReportMetadata.SLACK_CHANNEL)
     }
 

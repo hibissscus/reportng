@@ -60,21 +60,15 @@
   #set ($totalPassed = 0)
   #set ($totalSkipped = 0)
   #set ($totalFailed = 0)
-  <tr>
-    <th colspan="6" class="header suite">
-      <div class="suiteLinks">
-        #if (!$suite.invokedMethods.empty)
-        ##<a href="suite${suiteId}_chronology.html">$messages.getString("chronology")</a>
-        #end
-        #if ($utils.hasGroups($suite))
-        <a href="suite${suiteId}_groups.html">$messages.getString("groups")</a>
-        #end
-      </div>
-      ${suite.name}
-    </th>
-  </tr>
   <tr class="columnHeadings">
-    <td>&nbsp;</td>
+    <th>
+      #if (!$utils.hasGroups($suite))
+        ${suite.name}
+      #end
+      #if ($utils.hasGroups($suite))
+        <a href="suite${suiteId}_groups.html">${suite.name}</a>
+      #end
+    </th>
     <th>$messages.getString("duration")</th>
     <th>$messages.getString("passed")</th>
     <th>$messages.getString("skipped")</th>

@@ -1,3 +1,8 @@
+Changes in version 1.4.2
+------------------------
+* fix property naming "channel"
+
+
 Changes in version 1.4.1
 ------------------------
 * HTMLReporterRuntime and HTMLReporter

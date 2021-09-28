@@ -161,7 +161,7 @@ class HTMLReporter : AbstractReporter(TEMPLATES_PATH) {
                 if (slackImage?.file?.id != null) {
                     slack.deleteFile(slackImage?.file?.id!!)
                 }
-                slackImage = slack.postFile(META.getSlackChanel()!!, "e2e results", RESULT_IMAGE_FILE, imageFile)
+                slackImage = slack.postFile(META.getSlackChannel()!!, "e2e results", RESULT_IMAGE_FILE, imageFile)
                 if (includingZip) {
                     // delete all images before zipping
                     val imagesPath = Paths.get(outputDirectory.path, REPORT_DIRECTORY_IMAGES)
@@ -182,7 +182,7 @@ class HTMLReporter : AbstractReporter(TEMPLATES_PATH) {
                         slack.deleteFile(slackZip?.file?.id!!)
                     }
                     val zipFile = zip(outputDirectory.path, "e2e")
-                    slackZip = slack.postFile(META.getSlackChanel()!!, RESULT_ZIP_FILE, RESULT_ZIP_FILE, zipFile)
+                    slackZip = slack.postFile(META.getSlackChannel()!!, RESULT_ZIP_FILE, RESULT_ZIP_FILE, zipFile)
                 }
             }
         } catch (e: Exception) {

@@ -5,7 +5,6 @@ import java.io.IOException
 import java.text.DecimalFormat
 import java.text.NumberFormat
 import java.time.LocalTime
-import java.util.LinkedList
 import javax.imageio.ImageIO
 import org.testng.IInvokedMethod
 import org.testng.ISuite
@@ -13,6 +12,9 @@ import org.testng.ITestContext
 import org.testng.ITestResult
 import org.testng.Reporter
 import org.testng.SkipException
+import java.text.DecimalFormatSymbols
+import java.util.*
+import kotlin.collections.ArrayList
 
 /**
  * Utility class that provides various helper methods that can be invoked
@@ -422,6 +424,6 @@ class ReportNGUtils {
     }
 
     companion object {
-        private val PERCENTAGE_FORMAT: NumberFormat = DecimalFormat("#0.00%")
+        private val PERCENTAGE_FORMAT: NumberFormat = DecimalFormat("#0.00%", DecimalFormatSymbols.getInstance(Locale.ENGLISH))
     }
 }

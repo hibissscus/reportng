@@ -3,12 +3,22 @@ function toggleElement(elementId, displayStyle) {
     let current = element.currentStyle
         ? element.currentStyle['display']
         : document.defaultView.getComputedStyle(element, null).getPropertyValue('display');
-    element.style.display = (current == 'none' ? displayStyle : 'none');
+    element.style.display = (current === 'none' ? displayStyle : 'none');
+}
+
+function toggleElements(elementClass, displayStyle) {
+    let elements = document.getElementsByClassName(elementClass);
+    for (let element of elements) {
+        let current = element.currentStyle
+            ? element.currentStyle['display']
+            : document.defaultView.getComputedStyle(element, null).getPropertyValue('display');
+        element.style.display = (current === 'none' ? displayStyle : 'none');
+    }
 }
 
 function toggle(toggleId) {
     let toggle = document.getElementById ? document.getElementById(toggleId) : document.all[toggleId];
-    toggle.textContent = toggle.innerHTML == '\u25b6' ? '\u25bc' : '\u25b6';
+    toggle.textContent = toggle.innerHTML === '\u25b6' ? '\u25bc' : '\u25b6';
 }
 
 function modalClose() {

@@ -1,3 +1,11 @@
+Changes in version 1.4.3
+------------------------
+* Toggle different type of tests
+* Kotlin 1.6.21
+* TestNG 7.5
+* Gson 2.9.0
+
+
 Changes in version 1.4.2
 ------------------------
 * fix HTMLToBase64 representation

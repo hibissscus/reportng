@@ -30,32 +30,40 @@
   #foreach ($suite in $suites)
   <thead>
     <tr>
-      <th class="header suite" onclick="toggleElement('tests-${velocityCount}', 'table-row-group'); toggle('toggle-${velocityCount}')">
-        <span id="toggle-${velocityCount}" class="toggle">&#x25bc;</span>${suite.name}
+      <th class="header suite">
+        <span id="toggle-${velocityCount}"
+              onclick="toggleElement('tests-${velocityCount}', 'table-row-group'); toggle('toggle-${velocityCount}')"
+              class="toggle">&#x25bc;</span>${suite.name}
+        <span class="pointer failureIndicator" onclick="toggleElements('only-failed', '');">&#x2718;</span>
+        <span class="pointer skipIndicator" onclick="toggleElements('only-skipped', '');">&#x2714;</span>
+        <span class="pointer successIndicator" onclick="toggleElements('only-passed', '');">&#x2714;</span>
       </th>
     </tr>
   </thead>
   <tbody id="tests-${velocityCount}" class="tests">
     #set ($suiteId = $velocityCount)
     #foreach ($result in $suite.results)
-        #set ($failuresExist = $result.testContext.failedTests.size()>0 || $result.testContext.failedConfigurations.size()>0)
+      #set ($failuresExist = $result.testContext.failedTests.size()>0 || $result.testContext.failedConfigurations.size()>0)
+      #set ($onlyPassed = $result.testContext.passedTests.size()>0 && $result.testContext.skippedTests.size() ==0 && $result.testContext.failedTests.size() ==0)
+      #set ($onlySkipped = $result.testContext.skippedTests.size()>0 && $result.testContext.passedTests.size() ==0 && $result.testContext.failedTests.size() ==0)
+      #set ($onlyFailed = $result.testContext.failedTests.size()>0 && $result.testContext.passedTests.size() ==0 &&  $result.testContext.skippedTests.size() ==0)
 
-        #if (($onlyReportFailures && $failuresExist) || (!$onlyReportFailures))
+      #if (($onlyReportFailures && $failuresExist) || (!$onlyReportFailures))
         <tr>
-      <td class="test">
-        #if ($result.testContext.failedTests.size() > 0)
-        <span class="failureIndicator" title="$messages.getString("failed.tooltip")">&#x2718;</span>
-        #else
-          #if ($result.testContext.skippedTests.size() > 0)
-          <span class="skipIndicator" title="$messages.getString("skipped.tooltip")">&#x2714;</span>
-          #else
-          <span class="successIndicator" title="$messages.getString("passed.tooltip")">&#x2714;</span>
-          #end
-        #end
-        <a href="suite${suiteId}_test${velocityCount}_results.html" target="main">$result.testContext.name</a>
-      </td>
-    </tr>
-    #end
+          <td class="test only-#if($onlyPassed)passed#end#if($onlySkipped)skipped#end#if($onlyFailed)failed#end">
+            #if ($result.testContext.failedTests.size() > 0)
+            <span class="failureIndicator" title="$messages.getString("failed.tooltip")">&#x2718;</span>
+            #else
+              #if ($result.testContext.skippedTests.size() > 0)
+              <span class="skipIndicator" title="$messages.getString("skipped.tooltip")">&#x2714;</span>
+              #else
+              <span class="successIndicator" title="$messages.getString("passed.tooltip")">&#x2714;</span>
+              #end
+            #end
+            <a href="suite${suiteId}_test${velocityCount}_results.html" target="main">$result.testContext.name</a>
+          </td>
+        </tr>
+      #end
     #end
   </tbody>
   #end

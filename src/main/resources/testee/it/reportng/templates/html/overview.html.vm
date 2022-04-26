@@ -10,6 +10,7 @@
   #if ($meta.stylesheetPath)
   <link href="custom.css" rel="stylesheet" type="text/css" />
   #end
+  <script type="text/javascript" src="reportng.js"></script>
 </head>
 <body>
 <table class="titleTable">
@@ -67,9 +68,12 @@
       #end
     </th>
     <th>$messages.getString("duration")</th>
-    <th>$messages.getString("passed")</th>
-    <th>$messages.getString("skipped")</th>
-    <th>$messages.getString("failed")</th>
+    <th class="pointer" onclick="toggleElements('only-passed', ''); toggle('toggle-only-passed')">
+      <span id="toggle-only-passed" class="toggle">&#x25bc;</span>$messages.getString("passed")</th>
+    <th class="pointer" onclick="toggleElements('only-skipped', ''); toggle('toggle-only-skipped')">
+      <span id="toggle-only-skipped" class="toggle">&#x25bc;</span>$messages.getString("skipped")</th>
+    <th class="pointer toggle-failed" onclick="toggleElements('only-failed', ''); toggle('toggle-only-failed')">
+      <span id="toggle-only-failed" class="toggle">&#x25bc;</span>$messages.getString("failed")</th>
     <th>$messages.getString("passRate")</th>
   </tr>
   #foreach ($result in $suite.results)
@@ -80,9 +84,12 @@
   #set ($totalSkipped = $totalSkipped + $result.testContext.skippedTests.size())
   #set ($totalFailed = $totalFailed + $result.testContext.failedTests.size())
   #set ($failuresExist = $result.testContext.failedTests.size()>0 || $result.testContext.failedConfigurations.size()>0)
+  #set ($onlyPassed = $result.testContext.passedTests.size()>0 && $result.testContext.skippedTests.size() ==0 && $result.testContext.failedTests.size() ==0)
+  #set ($onlySkipped = $result.testContext.skippedTests.size()>0 && $result.testContext.passedTests.size() ==0 && $result.testContext.failedTests.size() ==0)
+  #set ($onlyFailed = $result.testContext.failedTests.size()>0 && $result.testContext.passedTests.size() ==0 &&  $result.testContext.skippedTests.size() ==0)
 
   #if (($onlyReportFailures && $failuresExist) || (!$onlyReportFailures))
-  <tr class="test">
+  <tr class="test only-#if($onlyPassed)passed#end#if($onlySkipped)skipped#end#if($onlyFailed)failed#end">
     <td class="test">
       <a href="suite${suiteId}_test${velocityCount}_results.html">${result.testContext.name}</a>
     </td>
@@ -120,9 +127,9 @@
   #end
   #end
 
-    <tr class="suite">
+  <tr class="suite">
     <td colspan="1" class="totalLabel">$messages.getString("total")</td>
-      <td class="duration"><span class="number">${utils.totalDuration($suite)}</span></td>
+    <td class="duration"><span class="number">${utils.totalDuration($suite)}</span></td>
 
     #if ($totalPassed > 0)
       <td class="passed"><span class="number">$totalPassed</span></td>
@@ -152,7 +159,6 @@
       #end
       </span>
     </td>
-
   </tr>
 </table>
 #end

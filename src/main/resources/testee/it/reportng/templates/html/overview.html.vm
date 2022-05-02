@@ -89,7 +89,7 @@
   #set ($onlyFailed = $result.testContext.failedTests.size()>0 && $result.testContext.passedTests.size() ==0 &&  $result.testContext.skippedTests.size() ==0)
 
   #if (($onlyReportFailures && $failuresExist) || (!$onlyReportFailures))
-  <tr class="test only-#if($onlyPassed)passed#end#if($onlySkipped)skipped#end#if($onlyFailed)failed#end">
+  <tr class="test #if($onlyPassed)only-passed#end#if($onlySkipped)only-skipped#end#if($onlyFailed)only-failed#end">
     <td class="test">
       <a href="suite${suiteId}_test${velocityCount}_results.html">${result.testContext.name}</a>
     </td>

@@ -201,6 +201,7 @@
                                 <suiteXmlFile>src/test/resources/reportng.xml</suiteXmlFile>
                             </suiteXmlFiles>
                             <systemPropertyVariables>
+                                <testee.it.version>1.6.2</testee.it.version>
                                 <testee.it.reportng.title>e2e</testee.it.reportng.title>
                                 <testee.it.reportng.slack>false</testee.it.reportng.slack>
                                 <testee.it.reportng.slack.token>xxxx-xxxx-xxxx-xxxx</testee.it.reportng.slack.token>

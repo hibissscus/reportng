@@ -1,6 +1,5 @@
 package testee.it.reportng.slack
 
-import java.io.File
 import org.springframework.http.ContentDisposition
 import org.springframework.http.HttpEntity
 import org.springframework.http.HttpHeaders
@@ -13,6 +12,7 @@ import org.springframework.web.client.HttpClientErrorException
 import org.springframework.web.client.RestTemplate
 import testee.it.reportng.slack.model.Msg
 import testee.it.reportng.slack.model.Resp
+import java.io.File
 
 
 class SlackApi(val token: String) {
@@ -26,12 +26,13 @@ class SlackApi(val token: String) {
      */
     fun getHistory(channel: String, since: String = "1630140851"): Msg? {
         return RestTemplate().getForObject(
-                "https://slack.com/api/conversations.history?" +
-                        "&token=$token" +
-                        "&channel=$channel" +
-                        "&limit=100" +
-                        "&oldest=$since",
-                Msg::class.java)
+            "https://slack.com/api/conversations.history?" +
+                    "&token=$token" +
+                    "&channel=$channel" +
+                    "&limit=100" +
+                    "&oldest=$since",
+            Msg::class.java
+        )
     }
 
     /**
@@ -39,13 +40,14 @@ class SlackApi(val token: String) {
      */
     fun postMessage(channel: String, text: String = "test"): Resp? {
         return RestTemplate().postForObject(
-                "https://slack.com/api/chat.postMessage?" +
-                        "&token=$token" +
-                        "&channel=$channel" +
-                        "&text=$text" +
-                        "&pretty=1",
-                null,
-                Resp::class.java)
+            "https://slack.com/api/chat.postMessage?" +
+                    "&token=$token" +
+                    "&channel=$channel" +
+                    "&text=$text" +
+                    "&pretty=1",
+            null,
+            Resp::class.java
+        )
     }
 
     /**
@@ -53,13 +55,14 @@ class SlackApi(val token: String) {
      */
     fun deleteMessage(channel: String, ts: String): Resp? {
         return RestTemplate().postForObject(
-                "https://slack.com/api/chat.delete?" +
-                        "&token=$token" +
-                        "&channel=$channel" +
-                        "&ts=$ts" +
-                        "&pretty=1",
-                null,
-                Resp::class.java)
+            "https://slack.com/api/chat.delete?" +
+                    "&token=$token" +
+                    "&channel=$channel" +
+                    "&ts=$ts" +
+                    "&pretty=1",
+            null,
+            Resp::class.java
+        )
     }
 
     /**
@@ -67,11 +70,12 @@ class SlackApi(val token: String) {
      */
     fun deleteFile(file: String): Resp? {
         return RestTemplate().postForObject(
-                "https://slack.com/api/files.delete?" +
-                        "&token=$token" +
-                        "&file=$file",
-                null,
-                Resp::class.java)
+            "https://slack.com/api/files.delete?" +
+                    "&token=$token" +
+                    "&file=$file",
+            null,
+            Resp::class.java
+        )
     }
 
     /**
@@ -82,10 +86,10 @@ class SlackApi(val token: String) {
         headers.contentType = MediaType.MULTIPART_FORM_DATA
         val fileMap: MultiValueMap<String, String> = LinkedMultiValueMap()
         val contentDisposition = ContentDisposition
-                .builder("form-data")
-                .name("file")
-                .filename(filename)
-                .build()
+            .builder("form-data")
+            .name("file")
+            .filename(filename)
+            .build()
         fileMap.add(HttpHeaders.CONTENT_DISPOSITION, contentDisposition.toString())
         val fileEntity = HttpEntity(file.readBytes(), fileMap)
         val body: LinkedMultiValueMap<String, Any> = LinkedMultiValueMap<String, Any>()
@@ -96,10 +100,11 @@ class SlackApi(val token: String) {
         val requestEntity: HttpEntity<MultiValueMap<String, Any>> = HttpEntity(body, headers)
         try {
             val response: ResponseEntity<Resp> = RestTemplate().exchange(
-                    "https://slack.com/api/files.upload",
-                    HttpMethod.POST,
-                    requestEntity,
-                    Resp::class.java)
+                "https://slack.com/api/files.upload",
+                HttpMethod.POST,
+                requestEntity,
+                Resp::class.java
+            )
             return response.body
         } catch (e: HttpClientErrorException) {
             e.printStackTrace()

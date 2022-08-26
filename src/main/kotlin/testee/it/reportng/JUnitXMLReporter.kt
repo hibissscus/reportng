@@ -1,11 +1,11 @@
 package testee.it.reportng
 
-import java.io.File
-import java.util.LinkedList
 import org.testng.IClass
 import org.testng.ISuite
 import org.testng.ITestResult
 import org.testng.xml.XmlSuite
+import java.io.File
+import java.util.*
 
 /**
  * JUnit XML reporter for TestNG that uses Velocity templates to generate its
@@ -27,9 +27,11 @@ class JUnitXMLReporter : AbstractReporter(TEMPLATES_PATH) {
      * @param suites              Data about the test runs.
      * @param outputDirectoryName The directory in which to create the report.
      */
-    override fun generateReport(xmlSuites: List<XmlSuite>,
-                                suites: List<ISuite>,
-                                outputDirectoryName: String) {
+    override fun generateReport(
+        xmlSuites: List<XmlSuite>,
+        suites: List<ISuite>,
+        outputDirectoryName: String
+    ) {
         removeEmptyDirectories(File(outputDirectoryName))
         val outputDirectory = File(outputDirectoryName, REPORT_DIRECTORY)
         outputDirectory.mkdirs()
@@ -38,9 +40,11 @@ class JUnitXMLReporter : AbstractReporter(TEMPLATES_PATH) {
             val context = createContext()
             context.put(RESULTS_KEY, results)
             try {
-                generateFile(File(outputDirectory, results.testClass.name + '_' + RESULTS_FILE),
-                        RESULTS_FILE + TEMPLATE_EXTENSION,
-                        context)
+                generateFile(
+                    File(outputDirectory, results.testClass.name + '_' + RESULTS_FILE),
+                    RESULTS_FILE + TEMPLATE_EXTENSION,
+                    context
+                )
             } catch (ex: Exception) {
                 throw ReportNGException("Failed generating JUnit XML report.", ex)
             }
@@ -68,8 +72,10 @@ class JUnitXMLReporter : AbstractReporter(TEMPLATES_PATH) {
         return flattenedResults.values
     }
 
-    private fun organiseByClass(testResults: Set<ITestResult>,
-                                flattenedResults: MutableMap<IClass, TestClassResults>) {
+    private fun organiseByClass(
+        testResults: Set<ITestResult>,
+        flattenedResults: MutableMap<IClass, TestClassResults>
+    ) {
         for (testResult in testResults) {
             getResultsForClass(flattenedResults, testResult).addResult(testResult)
         }
@@ -78,8 +84,10 @@ class JUnitXMLReporter : AbstractReporter(TEMPLATES_PATH) {
     /**
      * Look-up the results data for a particular test class.
      */
-    private fun getResultsForClass(flattenedResults: MutableMap<IClass, TestClassResults>,
-                                   testResult: ITestResult): TestClassResults {
+    private fun getResultsForClass(
+        flattenedResults: MutableMap<IClass, TestClassResults>,
+        testResult: ITestResult
+    ): TestClassResults {
         var resultsForClass = flattenedResults[testResult.testClass]
         if (resultsForClass == null) {
             resultsForClass = TestClassResults(testResult.testClass)
@@ -113,9 +121,11 @@ class JUnitXMLReporter : AbstractReporter(TEMPLATES_PATH) {
                     }
                     run { failedTests.add(result) }
                 }
+
                 ITestResult.FAILURE, ITestResult.SUCCESS_PERCENTAGE_FAILURE -> {
                     failedTests.add(result)
                 }
+
                 ITestResult.SUCCESS -> {
                     passedTests.add(result)
                 }

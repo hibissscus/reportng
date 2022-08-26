@@ -22,17 +22,17 @@ object ZipUtils {
         ZipOutputStream(Files.newOutputStream(p)).use { zs ->
             val pp = Paths.get(sourceDirPath)
             Files.walk(pp)
-                    .filter { path: Path -> !Files.isDirectory(path) }
-                    .forEach { path: Path ->
-                        val zipEntry = ZipEntry(pp.relativize(path).toString())
-                        try {
-                            zs.putNextEntry(zipEntry)
-                            Files.copy(path, zs)
-                            zs.closeEntry()
-                        } catch (e: IOException) {
-                            System.err.println(e)
-                        }
+                .filter { path: Path -> !Files.isDirectory(path) }
+                .forEach { path: Path ->
+                    val zipEntry = ZipEntry(pp.relativize(path).toString())
+                    try {
+                        zs.putNextEntry(zipEntry)
+                        Files.copy(path, zs)
+                        zs.closeEntry()
+                    } catch (e: IOException) {
+                        System.err.println(e)
                     }
+                }
         }
         return tempZipFile
     }

@@ -1,5 +1,8 @@
 package testee.it.reportng
 
+import org.apache.velocity.VelocityContext
+import org.apache.velocity.app.Velocity
+import org.testng.IReporter
 import java.io.BufferedReader
 import java.io.BufferedWriter
 import java.io.File
@@ -12,10 +15,7 @@ import java.io.InputStream
 import java.io.InputStreamReader
 import java.io.OutputStreamWriter
 import java.io.Writer
-import java.util.ResourceBundle
-import org.apache.velocity.VelocityContext
-import org.apache.velocity.app.Velocity
-import org.testng.IReporter
+import java.util.*
 
 /**
  * Convenient base class for the ReportNG reporters.
@@ -36,11 +36,15 @@ abstract class AbstractReporter protected constructor(private val classpathPrefi
 
     init {
         Velocity.setProperty("resource.loader", "classpath")
-        Velocity.setProperty("classpath.resource.loader.class",
-                "org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader")
+        Velocity.setProperty(
+            "classpath.resource.loader.class",
+            "org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader"
+        )
         if (!META.shouldGenerateVelocityLog()) {
-            Velocity.setProperty("runtime.log.logsystem.class",
-                    "org.apache.velocity.runtime.log.NullLogSystem")
+            Velocity.setProperty(
+                "runtime.log.logsystem.class",
+                "org.apache.velocity.runtime.log.NullLogSystem"
+            )
         }
         try {
             Velocity.init()
@@ -68,15 +72,19 @@ abstract class AbstractReporter protected constructor(private val classpathPrefi
      * Velocity template with the supplied context.
      */
     @Throws(Exception::class)
-    protected fun generateFile(file: File?,
-                               templateName: String,
-                               context: VelocityContext?) {
+    protected fun generateFile(
+        file: File?,
+        templateName: String,
+        context: VelocityContext?
+    ) {
         val writer: Writer = BufferedWriter(FileWriter(file))
         try {
-            Velocity.mergeTemplate(classpathPrefix + templateName,
-                    ENCODING,
-                    context,
-                    writer)
+            Velocity.mergeTemplate(
+                classpathPrefix + templateName,
+                ENCODING,
+                context,
+                writer
+            )
             writer.flush()
         } finally {
             writer.close()
@@ -92,9 +100,11 @@ abstract class AbstractReporter protected constructor(private val classpathPrefi
      * @throws IOException If the resource cannot be copied.
      */
     @Throws(IOException::class)
-    protected fun copyClasspathResource(outputDirectory: File?,
-                                        resourceName: String,
-                                        targetFileName: String?) {
+    protected fun copyClasspathResource(
+        outputDirectory: File?,
+        resourceName: String,
+        targetFileName: String?
+    ) {
         val resourcePath = classpathPrefix + resourceName
         val resourceStream = javaClass.classLoader.getResourceAsStream(resourcePath)
         copyStream(outputDirectory, resourceStream, targetFileName)
@@ -109,9 +119,11 @@ abstract class AbstractReporter protected constructor(private val classpathPrefi
      * @throws IOException If the file cannot be copied.
      */
     @Throws(IOException::class)
-    protected fun copyFile(outputDirectory: File?,
-                           sourceFile: File?,
-                           targetFileName: String?) {
+    protected fun copyFile(
+        outputDirectory: File?,
+        sourceFile: File?,
+        targetFileName: String?
+    ) {
         val fileStream: InputStream = FileInputStream(sourceFile)
         fileStream.use { copyStream(outputDirectory, it, targetFileName) }
     }
@@ -125,9 +137,11 @@ abstract class AbstractReporter protected constructor(private val classpathPrefi
      * @throws IOException If the stream cannot be copied.
      */
     @Throws(IOException::class)
-    protected fun copyStream(outputDirectory: File?,
-                             stream: InputStream?,
-                             targetFileName: String?) {
+    protected fun copyStream(
+        outputDirectory: File?,
+        stream: InputStream?,
+        targetFileName: String?
+    ) {
         val resourceFile = File(outputDirectory, targetFileName)
         var reader: BufferedReader? = null
         var writer: Writer? = null

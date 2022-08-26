@@ -17,6 +17,7 @@
     <tr>
         <td class="h1">$meta.reportTitle</td>
         <td id="meta">
+            $messages.getString("generatedByTestee") $meta.testeeVersion
             $messages.getString("generatedBy") $messages.getString("version")
             $messages.getString("atTime") $meta.reportTime $messages.getString("onDate") $meta.reportDate
             <br/><span id="systemInfo">$meta.user&nbsp;/&nbsp;$meta.javaInfo&nbsp;/&nbsp;$meta.platform</span>

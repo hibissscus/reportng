@@ -1,16 +1,5 @@
 package testee.it.reportng
 
-import java.io.File
-import java.io.IOException
-import java.nio.file.Files
-import java.nio.file.Path
-import java.nio.file.Paths
-import java.util.Collections
-import java.util.LinkedList
-import java.util.SortedMap
-import java.util.SortedSet
-import java.util.TreeMap
-import java.util.TreeSet
 import org.testng.IClass
 import org.testng.IResultMap
 import org.testng.ISuite
@@ -23,6 +12,12 @@ import testee.it.reportng.HTMLToBase64.htmlToBase64
 import testee.it.reportng.ZipUtils.zip
 import testee.it.reportng.slack.SlackApi
 import testee.it.reportng.slack.model.Resp
+import java.io.File
+import java.io.IOException
+import java.nio.file.Files
+import java.nio.file.Path
+import java.nio.file.Paths
+import java.util.*
 import kotlin.math.abs
 
 /**
@@ -92,15 +87,19 @@ class HTMLReporter : AbstractReporter(TEMPLATES_PATH) {
      * @param suites              Data about the test runs.
      * @param outputDirectoryName The directory in which to create the report.
      */
-    override fun generateReport(xmlSuites: List<XmlSuite>,  // not used
-                                suites: List<ISuite>,
-                                outputDirectoryName: String) {
+    override fun generateReport(
+        xmlSuites: List<XmlSuite>,  // not used
+        suites: List<ISuite>,
+        outputDirectoryName: String
+    ) {
         createHTMLReport(suites, outputDirectoryName, true)
     }
 
-    fun createHTMLReport(suites: List<ISuite>,
-                         outputDirectoryName: String,
-                         includingZip: Boolean) {
+    fun createHTMLReport(
+        suites: List<ISuite>,
+        outputDirectoryName: String,
+        includingZip: Boolean
+    ) {
         removeEmptyDirectories(File(outputDirectoryName))
         val useFrames = System.getProperty(FRAMES_PROPERTY, "true") == "true"
         val onlyFailures = System.getProperty(ONLY_FAILURES_PROPERTY, "false") == "true"
@@ -140,9 +139,10 @@ class HTMLReporter : AbstractReporter(TEMPLATES_PATH) {
             val resultFilePath = File(outputDirectory, RESULT_IMAGE_FILE).toPath().toString()
             // create base64 representation of overview.html
             htmlToBase64(
-                    String(Files.readAllBytes(File(outputDirectory, OVERVIEW_FILE).toPath())),
-                    1024, 768,
-                    resultFilePath)
+                String(Files.readAllBytes(File(outputDirectory, OVERVIEW_FILE).toPath())),
+                1024, 768,
+                resultFilePath
+            )
         } catch (e: IOException) {
             throw ReportNGException("Failed to create base64 representation of overview.html", e)
         }
@@ -167,16 +167,16 @@ class HTMLReporter : AbstractReporter(TEMPLATES_PATH) {
                     val imagesPath = Paths.get(outputDirectory.path, REPORT_DIRECTORY_IMAGES)
                     if (Files.exists(imagesPath)) {
                         Files.walk(imagesPath)
-                                .sorted()
-                                .map { obj: Path -> obj.toFile() }
-                                .forEach { obj: File -> obj.delete() }
+                            .sorted()
+                            .map { obj: Path -> obj.toFile() }
+                            .forEach { obj: File -> obj.delete() }
                     }
                     val e2ePath = Paths.get(outputDirectory.path, REPORT_DIRECTORY)
                     if (Files.exists(e2ePath)) {
                         Files.walk(e2ePath)
-                                .sorted()
-                                .map { obj: Path -> obj.toFile() }
-                                .forEach { obj: File -> obj.delete() }
+                            .sorted()
+                            .map { obj: Path -> obj.toFile() }
+                            .forEach { obj: File -> obj.delete() }
                     }
                     if (slackZip?.file?.id != null) {
                         slack.deleteFile(slackZip?.file?.id!!)
@@ -198,22 +198,28 @@ class HTMLReporter : AbstractReporter(TEMPLATES_PATH) {
     @Throws(Exception::class)
     private fun createFrameset(outputDirectory: File) {
         val context = createContext()
-        generateFile(File(outputDirectory, INDEX_FILE),
-                INDEX_FILE + TEMPLATE_EXTENSION,
-                context)
+        generateFile(
+            File(outputDirectory, INDEX_FILE),
+            INDEX_FILE + TEMPLATE_EXTENSION,
+            context
+        )
     }
 
     @Throws(Exception::class)
-    private fun createOverview(suites: List<ISuite>,
-                               outputDirectory: File,
-                               isIndex: Boolean,
-                               onlyFailures: Boolean) {
+    private fun createOverview(
+        suites: List<ISuite>,
+        outputDirectory: File,
+        isIndex: Boolean,
+        onlyFailures: Boolean
+    ) {
         val context = createContext()
         context.put(SUITES_KEY, suites)
         context.put(ONLY_FAILURES_KEY, onlyFailures)
-        generateFile(File(outputDirectory, if (isIndex) INDEX_FILE else OVERVIEW_FILE),
-                OVERVIEW_FILE + TEMPLATE_EXTENSION,
-                context)
+        generateFile(
+            File(outputDirectory, if (isIndex) INDEX_FILE else OVERVIEW_FILE),
+            OVERVIEW_FILE + TEMPLATE_EXTENSION,
+            context
+        )
     }
 
     /**
@@ -222,15 +228,19 @@ class HTMLReporter : AbstractReporter(TEMPLATES_PATH) {
      * @param outputDirectory The target directory for the generated file(s).
      */
     @Throws(Exception::class)
-    private fun createSuiteList(suites: List<ISuite>,
-                                outputDirectory: File,
-                                onlyFailures: Boolean) {
+    private fun createSuiteList(
+        suites: List<ISuite>,
+        outputDirectory: File,
+        onlyFailures: Boolean
+    ) {
         val context = createContext()
         context.put(SUITES_KEY, suites)
         context.put(ONLY_FAILURES_KEY, onlyFailures)
-        generateFile(File(outputDirectory, SUITES_FILE),
-                SUITES_FILE + TEMPLATE_EXTENSION,
-                context)
+        generateFile(
+            File(outputDirectory, SUITES_FILE),
+            SUITES_FILE + TEMPLATE_EXTENSION,
+            context
+        )
     }
 
     /**
@@ -239,9 +249,11 @@ class HTMLReporter : AbstractReporter(TEMPLATES_PATH) {
      * @param outputDirectory The target directory for the generated file(s).
      */
     @Throws(Exception::class)
-    private fun createResults(suites: List<ISuite>,
-                              outputDirectory: File,
-                              onlyShowFailures: Boolean) {
+    private fun createResults(
+        suites: List<ISuite>,
+        outputDirectory: File,
+        onlyShowFailures: Boolean
+    ) {
         var index = 1
         for (suite in suites) {
             var index2 = 1
@@ -265,9 +277,11 @@ class HTMLReporter : AbstractReporter(TEMPLATES_PATH) {
                     // conclusion. too complex / too much code to modify ( i.e. not only this class but also the testng framework ).
                     // see http://testng.org/doc/javadocs/org/testng/TestRunner.html
                     val fileName = String.format("suite%d_test%d_%s", index, index2, RESULTS_FILE)
-                    generateFile(File(outputDirectory, fileName),
-                            RESULTS_FILE + TEMPLATE_EXTENSION,
-                            context)
+                    generateFile(
+                        File(outputDirectory, fileName),
+                        RESULTS_FILE + TEMPLATE_EXTENSION,
+                        context
+                    )
                 }
                 ++index2
             }
@@ -297,8 +311,10 @@ class HTMLReporter : AbstractReporter(TEMPLATES_PATH) {
      * @param outputDirectory The target directory for the generated file(s).
      */
     @Throws(Exception::class)
-    private fun createGroups(suites: List<ISuite>,
-                             outputDirectory: File) {
+    private fun createGroups(
+        suites: List<ISuite>,
+        outputDirectory: File
+    ) {
         var index = 1
         for (suite in suites) {
             val groups = sortGroups(suite.methodsByGroups)
@@ -307,9 +323,11 @@ class HTMLReporter : AbstractReporter(TEMPLATES_PATH) {
                 context.put(SUITE_KEY, suite)
                 context.put(GROUPS_KEY, groups)
                 val fileName = String.format("suite%d_%s", index, GROUPS_FILE)
-                generateFile(File(outputDirectory, fileName),
-                        GROUPS_FILE + TEMPLATE_EXTENSION,
-                        context)
+                generateFile(
+                    File(outputDirectory, fileName),
+                    GROUPS_FILE + TEMPLATE_EXTENSION,
+                    context
+                )
             }
             ++index
         }
@@ -325,9 +343,11 @@ class HTMLReporter : AbstractReporter(TEMPLATES_PATH) {
         if (!Reporter.getOutput().isEmpty()) {
             val context = createContext()
             context.put(ONLY_FAILURES_KEY, onlyFailures)
-            generateFile(File(outputDirectory, OUTPUT_FILE),
-                    OUTPUT_FILE + TEMPLATE_EXTENSION,
-                    context)
+            generateFile(
+                File(outputDirectory, OUTPUT_FILE),
+                OUTPUT_FILE + TEMPLATE_EXTENSION,
+                context
+            )
         }
     }
 

@@ -6,8 +6,11 @@ import org.testng.ISuiteResult
  * Comparator for sorting TestNG test results by passRate and alphabetically by method name.
  */
 internal class SuiteResultComparator : Comparator<Map.Entry<String?, ISuiteResult>> {
-    override fun compare(o1: Map.Entry<String?, ISuiteResult>,
-                         o2: Map.Entry<String?, ISuiteResult>): Int {
+
+    override fun compare(
+        o1: Map.Entry<String?, ISuiteResult>,
+        o2: Map.Entry<String?, ISuiteResult>
+    ): Int {
         val rate1 = rate(o1.value)
         val rate2 = rate(o2.value)
         if (rate1 == rate2) {

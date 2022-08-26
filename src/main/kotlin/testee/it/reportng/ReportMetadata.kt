@@ -5,8 +5,7 @@ import java.net.InetAddress
 import java.net.UnknownHostException
 import java.text.DateFormat
 import java.text.SimpleDateFormat
-import java.util.Date
-import java.util.Locale
+import java.util.*
 
 /**
  * Provides access to static information useful when generating a report.
@@ -14,21 +13,30 @@ import java.util.Locale
 class ReportMetadata {
 
     companion object {
-        const val PROPERTY_KEY_PREFIX = "testee.it.reportng."
-        const val SLACK = PROPERTY_KEY_PREFIX + "slack"
+        private const val PROPERTY_KEY_PREFIX = "testee.it"
+        const val TESTEE_VERSION = "$PROPERTY_KEY_PREFIX.version"
+        private const val PREFIX_REPORTNG = "$PROPERTY_KEY_PREFIX.reportng"
+        const val SLACK = "$PREFIX_REPORTNG.slack"
         const val SLACK_TOKEN = "$SLACK.token"
         const val SLACK_CHANNEL = "$SLACK.channel"
-        const val TITLE_KEY = PROPERTY_KEY_PREFIX + "title"
+        const val TITLE_KEY = "$PREFIX_REPORTNG.title"
         const val DEFAULT_TITLE = "Test Results Report"
-        const val COVERAGE_KEY = PROPERTY_KEY_PREFIX + "coverage-report"
-        const val EXCEPTIONS_KEY = PROPERTY_KEY_PREFIX + "show-expected-exceptions"
-        const val OUTPUT_KEY = PROPERTY_KEY_PREFIX + "escape-output"
-        const val XML_DIALECT_KEY = PROPERTY_KEY_PREFIX + "xml-dialect"
-        const val STYLESHEET_KEY = PROPERTY_KEY_PREFIX + "stylesheet"
-        const val LOCALE_KEY = PROPERTY_KEY_PREFIX + "locale"
-        const val VELOCITY_LOG_KEY = PROPERTY_KEY_PREFIX + "velocity-log"
+        const val COVERAGE_KEY = "$PREFIX_REPORTNG.coverage-report"
+        const val EXCEPTIONS_KEY = "$PREFIX_REPORTNG.show-expected-exceptions"
+        const val OUTPUT_KEY = "$PREFIX_REPORTNG.escape-output"
+        const val XML_DIALECT_KEY = "$PREFIX_REPORTNG.xml-dialect"
+        const val STYLESHEET_KEY = "$PREFIX_REPORTNG.stylesheet"
+        const val LOCALE_KEY = "$PREFIX_REPORTNG.locale"
+        const val VELOCITY_LOG_KEY = "$PREFIX_REPORTNG.velocity-log"
         private val DATE_FORMAT: DateFormat = SimpleDateFormat("EEEE dd MMMM yyyy")
         private val TIME_FORMAT: DateFormat = SimpleDateFormat("HH:mm z")
+    }
+
+    /**
+     * @return string representation of the Testee version.
+     */
+    fun getTesteeVersion(): String? {
+        return System.getProperty(ReportMetadata.TESTEE_VERSION)
     }
 
     /**
@@ -158,17 +166,21 @@ class ReportMetadata {
 
 
     fun getJavaInfo(): String? {
-        return String.format("Java %s (%s)",
-                System.getProperty("java.version"),
-                System.getProperty("java.vendor"))
+        return String.format(
+            "Java %s (%s)",
+            System.getProperty("java.version"),
+            System.getProperty("java.vendor")
+        )
     }
 
 
     fun getPlatform(): String? {
-        return String.format("%s %s (%s)",
-                System.getProperty("os.name"),
-                System.getProperty("os.version"),
-                System.getProperty("os.arch"))
+        return String.format(
+            "%s %s (%s)",
+            System.getProperty("os.name"),
+            System.getProperty("os.version"),
+            System.getProperty("os.arch")
+        )
     }
 
 

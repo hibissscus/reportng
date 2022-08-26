@@ -1,20 +1,19 @@
 package testee.it.reportng
 
-import java.io.File
-import java.io.IOException
-import java.text.DecimalFormat
-import java.text.NumberFormat
-import java.time.LocalTime
-import javax.imageio.ImageIO
 import org.testng.IInvokedMethod
 import org.testng.ISuite
 import org.testng.ITestContext
 import org.testng.ITestResult
 import org.testng.Reporter
 import org.testng.SkipException
+import java.io.File
+import java.io.IOException
+import java.text.DecimalFormat
 import java.text.DecimalFormatSymbols
+import java.text.NumberFormat
+import java.time.LocalTime
 import java.util.*
-import kotlin.collections.ArrayList
+import javax.imageio.ImageIO
 
 /**
  * Utility class that provides various helper methods that can be invoked
@@ -199,12 +198,15 @@ class ReportNGUtils {
             null -> {
                 "null"
             }
+
             is String -> {
                 "\"" + argument + "\""
             }
+
             is Char -> {
                 "\'" + argument + "\'"
             }
+
             else -> {
                 argument.toString()
             }
@@ -337,6 +339,7 @@ class ReportNGUtils {
                     val nextCh: Char = if (i + 1 < s.length) s[i + 1] else 0.toChar()
                     buffer.append(if (nextCh == ' ') "&nbsp;" else " ")
                 }
+
                 '\n' -> buffer.append("<br/>\n")
                 else -> buffer.append(escapeChar(ch))
             }

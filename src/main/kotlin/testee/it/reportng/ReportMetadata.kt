@@ -1,5 +1,6 @@
 package testee.it.reportng
 
+import com.google.common.base.Strings
 import java.io.File
 import java.net.InetAddress
 import java.net.UnknownHostException
@@ -35,8 +36,8 @@ class ReportMetadata {
     /**
      * @return string representation of the Testee version.
      */
-    fun getTesteeVersion(): String? {
-        return System.getProperty(ReportMetadata.TESTEE_VERSION)
+    fun getTesteeVersion(): String {
+        return Strings.nullToEmpty(System.getProperty(ReportMetadata.TESTEE_VERSION))
     }
 
     /**
@@ -167,19 +168,14 @@ class ReportMetadata {
 
     fun getJavaInfo(): String? {
         return String.format(
-            "Java %s (%s)",
-            System.getProperty("java.version"),
-            System.getProperty("java.vendor")
+            "Java %s (%s)", System.getProperty("java.version"), System.getProperty("java.vendor")
         )
     }
 
 
     fun getPlatform(): String? {
         return String.format(
-            "%s %s (%s)",
-            System.getProperty("os.name"),
-            System.getProperty("os.version"),
-            System.getProperty("os.arch")
+            "%s %s (%s)", System.getProperty("os.name"), System.getProperty("os.version"), System.getProperty("os.arch")
         )
     }
 

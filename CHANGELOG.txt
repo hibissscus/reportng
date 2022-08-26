@@ -1,3 +1,8 @@
+Changes in version 1.4.8
+------------------------
+* Testee version property
+
+
 Changes in version 1.4.7
 ------------------------
 * Kotlin: 1.7.10

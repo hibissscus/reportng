@@ -4,4 +4,4 @@
  * generate sample output from ReportNG to ensure that it works correctly
  * in all situations.
  */
-package testee.it.reportng.example;
+package testee.it.reportng.example

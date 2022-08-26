@@ -1,0 +1,33 @@
+# This is a basic workflow which starts tests on GitHub actions
+name: test
+
+# Controls when the workflow will run
+on:
+  push:
+    branches:
+      - master
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      # Runs maven test
+      - name: Set up JDK 11
+        uses: actions/setup-java@v3
+        with:
+          java-version: '11'
+          distribution: 'adopt'
+      - name: Build with Maven
+        run: mvn --batch-mode --update-snapshots verify surefire:test -Dsurefire=true
+
+      - name: Upload e2e test result as artifact on GitHub
+        uses: actions/upload-artifact@v3
+        with:
+          name: test_reports
+          path: ./target/surefire-reports/e2e/

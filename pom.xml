@@ -186,7 +186,9 @@
         <profile>
             <id>reportng</id>
             <activation>
-                <activeByDefault>false</activeByDefault>
+                <property>
+                    <name>surefire</name>
+                </property>
             </activation>
             <build>
                 <plugins>

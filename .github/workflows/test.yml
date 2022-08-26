@@ -23,12 +23,12 @@ jobs:
         with:
           java-version: '11'
           distribution: 'adopt'
+      - name: Run normal test
+        run: mvn --batch-mode --update-snapshots verify
       - name: Run surefire [also failed] tests
         run: mvn --batch-mode --update-snapshots verify surefire:test -Dsurefire=true
-      - name: Run normal test
-        if: success() || failure()
-        run: mvn --batch-mode --update-snapshots verify
       - name: Upload e2e test result as artifact on GitHub
+        if: ${{ always() }}
         uses: actions/upload-artifact@v3
         with:
           name: test_reports

@@ -7,7 +7,7 @@
     <name>ReportNG</name>
     <groupId>testee.it</groupId>
     <artifactId>reportng</artifactId>
-    <version>1.4.8</version>
+    <version>1.5.0</version>
     <packaging>jar</packaging>
 
     <properties>
@@ -18,7 +18,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 
-        <kotlin.version>1.7.10</kotlin.version>
+        <kotlin.version>1.7.20</kotlin.version>
         <full-artifact-name>target/${project.artifactId}-${project.version}.jar</full-artifact-name>
     </properties>
 
@@ -125,7 +125,7 @@
     <licenses>
         <license>
             <name>Apache License, Version 2.0</name>
-            <url>http://www.apache.org/licenses/LICENSE-2.0.html</url>
+            <url>https://www.apache.org/licenses/LICENSE-2.0.html</url>
             <distribution>repo</distribution>
         </license>
     </licenses>
@@ -153,7 +153,7 @@
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-web</artifactId>
-            <version>5.3.22</version>
+            <version>5.3.23</version>
             <scope>compile</scope>
         </dependency>
         <dependency>

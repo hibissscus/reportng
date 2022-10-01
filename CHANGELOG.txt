@@ -1,3 +1,10 @@
+Changes in version 1.5.0
+------------------------
+* Kotlin 1.7.20
+* Slack: spring-web 5.3.23
+* New reportNG svg icon
+
+
 Changes in version 1.4.8
 ------------------------
 * Testee version property

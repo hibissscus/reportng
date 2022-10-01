@@ -33,7 +33,7 @@ class ReportNGUtils {
         val testName = result.method.methodName
         val list: MutableList<String> = ArrayList<String>()
         val screenshotPath = pathToScreenshot(outputDirectory, className, testName)
-        println("screenshotPath: $screenshotPath")
+        //println("screenshotPath: $screenshotPath")
         val file = File(screenshotPath)
         if (file.exists() && !file.isDirectory) {
             list.add(ImageToBase64.encodeToString(ImageIO.read(file), "png"))

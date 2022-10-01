@@ -26,7 +26,6 @@ object HTMLToBase64 {
         var html = htmlString
         if (html.contains("<body>")) {
             html = html.substring(html.indexOf("<body>") + 7, html.indexOf("</body>"))
-            println(html)
         }
 
         // create html editor + css

@@ -130,7 +130,7 @@ class HTMLReporter : AbstractReporter(TEMPLATES_PATH) {
             copyResources(outputDirectory)
             createBase64Overview(outputDirectory)
             createSlackNotification(outputDirectory, includingZip)
-            println("See test report at: " + URI.create(Paths.get(outputDirectory.path, INDEX_FILE).absolutePathString()))
+            println("See test report at " + URI.create("file:" + File.separator + Paths.get(outputDirectory.path, INDEX_FILE).absolutePathString()))
         } catch (ex: Exception) {
             throw ReportNGException("Failed generating HTML report.", ex)
         }

@@ -1,5 +1,7 @@
 package testee.it.reportng
 
+import org.slf4j.Logger
+import org.slf4j.LoggerFactory
 import org.testng.IClass
 import org.testng.IResultMap
 import org.testng.ISuite
@@ -14,10 +16,12 @@ import testee.it.reportng.slack.SlackApi
 import testee.it.reportng.slack.model.Resp
 import java.io.File
 import java.io.IOException
+import java.net.URI
 import java.nio.file.Files
 import java.nio.file.Path
 import java.nio.file.Paths
 import java.util.*
+import kotlin.io.path.absolutePathString
 import kotlin.math.abs
 
 /**
@@ -25,6 +29,8 @@ import kotlin.math.abs
  * output.
  */
 class HTMLReporter : AbstractReporter(TEMPLATES_PATH) {
+
+    var logger: Logger = LoggerFactory.getLogger(HTMLReporter::class.java)
 
     companion object {
         private var slackImage: Resp? = null
@@ -124,7 +130,7 @@ class HTMLReporter : AbstractReporter(TEMPLATES_PATH) {
             copyResources(outputDirectory)
             createBase64Overview(outputDirectory)
             createSlackNotification(outputDirectory, includingZip)
-            println("See test report at: " + Paths.get(outputDirectory.path, INDEX_FILE))
+            println("See test report at: " + URI.create(Paths.get(outputDirectory.path, INDEX_FILE).absolutePathString()))
         } catch (ex: Exception) {
             throw ReportNGException("Failed generating HTML report.", ex)
         }

@@ -66,6 +66,11 @@
             <package name="testee.it.reportng.example.allkind"/>
         </packages>
     </test>
+    <test parallel="classes" name="dependant tests 40%">
+        <packages>
+            <package name="testee.it.reportng.example.dependant"/>
+        </packages>
+    </test>
     <test parallel="classes" name="skipped tests">
         <packages>
             <package name="testee.it.reportng.example.skipped"/>

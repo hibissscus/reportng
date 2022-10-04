@@ -27,7 +27,9 @@ class FailedTests {
 
     @Test
     fun exceptionThrown() {
-        throw IllegalStateException("Test failed.",
-                UnsupportedOperationException()) // Nested cause.
+        throw IllegalStateException(
+            "Test failed.",
+            UnsupportedOperationException()
+        ) // Nested cause.
     }
 }

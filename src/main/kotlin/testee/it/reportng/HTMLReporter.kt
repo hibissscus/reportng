@@ -98,13 +98,12 @@ class HTMLReporter : AbstractReporter(TEMPLATES_PATH) {
         suites: List<ISuite>,
         outputDirectoryName: String
     ) {
-        createHTMLReport(suites, outputDirectoryName, true)
+        createHTMLReport(suites, outputDirectoryName)
     }
 
     fun createHTMLReport(
         suites: List<ISuite>,
-        outputDirectoryName: String,
-        includingZip: Boolean
+        outputDirectoryName: String
     ) {
         removeEmptyDirectories(File(outputDirectoryName))
         val useFrames = System.getProperty(FRAMES_PROPERTY, "true") == "true"
@@ -129,7 +128,7 @@ class HTMLReporter : AbstractReporter(TEMPLATES_PATH) {
             createLog(outputDirectory, onlyFailures)
             copyResources(outputDirectory)
             createBase64Overview(outputDirectory)
-            createSlackNotification(outputDirectory, includingZip)
+            createSlackNotification(outputDirectory, createZipArchiveFile(outputDirectory))
             println(
                 "See test report at " + URI.create(
                     "file:" + File.separator + File.separator + Paths.get(outputDirectory.path, INDEX_FILE).absolutePathString()
@@ -159,12 +158,42 @@ class HTMLReporter : AbstractReporter(TEMPLATES_PATH) {
         }
     }
 
+
+    /**
+     *  Zip file generation out of test result report.
+     *
+     * @param outputDirectory where overview.html e2e.png is stored.
+     */
+    private fun createZipArchiveFile(outputDirectory: File): File? {
+        if (META.allowZipArchive()) {
+            // delete all zip archives
+            Files.deleteIfExists(Paths.get(outputDirectory.path, RESULT_ZIP_FILE))
+            // delete all images before zipping
+            val imagesPath = Paths.get(outputDirectory.path, REPORT_DIRECTORY_IMAGES)
+            if (Files.exists(imagesPath)) {
+                Files.walk(imagesPath)
+                    .sorted()
+                    .map { obj: Path -> obj.toFile() }
+                    .forEach { obj: File -> obj.delete() }
+            }
+            val e2ePath = Paths.get(outputDirectory.path, REPORT_DIRECTORY)
+            if (Files.exists(e2ePath)) {
+                Files.walk(e2ePath)
+                    .sorted()
+                    .map { obj: Path -> obj.toFile() }
+                    .forEach { obj: File -> obj.delete() }
+            }
+            return zip(outputDirectory.path, "e2e")
+        } else return null
+    }
+
+
     /**
      * Send base64 representation of overview.html to Slack channel if it's enabled.
      *
      * @param outputDirectory where overview.html e2e.png is stored.
      */
-    private fun createSlackNotification(outputDirectory: File, includingZip: Boolean) {
+    private fun createSlackNotification(outputDirectory: File, zipFile: File?) {
         try {
             if (META.allowSlackNotification()) {
                 val imageFile = File(outputDirectory, RESULT_IMAGE_FILE)
@@ -173,26 +202,10 @@ class HTMLReporter : AbstractReporter(TEMPLATES_PATH) {
                     slack.deleteFile(slackImage?.file?.id!!)
                 }
                 slackImage = slack.postFile(META.getSlackChannel()!!, "e2e results", RESULT_IMAGE_FILE, imageFile)
-                if (includingZip) {
-                    // delete all images before zipping
-                    val imagesPath = Paths.get(outputDirectory.path, REPORT_DIRECTORY_IMAGES)
-                    if (Files.exists(imagesPath)) {
-                        Files.walk(imagesPath)
-                            .sorted()
-                            .map { obj: Path -> obj.toFile() }
-                            .forEach { obj: File -> obj.delete() }
-                    }
-                    val e2ePath = Paths.get(outputDirectory.path, REPORT_DIRECTORY)
-                    if (Files.exists(e2ePath)) {
-                        Files.walk(e2ePath)
-                            .sorted()
-                            .map { obj: Path -> obj.toFile() }
-                            .forEach { obj: File -> obj.delete() }
-                    }
+                if (zipFile != null) {
                     if (slackZip?.file?.id != null) {
                         slack.deleteFile(slackZip?.file?.id!!)
                     }
-                    val zipFile = zip(outputDirectory.path, "e2e")
                     slackZip = slack.postFile(META.getSlackChannel()!!, RESULT_ZIP_FILE, RESULT_ZIP_FILE, zipFile)
                 }
             }

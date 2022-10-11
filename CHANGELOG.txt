@@ -1,3 +1,8 @@
+Changes in version 1.5.1
+------------------------
+* Add new flag `testee.it.reportng.zip` for allowing zip file generation out of test result report
+
+
 Changes in version 1.5.0
 ------------------------
 * Comparator for sorting TestNG test results by passing order

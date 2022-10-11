@@ -7,7 +7,7 @@
     <name>ReportNG</name>
     <groupId>testee.it</groupId>
     <artifactId>reportng</artifactId>
-    <version>1.5.0</version>
+    <version>1.5.1</version>
     <packaging>jar</packaging>
 
     <properties>
@@ -212,6 +212,7 @@
                             </suiteXmlFiles>
                             <systemPropertyVariables>
                                 <testee.it.reportng.title>e2e</testee.it.reportng.title>
+                                <testee.it.reportng.zip>true</testee.it.reportng.zip>
                                 <testee.it.reportng.slack>false</testee.it.reportng.slack>
                                 <testee.it.reportng.slack.token>xxxx-xxxx-xxxx-xxxx</testee.it.reportng.slack.token>
                                 <testee.it.reportng.slack.channel>xxxx</testee.it.reportng.slack.channel>

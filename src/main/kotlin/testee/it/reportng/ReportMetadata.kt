@@ -17,6 +17,7 @@ class ReportMetadata {
         private const val PROPERTY_KEY_PREFIX = "testee.it"
         const val TESTEE_VERSION = "$PROPERTY_KEY_PREFIX.version"
         private const val PREFIX_REPORTNG = "$PROPERTY_KEY_PREFIX.reportng"
+        const val ZIP_ARCHIVE = "$PREFIX_REPORTNG.zip"
         const val SLACK = "$PREFIX_REPORTNG.slack"
         const val SLACK_TOKEN = "$SLACK.token"
         const val SLACK_CHANNEL = "$SLACK.channel"
@@ -50,6 +51,13 @@ class ReportMetadata {
      */
     fun allowSlackNotification(): Boolean {
         return System.getProperty(SLACK, "false").equals("true", ignoreCase = true)
+    }
+
+    /**
+     * @return is allowed to generate Zip archive with report results.
+     */
+    fun allowZipArchive(): Boolean {
+        return System.getProperty(ZIP_ARCHIVE, "false").equals("true", ignoreCase = true)
     }
 
     /**

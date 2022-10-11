@@ -21,7 +21,7 @@ class HTMLReporterRuntime : TestListenerAdapter() {
         synchronized(lock) {
             if (reportAllowed) {
                 reportAllowed = false
-                htmlReporter.createHTMLReport(listOf(testContext!!.suite), testContext.outputDirectory, true)
+                htmlReporter.createHTMLReport(listOf(testContext!!.suite), testContext.outputDirectory)
                 reportAllowed = true
             }
         }

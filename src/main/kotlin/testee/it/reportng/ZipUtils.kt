@@ -7,6 +7,7 @@ import java.nio.file.Path
 import java.nio.file.Paths
 import java.util.zip.ZipEntry
 import java.util.zip.ZipOutputStream
+import kotlin.io.path.pathString
 
 /**
  * Utility for file zipping.
@@ -15,14 +16,15 @@ object ZipUtils {
     @JvmStatic
     @Throws(IOException::class)
     fun zip(sourceDirPath: String, zipFileName: String): File {
-        val tempZipFile = File.createTempFile(zipFileName, ".zip")
-        tempZipFile.deleteOnExit()
-        val p = Paths.get(tempZipFile.toString())
+        val tmpZipDir = Files.createTempDirectory(Paths.get(sourceDirPath), "tmpZipDir")
+        val zipFile = File(tmpZipDir.pathString + File.separator + "$zipFileName.zip")
+        val p = Paths.get(zipFile.toString())
 
         ZipOutputStream(Files.newOutputStream(p)).use { zs ->
             val pp = Paths.get(sourceDirPath)
             Files.walk(pp)
                 .filter { path: Path -> !Files.isDirectory(path) }
+                .filter { path: Path -> !path.pathString.contains("tmpZipDir") }
                 .forEach { path: Path ->
                     val zipEntry = ZipEntry(pp.relativize(path).toString())
                     try {
@@ -34,6 +36,13 @@ object ZipUtils {
                     }
                 }
         }
-        return tempZipFile
+
+        Files.copy(zipFile.toPath(), Paths.get(sourceDirPath, "$zipFileName.zip"))
+        Files.walk(tmpZipDir.toAbsolutePath())
+            .sorted(Comparator.reverseOrder())
+            .map(Path::toFile)
+            .forEach(File::delete);
+
+        return zipFile
     }
 }

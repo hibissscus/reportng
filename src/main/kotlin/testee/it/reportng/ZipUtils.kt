@@ -43,6 +43,6 @@ object ZipUtils {
             .map(Path::toFile)
             .forEach(File::delete);
 
-        return zipFile
+        return File(Paths.get(sourceDirPath, "$zipFileName.zip").toString())
     }
 }

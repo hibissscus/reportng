@@ -1,3 +1,9 @@
+Changes in version 1.5.2
+------------------------
+* Added group column on overview table
+* Kotlin 1.7.21
+
+
 Changes in version 1.5.1
 ------------------------
 * Add new flag `testee.it.reportng.zip` for allowing zip file generation out of test result report

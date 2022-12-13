@@ -68,6 +68,9 @@
         <a href="suite${suiteId}_groups.html">$messages.getString("groups")</a>
       #end
     </th>
+    #if ($utils.hasGroups($suite))
+      <th>$messages.getString("groups")</th>
+    #end
     <th>$messages.getString("duration")</th>
     <th class="pointer" onclick="toggleElements('only-passed', ''); toggle('toggle-only-passed')">
       <span id="toggle-only-passed" class="toggle">&#x25bc;</span>$messages.getString("passed")</th>
@@ -94,6 +97,9 @@
     <td class="test">
       <a href="suite${suiteId}_test${velocityCount}_results.html">${result.testContext.name}</a>
     </td>
+    #if ($utils.hasGroups($suite))
+      <td>$utils.getIncludedGroups($result.testContext)</td>
+    #end
     <td class="duration">
       $utils.formatDuration($utils.getDuration($result.testContext))
     </td>

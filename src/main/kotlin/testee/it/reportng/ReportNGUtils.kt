@@ -80,6 +80,14 @@ class ReportNGUtils {
         return duration
     }
 
+
+    /**
+     * Return first group to which test belongs.
+     */
+    fun getIncludedGroups(context: ITestContext): String {
+        return context.allTestMethods.firstNotNullOf { it.groups.takeIf { gr -> gr.isNotEmpty() } }.firstOrNull().orEmpty()
+    }
+
     /**
      * Get formatted total duration for entire suite
      *

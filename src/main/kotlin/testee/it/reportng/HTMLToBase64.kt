@@ -319,7 +319,7 @@ object HTMLToBase64 {
         <td class="passRate">0.00%</td>
     </tr>
     <tr class="suite">
-        <td colspan="1" class="totalLabel">Total</td>
+        <td colspan="2" class="totalLabel">Total</td>
         <td class="duration"><span class="number">00:02:18</span></td>
         <td class="passed"><span class="number">156</span></td>
         <td class="skipped"><span class="number">9</span></td>

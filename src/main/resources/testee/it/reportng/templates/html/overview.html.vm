@@ -135,7 +135,11 @@
   #end
 
   <tr class="suite">
-    <td colspan="2" class="totalLabel">$messages.getString("total")</td>
+    #if ($utils.hasGroups($suite))
+      <td colspan="2" class="totalLabel">$messages.getString("total")</td>
+    #else
+      <td colspan="1" class="totalLabel">$messages.getString("total")</td>
+    #end
     <td class="duration"><span class="number">${utils.totalDuration($suite)}</span></td>
 
     #if ($totalPassed > 0)

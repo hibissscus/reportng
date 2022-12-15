@@ -10,7 +10,7 @@ import testee.it.reportng.HTMLReporter
  */
 @Test(groups = ["allkind"])
 @Listeners(HTMLReporter::class)
-class AllkindTests {
+class AllKindTests {
 
     @Test
     fun successful() {

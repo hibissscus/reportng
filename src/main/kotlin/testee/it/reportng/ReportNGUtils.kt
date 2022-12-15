@@ -85,7 +85,11 @@ class ReportNGUtils {
      * Return first group to which test belongs.
      */
     fun getIncludedGroups(context: ITestContext): String {
-        return context.allTestMethods.firstNotNullOf { it.groups.takeIf { gr -> gr.isNotEmpty() } }.firstOrNull().orEmpty()
+        return with(context.allTestMethods.mapNotNull { it.groups }.sortedByDescending { it.count() }) {
+            first().mapIndexed { index, e ->
+                listOfNotNull(e, last().getOrNull(index))
+            }
+        }.flatten().distinct().sorted().joinToString()
     }
 
     /**

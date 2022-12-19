@@ -63,14 +63,12 @@
   #set ($totalSkipped = 0)
   #set ($totalFailed = 0)
   <tr class="columnHeadings">
+    <th></th>
     <th>
       #if ($utils.hasGroups($suite))
         <a href="suite${suiteId}_groups.html">$messages.getString("groups")</a>
       #end
     </th>
-    #if ($utils.hasGroups($suite))
-      <th>$messages.getString("groups")</th>
-    #end
     <th>$messages.getString("duration")</th>
     <th class="pointer" onclick="toggleElements('only-passed', ''); toggle('toggle-only-passed')">
       <span id="toggle-only-passed" class="toggle">&#x25bc;</span>$messages.getString("passed")</th>

@@ -1,8 +1,3 @@
-Changes in version 1.5.3
-------------------------
-* group column adjustment
-
-
 Changes in version 1.5.2
 ------------------------
 * Added group column on overview table

@@ -1,3 +1,9 @@
+Changes in version 1.5.3
+------------------------
+* TestNG 7.7.1
+* Kotlin 1.8.0
+
+
 Changes in version 1.5.2
 ------------------------
 * Added group column on overview table

@@ -85,11 +85,11 @@ class ReportNGUtils {
      * Return first group to which test belongs.
      */
     fun getIncludedGroups(context: ITestContext): String {
-        return with(context.allTestMethods.mapNotNull { it.groups }.sortedByDescending { it.count() }) {
-            first().mapIndexed { index, e ->
-                listOfNotNull(e, last().getOrNull(index))
-            }
-        }.flatten().distinct().sorted().joinToString()
+        return context.allTestMethods
+            .mapNotNull { it.groups }
+            .sortedByDescending { it.count() }
+            .mapNotNull { it.firstOrNull()}
+            .toSet().distinct().sorted().joinToString()
     }
 
     /**

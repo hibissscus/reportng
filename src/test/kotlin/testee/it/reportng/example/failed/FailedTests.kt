@@ -1,12 +1,15 @@
 package testee.it.reportng.example.failed
 
 import org.testng.Reporter
+import org.testng.annotations.Listeners
 import org.testng.annotations.Test
+import testee.it.reportng.HTMLReporter
 
 /**
  * Failed tests.
  */
 @Test(groups = ["failed"])
+@Listeners(HTMLReporter::class)
 class FailedTests {
 
     @Test

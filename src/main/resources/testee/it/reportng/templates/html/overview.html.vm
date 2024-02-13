@@ -15,7 +15,7 @@
 <body>
 <table class="titleTable">
     <tr>
-        <td class="h1">$meta.reportTitle</td>
+        <td class="h2" style="width:40%">$meta.reportTitle</td>
         <td id="meta">
             $messages.getString("generatedByTestee") $meta.testeeVersion
             $messages.getString("generatedBy") $messages.getString("version")

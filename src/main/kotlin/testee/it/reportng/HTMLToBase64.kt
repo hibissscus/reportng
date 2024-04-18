@@ -24,8 +24,8 @@ object HTMLToBase64 {
     @Throws(IOException::class)
     fun htmlToBase64(htmlString: String, width: Int, height: Int, filePath: String?): String {
         var html = htmlString
-        if (html.contains("<body>")) {
-            html = html.substring(html.indexOf("<body>") + 7, html.indexOf("</body>"))
+        if (html.contains("</body>")) {
+            html = html.substring(html.indexOf("<body"), html.indexOf("</body>"))
         }
 
         // create html editor + css
@@ -143,7 +143,7 @@ object HTMLToBase64 {
     <link href="reportng.css" rel="stylesheet" type="text/css"/>
     <script type="text/javascript" src="reportng.js"></script>
 </head>
-<body>
+<body style="background-color:#f0f8ff">
 <table class="titleTable">
     <tr>
         <td class="h2" style="width:40%">e2e-CRM-develop-6477f447a1fa22d6900a6a7859d15da1893767e1</td>
@@ -319,7 +319,7 @@ object HTMLToBase64 {
         <td class="passRate">0.00%</td>
     </tr>
     <tr class="suite">
-        <td colspan="2" class="totalLabel">Total</td>
+        <td colspan="2" class="totalLabel" style="background-color:#f0f8ff">Total</td>
         <td class="duration"><span class="number">00:02:18</span></td>
         <td class="passed"><span class="number">156</span></td>
         <td class="skipped"><span class="number">9</span></td>

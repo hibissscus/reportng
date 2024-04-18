@@ -1,3 +1,8 @@
+Changes in version 1.5.4
+------------------------
+* change report background color based on title (develop/release)
+
+
 Changes in version 1.5.3
 ------------------------
 * TestNG 7.7.1

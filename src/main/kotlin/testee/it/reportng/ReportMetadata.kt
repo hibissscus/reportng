@@ -92,8 +92,20 @@ class ReportMetadata {
     /**
      * @return string representation of the report title.
      */
-    fun getReportTitle(): String? {
+    fun getReportTitle(): String {
         return System.getProperty(TITLE_KEY, ReportMetadata.DEFAULT_TITLE)
+    }
+
+    /**
+     * @return string representation of the report background color in hex format.
+     */
+    fun getReportBackgroundColor(): String {
+        if (getReportTitle().contains("develop", true)) {
+            return "#f0f8ff"
+        } else if (getReportTitle().contains("release", true)) {
+            return "#fff0f5"
+        }
+        return "#ffffff"
     }
 
     /**

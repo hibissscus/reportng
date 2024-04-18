@@ -1,6 +1,12 @@
-Changes in version 1.5.4
+Changes in version 1.5.5
 ------------------------
 * change report background color based on title (develop/release)
+
+
+Changes in version 1.5.4
+
+------------------------
+* changed report title font size to make it a bit smaller
 
 
 Changes in version 1.5.3

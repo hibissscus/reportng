@@ -12,7 +12,7 @@
   #end
   <script type="text/javascript" src="reportng.js"></script>
 </head>
-<body style="background-color:$meta.reportBackgroundColor">
+<body style="background-color:$meta.reportColor">
 <table class="titleTable">
     <tr>
         <td class="h2" style="width:40%">$meta.reportTitle</td>
@@ -132,9 +132,9 @@
 
   <tr class="suite">
     #if ($utils.hasGroups($suite))
-      <td colspan="2" class="totalLabel" style="background-color:$meta.reportBackgroundColor">$messages.getString("total")</td>
+      <td colspan="2" class="totalLabel" style="background-color:$meta.reportColor">$messages.getString("total")</td>
     #else
-      <td colspan="1" class="totalLabel" style="background-color:$meta.reportBackgroundColor">$messages.getString("total")</td>
+      <td colspan="1" class="totalLabel" style="background-color:$meta.reportColor">$messages.getString("total")</td>
     #end
     <td class="duration"><span class="number">${utils.totalDuration($suite)}</span></td>
 

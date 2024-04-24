@@ -216,6 +216,8 @@
                                 <testee.it.reportng.slack>false</testee.it.reportng.slack>
                                 <testee.it.reportng.slack.token>xxxx-xxxx-xxxx-xxxx</testee.it.reportng.slack.token>
                                 <testee.it.reportng.slack.channel>xxxx</testee.it.reportng.slack.channel>
+                                <!-- #f0f8ff / #fff0f5 / #ffffff-->
+                                <testee.it.reportng.color>#f0f8ff</testee.it.reportng.color>
                             </systemPropertyVariables>
                             <properties>
                                 <property>

@@ -22,7 +22,9 @@ class ReportMetadata {
         const val SLACK_TOKEN = "$SLACK.token"
         const val SLACK_CHANNEL = "$SLACK.channel"
         const val TITLE_KEY = "$PREFIX_REPORTNG.title"
+        const val COLOR_KEY = "$PREFIX_REPORTNG.color"
         const val DEFAULT_TITLE = "Test Results Report"
+        const val DEFAULT_COLOR = "#ffffff"
         const val COVERAGE_KEY = "$PREFIX_REPORTNG.coverage-report"
         const val EXCEPTIONS_KEY = "$PREFIX_REPORTNG.show-expected-exceptions"
         const val OUTPUT_KEY = "$PREFIX_REPORTNG.escape-output"
@@ -38,7 +40,7 @@ class ReportMetadata {
      * @return string representation of the Testee version.
      */
     fun getTesteeVersion(): String {
-        return Strings.nullToEmpty(System.getProperty(ReportMetadata.TESTEE_VERSION))
+        return Strings.nullToEmpty(System.getProperty(TESTEE_VERSION))
     }
 
     /**
@@ -64,14 +66,14 @@ class ReportMetadata {
      * @return string representation of the Slack token.
      */
     fun getSlackToken(): String? {
-        return System.getProperty(ReportMetadata.SLACK_TOKEN)
+        return System.getProperty(SLACK_TOKEN)
     }
 
     /**
      * @return string representation of the Slack channel.
      */
     fun getSlackChannel(): String? {
-        return System.getProperty(ReportMetadata.SLACK_CHANNEL)
+        return System.getProperty(SLACK_CHANNEL)
     }
 
     /**
@@ -80,7 +82,6 @@ class ReportMetadata {
     fun getReportDate(): String? {
         return DATE_FORMAT.format(reportTime)
     }
-
 
     /**
      * @return string representation of the report time.
@@ -93,27 +94,24 @@ class ReportMetadata {
      * @return string representation of the report title.
      */
     fun getReportTitle(): String {
-        return System.getProperty(TITLE_KEY, ReportMetadata.DEFAULT_TITLE)
+        return System.getProperty(TITLE_KEY, DEFAULT_TITLE)
     }
+
 
     /**
      * @return string representation of the report background color in hex format.
      */
-    fun getReportBackgroundColor(): String {
-        if (getReportTitle().contains("develop", true)) {
-            return "#f0f8ff"
-        } else if (getReportTitle().contains("release", true)) {
-            return "#fff0f5"
-        }
-        return "#ffffff"
+    fun getReportColor(): String {
+        return System.getProperty(COLOR_KEY, DEFAULT_COLOR)
     }
+
 
     /**
      * @return URL (absolute or relative) of an HTML coverage report associated
      * with the test run.  Null if there is no coverage report.
      */
     fun getCoverageLink(): String? {
-        return System.getProperty(ReportMetadata.COVERAGE_KEY)
+        return System.getProperty(COVERAGE_KEY)
     }
 
 

@@ -1,3 +1,8 @@
+Changes in version 1.5.6
+------------------------
+* added report metadata for background report color: testee.it.reportng.color
+
+
 Changes in version 1.5.5
 ------------------------
 * change report background color based on title (develop/release)

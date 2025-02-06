@@ -90,7 +90,6 @@ object HTMLToBase64 {
         styleSheet.addRule(".thread {white-space: nowrap;}")
         styleSheet.addRule(".resultsTable {border: 0; width: 100%; margin-top: 1.8em; line-height: 1.7em; border-spacing: 0.1em;}")
         styleSheet.addRule(".resultsTable .method {width: 18em;}")
-        styleSheet.addRule(".resultsTable .method.pass {width: 100%;}")
         styleSheet.addRule(".resultsTable .duration {width: 6em;}")
         styleSheet.addRule(".resultsTable td {vertical-align: top; padding: 0 1em;}")
         styleSheet.addRule(".resultsTable th {padding: 0 .5em;}")

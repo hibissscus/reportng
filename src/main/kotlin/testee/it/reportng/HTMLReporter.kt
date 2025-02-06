@@ -168,6 +168,7 @@ class HTMLReporter : AbstractReporter(TEMPLATES_PATH) {
         if (META.allowZipArchive()) {
             // delete all zip archives
             Files.deleteIfExists(Paths.get(outputDirectory.path, RESULT_ZIP_FILE))
+            /*
             // delete all images before zipping
             val imagesPath = Paths.get(outputDirectory.path, REPORT_DIRECTORY_IMAGES)
             if (Files.exists(imagesPath)) {
@@ -175,7 +176,7 @@ class HTMLReporter : AbstractReporter(TEMPLATES_PATH) {
                     .sorted()
                     .map { obj: Path -> obj.toFile() }
                     .forEach { obj: File -> obj.delete() }
-            }
+            }*/
             val e2ePath = Paths.get(outputDirectory.path, REPORT_DIRECTORY)
             if (Files.exists(e2ePath)) {
                 Files.walk(e2ePath)

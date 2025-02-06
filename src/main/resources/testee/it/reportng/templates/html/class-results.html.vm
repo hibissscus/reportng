@@ -5,7 +5,7 @@
 
 #foreach ($testResult in $classResults)
 <tr>
-  <td class="method #if ($testResult.status == 1)pass#end">
+  <td class="method">
     #set ($testInstanceName = "")
     #if ($testResult.testName)
       #set ($testInstanceName = " ($testResult.testName)")
@@ -74,22 +74,23 @@
       #end
     </div>
     #end
+
     #set ($id = $id + 1)
-      ## Show screenshot output for the test.
-      #set ($screenshots = $utils.getScreenshots($testResult))
-      #if ($screenshots.size() > 0)
-          <div class="screenshots">
-              <img id="screenshot-$id" class="screenshot" src="data:image/png;base64,$screenshots.get(0)"
-                   onclick="modalImage($id)" width="50%" height="50%" alt="$id"/>
-          </div>
-      #end
-      ## Show screenshots as a slides for the test in reveal.js
-      <div id="modal-$id" class="modal" onclick="modalClose($id)">
-          ##<span class="close" onclick="modalClose($id)">&times;</span>
-          <div class="reveal deck$id">
-              #parse ("testee/it/reportng/templates/html/reveal.html.vm")
-          </div>
+    ## Show screenshot output for the test.
+    #set ($screenshots = $utils.getScreenshots($testResult))
+    #if ($screenshots.size() > 0)
+      <div class="screenshots">
+        <img id="screenshot-$id" class="screenshot" src="./images/$screenshots.get(0)"
+             onclick="modalImage($id)" width="50%" height="50%" alt="$id"/>
       </div>
+    #end
+    ## Show screenshots as a slides for the test in reveal.js
+    <div id="modal-$id" class="modal" onclick="modalClose($id)">
+      ##<span class="close" onclick="modalClose($id)">&times;</span>
+      <div class="reveal deck$id modal-content">
+        #parse ("testee/it/reportng/templates/html/reveal.html.vm")
+      </div>
+    </div>
   </td>
 </tr>
 #end

@@ -12,7 +12,6 @@ import java.text.DecimalFormatSymbols
 import java.text.NumberFormat
 import java.time.LocalTime
 import java.util.*
-import javax.imageio.ImageIO
 import kotlin.io.path.Path
 import kotlin.io.path.isDirectory
 import kotlin.io.path.listDirectoryEntries
@@ -38,11 +37,14 @@ class ReportNGUtils {
         if (Path(screenshotPath).isDirectory()) {
             //println("screenshotPath: $screenshotPath")
             Path(screenshotPath).listDirectoryEntries("$testName*.png")
-                .sorted()
+                .sortedWith(compareBy({
+                    ("_(\\d+)".toRegex().find(it.toString().lowercase())?.groups?.get(1)?.value ?: "0").toInt()
+                }, { it }))
                 .forEach { entry ->
                     val file = entry.toFile()
                     if (file.exists() && !file.isDirectory) {
-                        list.add(ImageToBase64.encodeToString(ImageIO.read(file), "png"))
+                        //list.add(ImageToBase64.encodeToString(ImageIO.read(file), "png"))
+                        list.add(entry.toString().substringAfter("images/"))
                     }
                 }
         }

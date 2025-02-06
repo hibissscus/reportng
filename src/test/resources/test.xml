@@ -1,0 +1,9 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+<suite verbose="1" configfailurepolicy="continue" thread-count="10" parallel="tests" name="e2e">
+    <parameter name="headless" value="false"/>
+    <test parallel="classes" name="allkind tests 33%">
+        <packages>
+            <package name="testee.it.reportng.example.allkind"/>
+        </packages>
+    </test>
+</suite>

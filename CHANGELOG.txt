@@ -1,3 +1,8 @@
+Changes in version 1.6.1
+------------------------
+* non base64 images
+
+
 Changes in version 1.6.0
 ------------------------
 * added reveal.js for slide presentation inside the test results

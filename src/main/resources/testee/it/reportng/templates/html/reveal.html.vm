@@ -3,7 +3,8 @@
 <div class="slides">
     #foreach( $screenshot in $screenshots )
         <section>
-            <img src="data:image/png;base64,$screenshot" alt="1"/>
+            ##<img src="data:image/png;base64,$screenshot" alt="1"/>
+            <img src="./images/$screenshot" alt="1" style="max-width:90%"/>
         </section>
     #end
 </div>

@@ -1,0 +1,10 @@
+#set ($screenshots = $utils.getScreenshots($testResult))
+#if ($screenshots.size() > 0)
+<div class="slides">
+    #foreach( $screenshot in $screenshots )
+        <section>
+            <img src="data:image/png;base64,$screenshot" alt="1"/>
+        </section>
+    #end
+</div>
+#end

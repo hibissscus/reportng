@@ -11,16 +11,15 @@
   <link href="custom.css" rel="stylesheet" type="text/css" />
   #end
   <script type="text/javascript" src="reportng.js"></script>
+  <link href="reveal.css" rel="stylesheet" type="text/css" />
+  <script type="text/javascript" src="reveal.js"></script>
 </head>
 <body>
 <h1>$result.testContext.name</h1>
 <p>
   $messages.getString("testDuration"): $utils.formatDuration($utils.getDuration($result.testContext))
 </p>
-<div id="modal" class="modal" onclick="modalClose()">
-  <span class="close" onclick="modalClose()">&times;</span>
-  <img id="modalImage" class="modal-content" onclick="modalClose()">
-</div>
+
 
 #set ($id = 0)
 #if ($failedConfigurations.size() > 0)

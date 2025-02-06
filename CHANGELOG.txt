@@ -1,3 +1,8 @@
+Changes in version 1.6.0
+------------------------
+* added reveal.js for slide presentation inside the test results
+
+
 Changes in version 1.5.6
 ------------------------
 * added report metadata for background report color: testee.it.reportng.color

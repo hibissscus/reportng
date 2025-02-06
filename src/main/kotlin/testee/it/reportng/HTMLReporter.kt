@@ -400,6 +400,8 @@ class HTMLReporter : AbstractReporter(TEMPLATES_PATH) {
     private fun copyResources(outputDirectory: File) {
         copyClasspathResource(outputDirectory, "reportng.css", "reportng.css")
         copyClasspathResource(outputDirectory, "reportng.js", "reportng.js")
+        copyClasspathResource(outputDirectory, "reveal.css", "reveal.css")
+        copyClasspathResource(outputDirectory, "reveal.js", "reveal.js")
         // If there is a custom stylesheet, copy that.
         val customStylesheet = META.getStylesheetPath()
         if (customStylesheet != null) {

@@ -6,7 +6,6 @@ import org.testng.ITestContext
 import org.testng.ITestResult
 import org.testng.Reporter
 import org.testng.SkipException
-import java.io.File
 import java.io.IOException
 import java.text.DecimalFormat
 import java.text.DecimalFormatSymbols
@@ -14,6 +13,9 @@ import java.text.NumberFormat
 import java.time.LocalTime
 import java.util.*
 import javax.imageio.ImageIO
+import kotlin.io.path.Path
+import kotlin.io.path.isDirectory
+import kotlin.io.path.listDirectoryEntries
 
 /**
  * Utility class that provides various helper methods that can be invoked
@@ -32,21 +34,39 @@ class ReportNGUtils {
         val className = result.testClass.name
         val testName = result.method.methodName
         val list: MutableList<String> = ArrayList<String>()
-        val screenshotPath = pathToScreenshot(outputDirectory, className, testName)
-        //println("screenshotPath: $screenshotPath")
-        val file = File(screenshotPath)
-        if (file.exists() && !file.isDirectory) {
-            list.add(ImageToBase64.encodeToString(ImageIO.read(file), "png"))
-            //list.add("images" + "/" + className + "/" + testName + ".png");
+        val screenshotPath = pathToScreenshot(outputDirectory, className)
+        if (Path(screenshotPath).isDirectory()) {
+            //println("screenshotPath: $screenshotPath")
+            Path(screenshotPath).listDirectoryEntries("$testName*.png")
+                .sorted()
+                .forEach { entry ->
+                    val file = entry.toFile()
+                    if (file.exists() && !file.isDirectory) {
+                        list.add(ImageToBase64.encodeToString(ImageIO.read(file), "png"))
+                    }
+                }
         }
+        return list
+    }
+
+    /**
+     * Retrieves all screenshots associated with a particular test result and select only one main one.
+     *
+     * @param result Which test result to look-up.
+     * @return Main screenshot which is representing this test
+     */
+    @Throws(IOException::class)
+    fun getMainScreenshots(result: ITestResult): List<String> {
+        val list: MutableList<String> = ArrayList<String>()
+        getScreenshots(result).first { entry -> list.add(entry) }
         return list
     }
 
     /**
      * Path to screenshot.
      */
-    private fun pathToScreenshot(outputDirectory: String, className: String, testName: String): String {
-        return "$outputDirectory/images/$className/$testName.png"
+    private fun pathToScreenshot(outputDirectory: String, className: String): String {
+        return "$outputDirectory/images/$className/"
     }
 
     /**
@@ -88,7 +108,7 @@ class ReportNGUtils {
         return context.allTestMethods
             .mapNotNull { it.groups }
             .sortedByDescending { it.count() }
-            .mapNotNull { it.firstOrNull()}
+            .mapNotNull { it.firstOrNull() }
             .toSet().distinct().sorted().joinToString()
     }
 
@@ -439,6 +459,7 @@ class ReportNGUtils {
     }
 
     companion object {
-        private val PERCENTAGE_FORMAT: NumberFormat = DecimalFormat("#0.00%", DecimalFormatSymbols.getInstance(Locale.ENGLISH))
+        private val PERCENTAGE_FORMAT: NumberFormat =
+            DecimalFormat("#0.00%", DecimalFormatSymbols.getInstance(Locale.ENGLISH))
     }
 }

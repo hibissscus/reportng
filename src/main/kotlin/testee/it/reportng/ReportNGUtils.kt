@@ -33,12 +33,12 @@ class ReportNGUtils {
         val className = result.testClass.name
         val testName = result.method.methodName
         val list: MutableList<String> = ArrayList<String>()
-        val screenshotPath = pathToScreenshot(outputDirectory, className)
+        val screenshotPath = pathToScreenshot(outputDirectory, className, testName)
         if (Path(screenshotPath).isDirectory()) {
             //println("screenshotPath: $screenshotPath")
-            Path(screenshotPath).listDirectoryEntries("$testName*.png")
+            Path(screenshotPath).listDirectoryEntries("*.png")
                 .sortedWith(compareBy({
-                    ("_(\\d+)".toRegex().find(it.toString().lowercase())?.groups?.get(1)?.value ?: "0").toInt()
+                    ("_(\\d+)".toRegex().find(it.toString().lowercase())?.groups?.get(1)?.value ?: "0").toLong()
                 }, { it }))
                 .forEach { entry ->
                     val file = entry.toFile()
@@ -67,8 +67,8 @@ class ReportNGUtils {
     /**
      * Path to screenshot.
      */
-    private fun pathToScreenshot(outputDirectory: String, className: String): String {
-        return "$outputDirectory/images/$className/"
+    private fun pathToScreenshot(outputDirectory: String, className: String, methodName: String): String {
+        return "$outputDirectory/images/$className/$methodName"
     }
 
     /**

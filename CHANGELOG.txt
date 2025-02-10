@@ -1,3 +1,8 @@
+Changes in version 1.6.2
+------------------------
+* fix getScreenshots
+
+
 Changes in version 1.6.1
 ------------------------
 * non base64 images

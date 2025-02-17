@@ -28,13 +28,17 @@ function modalClose(modalId) {
     deck.destroy();
 }
 
-function modalImage(screenshotId) {
-    let modal = document.getElementById("modal-" + screenshotId);
-    let deck = new Reveal(document.querySelector('.deck' + screenshotId), {
+function modalImage(modalId, screenshotId) {
+    let modal = document.getElementById("modal-" + modalId,);
+    let deck = new Reveal(document.querySelector('.deck' + modalId,), {
         embedded: true,
         controls: false,
         transition: 'none',
         slideNumber: "c/t",
+    });
+    deck.addEventListener('ready', function (event) {
+        let indices = deck.getIndices(document.getElementById(screenshotId));
+        deck.slide(indices.h, indices.v);
     });
     deck.initialize();
     modal.style.display = "block";

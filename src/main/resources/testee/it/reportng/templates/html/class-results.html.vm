@@ -77,16 +77,15 @@
 
     #set ($id = $id + 1)
     ## Show screenshot output for the test.
-    #set ($screenshots = $utils.getScreenshots($testResult))
+    #set ($screenshots = $utils.getMainScreenshots($testResult))
     #if ($screenshots.size() > 0)
       <div class="screenshots">
         <img id="screenshot-$id" class="screenshot" src="./images/$screenshots.get(0)"
-             onclick="modalImage($id)" width="50%" height="50%" alt="$id"/>
+             onclick="modalImage($id, '$screenshots.get(0)')" width="50%" height="50%" alt="$screenshots.get(0)"/>
       </div>
     #end
     ## Show screenshots as a slides for the test in reveal.js
-    <div id="modal-$id" class="modal" onclick="modalClose($id)">
-      ##<span class="close" onclick="modalClose($id)">&times;</span>
+    <div id="modal-$id" class="modal">
       <div class="reveal deck$id modal-content">
         #parse ("testee/it/reportng/templates/html/reveal.html.vm")
       </div>

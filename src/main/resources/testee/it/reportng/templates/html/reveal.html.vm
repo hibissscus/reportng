@@ -1,10 +1,24 @@
 #set ($screenshots = $utils.getScreenshots($testResult))
+#set ($fragments = $utils.getMetadataFragments($testResult))
 #if ($screenshots.size() > 0)
 <div class="slides">
     #foreach( $screenshot in $screenshots )
-        <section>
-            ##<img src="data:image/png;base64,$screenshot" alt="1"/>
+        <section id="$screenshot">
             <img src="./images/$screenshot" alt="1" style="max-width:90%"/>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <p>
+                #foreach($fragment in $fragments.entrySet())
+                    #if ($utils.screenshotHasFragment($screenshot, $fragment.key))
+                        <a style="color: red" href="#/$fragment.value">$fragment.key</a>
+                    #else
+                        <a href="#/$fragment.value">$fragment.key</a>
+                    #end
+                #end
+            </p>
         </section>
     #end
 </div>

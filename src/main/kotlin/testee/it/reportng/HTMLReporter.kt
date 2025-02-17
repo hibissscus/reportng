@@ -18,7 +18,6 @@ import java.io.File
 import java.io.IOException
 import java.net.URI
 import java.nio.file.Files
-import java.nio.file.Path
 import java.nio.file.Paths
 import java.util.*
 import kotlin.io.path.absolutePathString
@@ -128,10 +127,11 @@ class HTMLReporter : AbstractReporter(TEMPLATES_PATH) {
             createLog(outputDirectory, onlyFailures)
             copyResources(outputDirectory)
             createBase64Overview(outputDirectory)
-            createSlackNotification(outputDirectory, createZipArchiveFile(outputDirectory))
+            createSlackNotification(outputDirectory)
             println(
                 "See test report at " + URI.create(
-                    "file:" + File.separator + File.separator + Paths.get(outputDirectory.path, INDEX_FILE).absolutePathString()
+                    "file:" + File.separator + File.separator + Paths.get(outputDirectory.path, INDEX_FILE)
+                        .absolutePathString()
                 )
             )
         } catch (ex: Exception) {
@@ -176,14 +176,14 @@ class HTMLReporter : AbstractReporter(TEMPLATES_PATH) {
                     .sorted()
                     .map { obj: Path -> obj.toFile() }
                     .forEach { obj: File -> obj.delete() }
-            }*/
+            }
             val e2ePath = Paths.get(outputDirectory.path, REPORT_DIRECTORY)
             if (Files.exists(e2ePath)) {
                 Files.walk(e2ePath)
                     .sorted()
                     .map { obj: Path -> obj.toFile() }
                     .forEach { obj: File -> obj.delete() }
-            }
+            }*/
             return zip(outputDirectory.path, "e2e")
         } else return null
     }
@@ -194,9 +194,10 @@ class HTMLReporter : AbstractReporter(TEMPLATES_PATH) {
      *
      * @param outputDirectory where overview.html e2e.png is stored.
      */
-    private fun createSlackNotification(outputDirectory: File, zipFile: File?) {
+    private fun createSlackNotification(outputDirectory: File) {
         try {
             if (META.allowSlackNotification()) {
+                val zipFile = createZipArchiveFile(outputDirectory)
                 val imageFile = File(outputDirectory, RESULT_IMAGE_FILE)
                 val slack = SlackApi(META.getSlackToken()!!)
                 if (slackImage?.file?.id != null) {
@@ -320,7 +321,8 @@ class HTMLReporter : AbstractReporter(TEMPLATES_PATH) {
     private fun sortByTestClass(results: IResultMap): SortedMap<IClass, List<ITestResult>>? {
         val sortedResults: SortedMap<IClass, List<ITestResult>> = TreeMap(CLASS_COMPARATOR)
         for (result in results.allResults) {
-            val resultsForClass: ArrayList<ITestResult> = sortedResults.computeIfAbsent(result.testClass) { ArrayList() } as ArrayList<ITestResult>
+            val resultsForClass: ArrayList<ITestResult> =
+                sortedResults.computeIfAbsent(result.testClass) { ArrayList() } as ArrayList<ITestResult>
             var index = Collections.binarySearch(resultsForClass, result, RESULT_COMPARATOR)
             if (index < 0) {
                 index = abs(index + 1)

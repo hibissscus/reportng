@@ -29,7 +29,7 @@ class ReportNGUtils {
      */
     @Throws(IOException::class)
     fun getScreenshots(result: ITestResult): List<String> {
-        val outputDirectory = result.testContext.outputDirectory
+        val outputDirectory = result.testContext.outputDirectory.replace("Default Suite", "e2e")
         val className = result.testClass.name
         val testName = result.method.methodName
         val list: MutableList<String> = ArrayList<String>()
@@ -55,13 +55,39 @@ class ReportNGUtils {
      * Retrieves all screenshots associated with a particular test result and select only one main one.
      *
      * @param result Which test result to look-up.
-     * @return Main screenshot which is representing this test
+     * @return Main screenshot which is representing this test.
      */
     @Throws(IOException::class)
     fun getMainScreenshots(result: ITestResult): List<String> {
-        val list: MutableList<String> = ArrayList<String>()
-        getScreenshots(result).first { entry -> list.add(entry) }
-        return list
+        val screenshots = getScreenshots(result)
+        val elementWithExclamationMark = screenshots.find { "!" in it }
+        return listOf((elementWithExclamationMark) ?: screenshots.first())
+    }
+
+    /**
+     * Retrieves all screenshots associated with a particular test result and create fragments with metadata.
+     *
+     * @param result List of fragments with metadata.
+     * @return List of fragments with metadata.
+     */
+    @Throws(IOException::class)
+    fun getMetadataFragments(result: ITestResult): Map<String, Int> {
+        val screenshots = getScreenshots(result)
+        return screenshots.withIndex().associate {
+            it.value.replace("!", "").substringAfterLast("/").substringBefore("_") to it.index
+        }.filter { it.key.isNotEmpty() }
+    }
+
+    /**
+     * Verifies if screenshot contains fragment
+     *
+     * @param  screenshot examine screenshot
+     * @param  fragment examine fragment
+     * @return if screenshot contains fragment.
+     */
+    @Throws(IOException::class)
+    fun screenshotHasFragment(screenshot: String, fragment: String): Boolean {
+        return screenshot.contains(fragment)
     }
 
     /**

@@ -4,6 +4,7 @@
 <div class="slides">
     #foreach( $screenshot in $screenshots )
         <section id="$screenshot">
+            <p class="close" onclick="modalClose()">$testResult.name</p>
             <img src="./images/$screenshot" alt="1" style="max-width:90%"/>
             <br>
             <br>

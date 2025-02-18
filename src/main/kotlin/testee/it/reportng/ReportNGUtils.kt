@@ -52,7 +52,7 @@ class ReportNGUtils {
     }
 
     /**
-     * Retrieves all screenshots associated with a particular test result and select only one main one.
+     * Retrieves all screenshots associated with a particular test result and select only one main one or first.
      *
      * @param result Which test result to look-up.
      * @return Main screenshot which is representing this test.
@@ -60,8 +60,10 @@ class ReportNGUtils {
     @Throws(IOException::class)
     fun getMainScreenshots(result: ITestResult): List<String> {
         val screenshots = getScreenshots(result)
-        val elementWithExclamationMark = screenshots.find { "!" in it }
-        return listOf((elementWithExclamationMark) ?: screenshots.first())
+        val mainElementOrNull = screenshots.find { "!" in it } ?: screenshots.firstOrNull()
+        return if (mainElementOrNull == null) {
+            emptyList()
+        } else listOf(mainElementOrNull)
     }
 
     /**
@@ -225,7 +227,7 @@ class ReportNGUtils {
     }
 
     /**
-     * Retieves the output from all calls to [org.testng.Reporter.log]
+     * Retrieves the output from all calls to [org.testng.Reporter.log]
      * across all tests.
      *
      * @return A (possibly empty) list of log messages.

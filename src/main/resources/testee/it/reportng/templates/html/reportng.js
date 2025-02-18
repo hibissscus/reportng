@@ -21,11 +21,16 @@ function toggle(toggleId) {
     toggle.textContent = toggle.innerHTML === '\u25b6' ? '\u25bc' : '\u25b6';
 }
 
-function modalClose(modalId) {
-    let modal = document.getElementById("modal-" + modalId);
-    modal.style.display = "none";
-    let deck = new Reveal(document.querySelector('.deck' + modalId));
-    deck.destroy();
+function modalClose() {
+    let modals = document.getElementsByClassName("modal");
+    for (let i = 0; i < modals.length; i++) {
+        modals[i].style.display = "none";
+    }
+
+    let reveals = document.getElementsByClassName("reveal");
+    for (let i = 0; i < reveals.length; i++) {
+        reveals[i].destroy();
+    }
 }
 
 function modalImage(modalId, screenshotId) {

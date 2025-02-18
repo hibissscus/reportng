@@ -1,3 +1,10 @@
+Changes in version 1.6.4
+------------------------
+* presentation mode
+* test name
+* page navigation
+
+
 Changes in version 1.6.3
 ------------------------
 * getMainScreenshots

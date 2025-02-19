@@ -7,7 +7,7 @@
             <p class="close" onclick="modalClose()">$testResult.name</p>
             <table>
                 <tr>
-                    <td style="text-align: left; font-size: small;">
+                    <td style="text-align: left; font-size: small; min-width: 15rem">
                         #foreach($fragment in $fragments.entrySet())
                             #if ($utils.screenshotHasFragment($screenshot, $fragment.key))
                                 <a style="color: red" href="#/$fragment.value">$fragment.key</a><br>

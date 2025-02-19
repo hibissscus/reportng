@@ -5,21 +5,22 @@
     #foreach( $screenshot in $screenshots )
         <section id="$screenshot">
             <p class="close" onclick="modalClose()">$testResult.name</p>
-            <img src="./images/$screenshot" alt="1" style="max-width:90%"/>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <p>
-                #foreach($fragment in $fragments.entrySet())
-                    #if ($utils.screenshotHasFragment($screenshot, $fragment.key))
-                        <a style="color: red" href="#/$fragment.value">$fragment.key</a>
-                    #else
-                        <a href="#/$fragment.value">$fragment.key</a>
-                    #end
-                #end
-            </p>
+            <table>
+                <tr>
+                    <td style="text-align: left; font-size: smaller">
+                        #foreach($fragment in $fragments.entrySet())
+                            #if ($utils.screenshotHasFragment($screenshot, $fragment.key))
+                                <a style="color: red" href="#/$fragment.value">$fragment.key</a><br>
+                            #else
+                                <a href="#/$fragment.value">$fragment.key</a><br>
+                            #end
+                        #end
+                    </td>
+                    <td style="text-align: center;">
+                        <img src="./images/$screenshot" alt="1" style="max-width:99%"><img>
+                    </td>
+                </tr>
+            </table>
         </section>
     #end
 </div>

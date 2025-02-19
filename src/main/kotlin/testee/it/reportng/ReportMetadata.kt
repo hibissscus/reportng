@@ -1,6 +1,5 @@
 package testee.it.reportng
 
-import com.google.common.base.Strings
 import java.io.File
 import java.net.InetAddress
 import java.net.UnknownHostException
@@ -15,7 +14,6 @@ class ReportMetadata {
 
     companion object {
         private const val PROPERTY_KEY_PREFIX = "testee.it"
-        const val TESTEE_VERSION = "$PROPERTY_KEY_PREFIX.version"
         private const val PREFIX_REPORTNG = "$PROPERTY_KEY_PREFIX.reportng"
         const val ZIP_ARCHIVE = "$PREFIX_REPORTNG.zip"
         const val SLACK = "$PREFIX_REPORTNG.slack"
@@ -34,13 +32,6 @@ class ReportMetadata {
         const val VELOCITY_LOG_KEY = "$PREFIX_REPORTNG.velocity-log"
         private val DATE_FORMAT: DateFormat = SimpleDateFormat("EEEE dd MMMM yyyy")
         private val TIME_FORMAT: DateFormat = SimpleDateFormat("HH:mm z")
-    }
-
-    /**
-     * @return string representation of the Testee version.
-     */
-    fun getTesteeVersion(): String {
-        return Strings.nullToEmpty(System.getProperty(TESTEE_VERSION))
     }
 
     /**

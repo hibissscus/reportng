@@ -40,6 +40,8 @@ function modalImage(modalId, screenshotId) {
         controls: false,
         transition: 'none',
         slideNumber: "c/t",
+        width: 1366,
+        height: 768,
     });
     deck.addEventListener('ready', function (event) {
         let indices = deck.getIndices(document.getElementById(screenshotId));

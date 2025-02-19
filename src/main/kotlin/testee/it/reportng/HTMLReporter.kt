@@ -18,6 +18,7 @@ import java.io.File
 import java.io.IOException
 import java.net.URI
 import java.nio.file.Files
+import java.nio.file.Path
 import java.nio.file.Paths
 import java.util.*
 import kotlin.io.path.absolutePathString
@@ -176,14 +177,14 @@ class HTMLReporter : AbstractReporter(TEMPLATES_PATH) {
                     .sorted()
                     .map { obj: Path -> obj.toFile() }
                     .forEach { obj: File -> obj.delete() }
-            }
+            }*/
             val e2ePath = Paths.get(outputDirectory.path, REPORT_DIRECTORY)
             if (Files.exists(e2ePath)) {
                 Files.walk(e2ePath)
                     .sorted()
                     .map { obj: Path -> obj.toFile() }
                     .forEach { obj: File -> obj.delete() }
-            }*/
+            }
             return zip(outputDirectory.path, "e2e")
         } else return null
     }

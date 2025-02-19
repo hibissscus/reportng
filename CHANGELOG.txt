@@ -1,3 +1,8 @@
+Changes in version 1.6.7
+------------------------
+* small font size
+
+
 Changes in version 1.6.6
 ------------------------
 * clean-up

@@ -67,17 +67,15 @@ class ReportNGUtils {
     }
 
     /**
-     * Retrieves all screenshots associated with a particular test result and create fragments with metadata.
+     * Retrieves all screenshots associated with a particular test result and create fragments with image->index metadata.
      *
-     * @param result List of fragments with metadata.
-     * @return List of fragments with metadata.
+     * @param result Map of fragments with metadata.
+     * @return Map of fragments with image->index metadata.
      */
     @Throws(IOException::class)
     fun getMetadataFragments(result: ITestResult): Map<String, Int> {
         val screenshots = getScreenshots(result)
-        return screenshots.withIndex().associate {
-            it.value.replace("!", "").substringAfterLast("/").substringBefore("_") to it.index
-        }.filter { it.key.isNotEmpty() }
+        return screenshots.withIndex().associate { it.value.substringAfterLast("/") to it.index }.filter { it.key.isNotEmpty() }
     }
 
     /**
@@ -90,6 +88,14 @@ class ReportNGUtils {
     @Throws(IOException::class)
     fun screenshotHasFragment(screenshot: String, fragment: String): Boolean {
         return screenshot.contains(fragment)
+    }
+
+    /**
+     * Normalize fragment value.
+     */
+    @Throws(IOException::class)
+    fun normalizeFragment(fragment: String): String {
+        return fragment.replace("!", "").substringAfterLast("/").substringBefore("_")
     }
 
     /**

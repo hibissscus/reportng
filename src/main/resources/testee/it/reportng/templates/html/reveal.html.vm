@@ -9,10 +9,10 @@
                 <tr>
                     <td style="text-align: left; font-size: small; min-width: 15rem">
                         #foreach($fragment in $fragments.entrySet())
-                            #if ($utils.screenshotHasFragment($screenshot, $fragment.key))
-                                <a style="color: red" href="#/$fragment.value">$fragment.key</a><br>
-                            #else
-                                <a href="#/$fragment.value">$fragment.key</a><br>
+                            #set ($normalizedFragment = $utils.normalizeFragment($fragment.key))
+                            #if (!$normalizedFragment.isEmpty())
+                                <a #if($utils.screenshotHasFragment($screenshot, $fragment.key))style="color: red"#end
+                                   href="#/$fragment.value">$normalizedFragment</a><br>
                             #end
                         #end
                     </td>

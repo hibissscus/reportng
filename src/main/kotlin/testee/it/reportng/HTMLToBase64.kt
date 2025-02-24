@@ -89,7 +89,7 @@ object HTMLToBase64 {
         styleSheet.addRule(".duration {text-align: left;}")
         styleSheet.addRule(".thread {white-space: nowrap;}")
         styleSheet.addRule(".resultsTable {border: 0; width: 100%; margin-top: 1.8em; line-height: 1.7em; border-spacing: 0.1em;}")
-        styleSheet.addRule(".resultsTable .method {width: 18em;}")
+        styleSheet.addRule(".resultsTable .method {width: 40em;}")
         styleSheet.addRule(".resultsTable .duration {width: 6em;}")
         styleSheet.addRule(".resultsTable td {vertical-align: top; padding: 0 1em;}")
         styleSheet.addRule(".resultsTable th {padding: 0 .5em;}")
@@ -112,10 +112,10 @@ object HTMLToBase64 {
         styleSheet.addRule(".result {font-size: 1.1em; vertical-align: middle;}")
         styleSheet.addRule(".dependency {font-family: Lucida Console, Monaco, Courier New, monospace; font-weight: bold;}")
         styleSheet.addRule(".arguments {font-family: Lucida Console, Monaco, Courier New, monospace; font-weight: bold;}")
-        styleSheet.addRule(".testOutput {font-family: Lucida Console, Monaco, Courier New, monospace; color: #666666;}")
+        styleSheet.addRule(".description {color: black;}")
+        styleSheet.addRule(".testOutput {font-family: Lucida Console, Monaco, Courier New, monospace; color: #666666; font-size: 0.9em; line-height: 1.2em; margin-left: 2em; display: none;}")
         styleSheet.addRule(".stackTrace {font-size: 0.9em; line-height: 1.2em; margin-left: 2em; display: none;}")
         styleSheet.addRule(".stackTrace .stackTrace {font-size: inherit;}")
-        styleSheet.addRule(".description {border-bottom: 1px dotted #006699;}")
         styleSheet.addRule("#meta {font-size: 1.5em; text-align: right; float: right;}")
         styleSheet.addRule("#systemInfo {color: #666666;}")
         /* Report er log output (individual test ouput is style by "testOutput" above). */
@@ -131,6 +131,7 @@ object HTMLToBase64 {
         styleSheet.addRule(".overviewTable .number {width: 5em;}")
         styleSheet.addRule(".progressTable {margin-top: 10px;")
         styleSheet.addRule(".progressLine {font-size: 0.8em;}")
+        styleSheet.addRule(".reveal a {text-decoration-line:none;}")
         return styleSheet
     }
 

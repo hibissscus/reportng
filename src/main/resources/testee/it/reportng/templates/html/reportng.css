@@ -31,7 +31,8 @@ td                       {font-size: 1.3em;}
 .thread                  {white-space: nowrap;}
 
 .resultsTable            {border: 0; width: 100%; margin-top: 1.8em; line-height: 1.7em; border-spacing: 0.1em;}
-.resultsTable .method    {width: 18em;}
+.resultsTable .method    {width: 40em;}
+.resultsTable .method.pass{width: 100%;}
 .resultsTable .duration  {width: 6em;}
 .resultsTable td         {vertical-align: top; padding: 0 1em;}
 .resultsTable th         {padding: 0 .5em;}
@@ -59,11 +60,10 @@ div.test                 {margin-top: 0.1em; clear: right; font-size: 1.3em;}
 .result                  {font-size: 1.1em; vertical-align: middle;}
 .dependency              {font-family: Lucida Console, Monaco, Courier New, monospace; font-weight: bold;}
 .arguments               {font-family: Lucida Console, Monaco, Courier New, monospace; font-weight: bold;}
-.testOutput              {font-family: Lucida Console, Monaco, Courier New, monospace; color: #666666;}
+.description             {color: black;}
+.testOutput              {font-family: Lucida Console, Monaco, Courier New, monospace; color: #666666; font-size: 0.9em; line-height: 1.2em; margin-left: 1em; display: none;}
 .stackTrace              {font-size: 0.9em; line-height: 1.2em; margin-left: 2em; display: none;}
 .stackTrace .stackTrace  {font-size: inherit;}
-
-.description             {border-bottom: 1px dotted #006699;}
 
 #meta                    {font-size: 1em; text-align: right; float: right;}
 #systemInfo              {color: #666666;}
@@ -91,3 +91,5 @@ div.test                 {margin-top: 0.1em; clear: right; font-size: 1.3em;}
 .close                   {position: absolute; top: -10%; color: #787878; font-size: 27px; font-weight: bold; text-align: left; transition: 0.3s}
 .close:hover,
 .close:focus             {text-decoration: underline; cursor: pointer;}
+
+.reveal a                {text-decoration-line:none;}

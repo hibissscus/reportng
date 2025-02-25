@@ -10,14 +10,13 @@
     #if ($testResult.testName)
       #set ($testInstanceName = " ($testResult.testName)")
     #end
-    ## Logger output for the test.
-    #set ($output = $utils.getTestOutput($testResult))
-    #if ($output.size() > 0)
+    ## Show description steps for the test.
+    #set ($steps = $utils.getTestDescription($testResult))
+    #if ($steps.size() > 0)
       <a class="description" href="javascript:toggleElement('description-$id', 'block')"
-         title="#if($testResult.method.description && $testResult.method.description.length() > 0)$testResult.method.description#else$messages.getString("clickToExpandCollapse")#end">
-        $testResult.name$testInstanceName</a><br/>
-      <div class="testOutput" id="description-$id">
-        #foreach( $line in $output )
+         title="$messages.getString("clickToExpandCollapse")">$testResult.name$testInstanceName</a><br/>
+      <div class="descriptionOutput" id="description-$id">
+        #foreach( $line in $steps )
           #if ($meta.shouldEscapeOutput())
             $utils.escapeHTMLString($line)<br/>
           #else
@@ -58,6 +57,19 @@
       <i>$messages.getString("methodArguments"): </i><span class="arguments">$utils.getArguments($testResult)</span><br/>
     #end
 
+    ## Show logger output for the test.
+    #set ($output = $utils.getTestOutput($testResult))
+    #if ($output.size() > 0)
+      <div class="testOutput">
+        #foreach( $line in $output )
+          #if ($meta.shouldEscapeOutput())
+            $utils.escapeHTMLString($line)<br/>
+          #else
+            $line
+          #end
+        #end
+      </div>
+    #end
 
     #if ($testResult.throwable && ( $testResult.status == 2 || $meta.shouldShowExpectedExceptions()))
     <a href="javascript:toggleElement('exception-$id', 'block')" title="$messages.getString("clickToExpandCollapse")"><b>$utils.escapeHTMLString( $testResult.throwable.toString() )</b></a><br/>

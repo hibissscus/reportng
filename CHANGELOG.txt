@@ -1,3 +1,8 @@
+Changes in version 1.7.2
+------------------------
+* show description steps for the test
+
+
 Changes in version 1.7.1
 ------------------------
 * report test description with log output

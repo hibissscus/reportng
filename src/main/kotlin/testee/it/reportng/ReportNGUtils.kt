@@ -233,6 +233,21 @@ class ReportNGUtils {
     }
 
     /**
+     * Retrieves all steps from description (split by *) associated with a particular test result.
+     *
+     * @param result Which test result to look-up.
+     * @return A list of steps from description.
+     */
+    fun getTestDescription(result: ITestResult?): List<String> {
+        val list: MutableList<String> = LinkedList()
+        if (result != null && result.method != null && result.method.description.isNotBlank()) {
+            list.addAll(result.method.description.split("*").toList())
+        }
+
+        return list
+    }
+
+    /**
      * Retrieves the output from all calls to [org.testng.Reporter.log]
      * across all tests.
      *

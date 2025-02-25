@@ -6,6 +6,7 @@ import org.testng.annotations.Listeners
 import org.testng.annotations.Test
 import testee.it.reportng.HTMLReporter
 
+
 /**
  * Some successful tests, some not, some skipped 33%.
  */
@@ -13,7 +14,7 @@ import testee.it.reportng.HTMLReporter
 @Listeners(HTMLReporter::class)
 class AllKindTests {
 
-    @Test
+    @Test(description = "step1*step2*step3")
     fun successful() {
         Reporter.log("This is the first line of 3")
         Reporter.log("This is a second line")
@@ -28,6 +29,8 @@ class AllKindTests {
         Reporter.log("This is a second line")
         Reporter.log("This is the third")
         Reporter.log("Loooooooooo oooooooooooooooooo oooooooooooooooooooooo ooooooooooooong")
+        val report = Reporter.getCurrentTestResult()
+        report.method.description = "skipped1*skipped2"
         throw SkipException("Skipping this test")
     }
 

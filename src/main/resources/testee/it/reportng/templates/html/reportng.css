@@ -61,7 +61,8 @@ div.test                 {margin-top: 0.1em; clear: right; font-size: 1.3em;}
 .dependency              {font-family: Lucida Console, Monaco, Courier New, monospace; font-weight: bold;}
 .arguments               {font-family: Lucida Console, Monaco, Courier New, monospace; font-weight: bold;}
 .description             {color: black;}
-.testOutput              {font-family: Lucida Console, Monaco, Courier New, monospace; color: #666666; font-size: 0.9em; line-height: 1.2em; margin-left: 1em; display: none;}
+.descriptionOutput       {font-family: Lucida Console, Monaco, Courier New, monospace; color: #666666; font-size: 0.9em; line-height: 1.2em; margin-left: 1em; display: none;}
+.testOutput              {font-family: Lucida Console, Monaco, Courier New, monospace;}
 .stackTrace              {font-size: 0.9em; line-height: 1.2em; margin-left: 2em; display: none;}
 .stackTrace .stackTrace  {font-size: inherit;}
 

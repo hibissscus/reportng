@@ -11,8 +11,21 @@
                         #foreach($fragment in $fragments.entrySet())
                             #set ($normalizedFragment = $utils.normalizeFragment($fragment.key))
                             #if (!$normalizedFragment.isEmpty())
-                                <a #if($utils.screenshotHasFragment($screenshot, $fragment.key))style="color: red"#end
-                                   href="#/$fragment.value">$normalizedFragment</a><br>
+                                <a #if($utils.screenshotHasFragment($screenshot, $fragment.key))style="display: list-item; color: red;"#end
+                                   href="#/$fragment.value">$normalizedFragment</a>
+                                #if(!$utils.screenshotHasFragment($screenshot, $fragment.key))<br/>#end
+                                ## Show error log (if exist) for the last fragment
+                                #if($velocityCount == $fragments.size())
+                                    #if($utils.screenshotHasFragment($screenshot, $fragment.key))
+                                        #if ($testResult.throwable && ( $testResult.status == 2 || $meta.shouldShowExpectedExceptions()))
+                                            <div class="stackTrace" id="exception-$id" style="display: block">
+                                                #foreach ($element in $testResult.throwable.stackTrace)
+                                                    $utils.escapeHTMLString( $element.toString() )<br/>
+                                                #end
+                                            </div>
+                                        #end
+                                    #end
+                                #end
                             #end
                         #end
                     </td>

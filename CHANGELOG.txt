@@ -1,3 +1,8 @@
+Changes in version 1.7.3
+------------------------
+* show error log for the last fragment if log exist
+
+
 Changes in version 1.7.2
 ------------------------
 * show description steps for the test

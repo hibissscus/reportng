@@ -18,9 +18,9 @@
       <div class="descriptionOutput" id="description-$id">
         #foreach( $line in $steps )
           #if ($meta.shouldEscapeOutput())
-            $utils.escapeHTMLString($line)<br/>
+            <span style="display: list-item;">$utils.escapeHTMLString($line)</span>
           #else
-            $line
+            <span style="display: list-item;">$line</span>
           #end
         #end
         </div>

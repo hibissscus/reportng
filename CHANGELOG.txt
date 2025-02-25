@@ -1,3 +1,8 @@
+Changes in version 1.7.4
+------------------------
+* show stackTrace for the last fragment
+
+
 Changes in version 1.7.3
 ------------------------
 * show error log for the last fragment if log exist

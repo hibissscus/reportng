@@ -19,6 +19,7 @@
                                     #if($utils.screenshotHasFragment($screenshot, $fragment.key))
                                         #if ($testResult.throwable && ( $testResult.status == 2 || $meta.shouldShowExpectedExceptions()))
                                             <div class="stackTrace" id="exception-$id" style="display: block">
+                                                    $utils.escapeHTMLString( $testResult.throwable.toString() )<br/>
                                                 #foreach ($element in $testResult.throwable.stackTrace)
                                                     $utils.escapeHTMLString( $element.toString() )<br/>
                                                 #end

@@ -248,6 +248,25 @@ class ReportNGUtils {
     }
 
     /**
+     * Retrieve relevant stack trace message associated with a particular test result.
+     *
+     * @param result Which test result to look-up.
+     * @return relevant stack trace message with a class and a line number.
+     */
+    fun getRelevantStackTraceMessage(result: ITestResult?): String {
+        var relevantStackTraceMessage = ""
+        if (result != null && result.method != null && result.method.methodName.isNotBlank() &&
+            result.status == ITestResult.FAILURE && result.throwable != null && result.throwable.stackTrace != null
+        ) {
+            result.throwable.stackTrace
+                .firstOrNull { result.testClass.name == it.className && result.testClass.name == it.methodName }
+                ?.let { relevantStackTraceMessage = "" + it.fileName + ":" + it.lineNumber }
+        }
+
+        return relevantStackTraceMessage
+    }
+
+    /**
      * Retrieves the output from all calls to [org.testng.Reporter.log]
      * across all tests.
      *

@@ -1,3 +1,8 @@
+Changes in version 1.7.5
+------------------------
+* added relevant stack trace message
+
+
 Changes in version 1.7.4
 ------------------------
 * show stackTrace for the last fragment

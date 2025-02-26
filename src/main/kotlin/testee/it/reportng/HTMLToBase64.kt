@@ -115,7 +115,7 @@ object HTMLToBase64 {
         styleSheet.addRule(".description {color: black;}")
         styleSheet.addRule(".descriptionOutput {font-family: Lucida Console, Monaco, Courier New, monospace; color: #666666; font-size: 0.9em; line-height: 1.2em; margin-left: 1em; display: none;}")
         styleSheet.addRule(".testOutput {font-family: Lucida Console, Monaco, Courier New, monospace;}")
-        styleSheet.addRule(".stackTrace {font-size: 0.7em; line-height: 1.2em; margin-left: 1em; display: none;}")
+        styleSheet.addRule(".stackTrace {font-size: 0.8em; line-height: 1.2em; margin-left: 1em; display: none;}")
         styleSheet.addRule(".stackTrace .stackTrace {font-size: inherit;}")
         styleSheet.addRule("#meta {font-size: 1.5em; text-align: right; float: right;}")
         styleSheet.addRule("#systemInfo {color: #666666;}")

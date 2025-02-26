@@ -20,12 +20,12 @@
                                         #if ($testResult.throwable && ( $testResult.status == 2 || $meta.shouldShowExpectedExceptions()))
                                             <div class="stackTrace" id="exception-$id"
                                                       style="display: block; min-width: 30rem; max-width: 30rem">
-                                                #if($testResult.throwable.detailMessage && $testResult.throwable.detailMessage.length() > 0)
-                                                    $testResult.throwable.detailMessage<br/>
+                                                #if($testResult.throwable.message && $testResult.throwable.message.length() > 0)
+                                                    $testResult.throwable.message<br/>
                                                 #end
                                                 #set ($relevantStackTraceMessage = $utils.getRelevantStackTraceMessage($testResult))
                                                 #if($relevantStackTraceMessage.length() > 0)
-                                                    $relevantStackTraceMessage<br/>
+                                                    <div id="relevantMessage" style="cursor: pointer" onclick="copyToClipboard(this.id)">$relevantStackTraceMessage</div><br/>
                                                 #else
                                                     #foreach ($element in $testResult.throwable.stackTrace)
                                                         $utils.escapeHTMLString($element.toString())<br/>

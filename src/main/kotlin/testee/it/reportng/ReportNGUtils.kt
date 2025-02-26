@@ -259,8 +259,8 @@ class ReportNGUtils {
             result.status == ITestResult.FAILURE && result.throwable != null && result.throwable.stackTrace != null
         ) {
             result.throwable.stackTrace
-                .firstOrNull { result.testClass.name == it.className && result.testClass.name == it.methodName }
-                ?.let { relevantStackTraceMessage = "" + it.fileName + ":" + it.lineNumber }
+                .firstOrNull { result.testClass.name == it.className && result.method.methodName == it.methodName }
+                ?.let { relevantStackTraceMessage = "" + it.className + ":" + it.lineNumber }
         }
 
         return relevantStackTraceMessage

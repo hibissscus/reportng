@@ -1,3 +1,8 @@
+function copyToClipboard(elementId) {
+    let element = document.getElementById(elementId);
+    navigator.clipboard.writeText(element.innerHTML);
+}
+
 function toggleElement(elementId, displayStyle) {
     let element = document.getElementById(elementId);
     let current = element.currentStyle
@@ -43,7 +48,7 @@ function modalImage(modalId, screenshotId) {
         width: 1366,
         height: 768,
     });
-    deck.addEventListener('ready', function (event) {
+    deck.addEventListener('ready', function(event) {
         let indices = deck.getIndices(document.getElementById(screenshotId));
         deck.slide(indices.h, indices.v);
     });

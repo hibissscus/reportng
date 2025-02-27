@@ -25,7 +25,7 @@
                                                 #end
                                                 #set ($relevantStackTraceMessage = $utils.getRelevantStackTraceMessage($testResult))
                                                 #if($relevantStackTraceMessage.length() > 0)
-                                                    <div id="relevantMessage" style="cursor: pointer" onclick="copyToClipboard(this.id)">$relevantStackTraceMessage</div><br/>
+                                                    <div id="relevantMessage" style="cursor: pointer; text-decoration-line: underline;" onclick="copyToClipboard(this.id)">$relevantStackTraceMessage</div><br/>
                                                 #else
                                                     #foreach ($element in $testResult.throwable.stackTrace)
                                                         $utils.escapeHTMLString($element.toString())<br/>

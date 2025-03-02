@@ -60,7 +60,14 @@
               <span class="successIndicator" title="$messages.getString("passed.tooltip")">&#x2714;</span>
               #end
             #end
-            <a href="suite${suiteId}_test${velocityCount}_results.html" target="main">$result.testContext.name</a>
+              <span id="toggle-method-${velocityCount}"
+                    onclick="toggleElement('methods-${velocityCount}', 'table-row-group'); toggle('toggle-method-${velocityCount}')"
+                    class="toggle">&#x25bc;</span><a href="suite${suiteId}_test${velocityCount}_results.html" target="main">$result.testContext.name</a>
+              <div id="methods-${velocityCount}">
+                #foreach ($method in $result.testContext.getAllTestMethods())
+                    <li id="method-${velocityCount}">$method.methodName</li>
+                #end
+              </div>
           </td>
         </tr>
       #end

@@ -1,9 +1,29 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
 <suite verbose="1" configfailurepolicy="continue" thread-count="10" parallel="tests" name="e2e">
     <parameter name="headless" value="false"/>
+    <test parallel="classes" name="successful tests 100%">
+        <packages>
+            <package name="testee.it.reportng.example.successful"/>
+        </packages>
+    </test>
     <test parallel="classes" name="allkind tests 33%">
         <packages>
             <package name="testee.it.reportng.example.allkind"/>
+        </packages>
+    </test>
+    <test parallel="classes" name="skipped tests">
+        <packages>
+            <package name="testee.it.reportng.example.skipped"/>
+        </packages>
+    </test>
+    <test parallel="classes" name="failed tests">
+        <packages>
+            <package name="testee.it.reportng.example.failed"/>
+        </packages>
+    </test>
+    <test parallel="classes" name="different tests">
+        <packages>
+            <package name="testee.it.reportng.example.sample"/>
         </packages>
     </test>
 </suite>

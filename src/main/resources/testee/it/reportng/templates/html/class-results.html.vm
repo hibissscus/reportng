@@ -13,7 +13,7 @@
     ## Show description steps for the test.
     #set ($steps = $utils.getTestDescription($testResult))
     #if ($steps.size() > 0)
-      <a class="description" href="javascript:toggleElement('description-$id', 'block')"
+      <a id="test-$testResult.name" class="description" href="javascript:toggleElement('description-$id', 'block')"
          title="$messages.getString("clickToExpandCollapse")">$testResult.name$testInstanceName</a><br/>
       <div class="descriptionOutput" id="description-$id">
         #foreach( $line in $steps )
@@ -26,7 +26,7 @@
         </div>
     #else
       #if ($testResult.method.description && $testResult.method.description.length() > 0)
-        <span class="description" title="$testResult.method.description">$testResult.name$testInstanceName</span>
+        <span id="test-$testResult.name" class="description" title="$testResult.method.description">$testResult.name$testInstanceName</span>
       #else
       $testResult.name$testInstanceName
       #end

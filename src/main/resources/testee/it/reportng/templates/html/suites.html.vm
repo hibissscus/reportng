@@ -61,12 +61,18 @@
               #end
             #end
               <span id="toggle-method-${velocityCount}"
-                    onclick="toggleElement('methods-${velocityCount}', 'table-row-group'); toggle('toggle-method-${velocityCount}')"
-                    class="toggle">&#x25bc;</span><a href="suite${suiteId}_test${velocityCount}_results.html" target="main">$result.testContext.name</a>
-              <div id="methods-${velocityCount}">
-                #foreach ($method in $result.testContext.getAllTestMethods())
-                    <li id="method-${velocityCount}">$method.methodName</li>
-                #end
+                    onclick="toggleElement('methods-${velocityCount}', 'block'); toggle('toggle-method-${velocityCount}')"
+                    class="toggle">&#x25b6;</span>
+              #set ($testId = $velocityCount)
+              <a href="suite${suiteId}_test${testId}_results.html" target="main">$result.testContext.name</a>
+              <div id="methods-${velocityCount}" style="display:none;">
+                  #foreach ($method in $result.testContext.getAllTestMethods())
+                    <span>$method.getRealClass().getName()</span>
+                      <a id="method-${velocityCount}" href="suite${suiteId}_test${testId}_results.html" target="main"
+                         onclick="scrollToView('test-$method.methodName')"
+                         style="font-size: smaller; padding-left: 2em;">$method.methodName</a>
+                      <br/>
+                  #end
               </div>
           </td>
         </tr>

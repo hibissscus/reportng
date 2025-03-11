@@ -2,6 +2,7 @@ package testee.it.reportng.example.allkind
 
 import org.testng.Reporter
 import org.testng.SkipException
+import org.testng.annotations.CustomAttribute
 import org.testng.annotations.Listeners
 import org.testng.annotations.Test
 import testee.it.reportng.HTMLReporter
@@ -10,7 +11,12 @@ import testee.it.reportng.HTMLReporter
 /**
  * Some successful tests, some not, some skipped 33%.
  */
-@Test(groups = ["allkind"])
+@Test(
+    groups = ["allkind"], description = "Covers this functionality*A*B",
+    attributes = [
+        CustomAttribute(name = "info", values = ["kung-fu", "eating-dumplings"])
+    ]
+)
 @Listeners(HTMLReporter::class)
 class AllKindTests {
 

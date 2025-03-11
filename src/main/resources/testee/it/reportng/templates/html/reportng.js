@@ -26,6 +26,11 @@ function toggle(toggleId) {
     toggle.textContent = toggle.innerHTML === '\u25b6' ? '\u25bc' : '\u25b6';
 }
 
+function scrollToView(elementId){
+    let element = document.getElementById(elementId);
+    element.scrollIntoView();
+}
+
 function modalClose() {
     let modals = document.getElementsByClassName("modal");
     for (let i = 0; i < modals.length; i++) {

@@ -69,20 +69,17 @@ class HTMLReporter : AbstractReporter(TEMPLATES_PATH) {
         private val CLASS_COMPARATOR: Comparator<IClass> = TestClassComparator()
         private val SUITE_RESULT_COMPARATOR = SuiteResultComparator()
 
-        private fun sortByValue(unsortedMap: Map<String, ISuiteResult>): Map<String, ISuiteResult> {
-            // 1. Convert Map to List of Map
-            val linkedList = LinkedList(unsortedMap.entries)
+        fun sortByValue(unsortedMap: Map<String, ISuiteResult>): Map<String, ISuiteResult> {
+            return unsortedMap.entries
+                .sortedWith(SUITE_RESULT_COMPARATOR)
+                .associate { it.toPair() }
+                .toMap(LinkedHashMap()) // preserve insertion order
+        }
 
-            // 2. Sort list with Collections.sort(), provide a custom Comparator
-            //    Try switch the o1 o2 position for a different order
-            linkedList.sortWith(SUITE_RESULT_COMPARATOR)
-
-            // 3. Loop the sorted list and put it into a new insertion order Map LinkedHashMap
-            val sortedMap: MutableMap<String, ISuiteResult> = LinkedHashMap()
-            for ((key, value) in linkedList) {
-                sortedMap[key] = value
+        class MutableSuite(private val delegate: ISuite, private val sortedResults: Map<String, ISuiteResult>) : ISuite by delegate {
+            override fun getResults(): Map<String, ISuiteResult> {
+                return sortedResults
             }
-            return sortedMap
         }
     }
 
@@ -111,20 +108,19 @@ class HTMLReporter : AbstractReporter(TEMPLATES_PATH) {
         val outputDirectory = File(outputDirectoryName, REPORT_DIRECTORY)
         outputDirectory.mkdirs()
 
-        //  Sorting TestNG test results by passRate from 100% to 0% and alphabetically by method name.
-        for (suite in suites) {
-            val results = sortByValue(suite.results)
-            suite.results.clear()
-            suite.results.putAll(results)
+        // Create sorted suite wrappers
+        val sortedSuites: List<ISuite> = suites.map { suite ->
+            val sortedResults = sortByValue(suite.results)
+            MutableSuite(suite, sortedResults)
         }
         try {
             if (useFrames) {
                 createFrameset(outputDirectory)
             }
-            createOverview(suites, outputDirectory, !useFrames, onlyFailures)
-            createSuiteList(suites, outputDirectory, onlyFailures)
-            createGroups(suites, outputDirectory)
-            createResults(suites, outputDirectory, onlyFailures)
+            createOverview(sortedSuites, outputDirectory, !useFrames, onlyFailures)
+            createSuiteList(sortedSuites, outputDirectory, onlyFailures)
+            createGroups(sortedSuites, outputDirectory)
+            createResults(sortedSuites, outputDirectory, onlyFailures)
             createLog(outputDirectory, onlyFailures)
             copyResources(outputDirectory)
             createBase64Overview(outputDirectory)

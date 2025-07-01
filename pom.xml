@@ -7,18 +7,18 @@
     <name>ReportNG</name>
     <groupId>testee.it</groupId>
     <artifactId>reportng</artifactId>
-    <version>1.7.7</version>
+    <version>1.8.0</version>
     <packaging>jar</packaging>
 
     <properties>
-        <java.version>1.8</java.version>
-        <maven.compiler.source>1.8</maven.compiler.source>
-        <maven.compiler.target>1.8</maven.compiler.target>
+        <java.version>21</java.version>
+        <maven.compiler.source>21</maven.compiler.source>
+        <maven.compiler.target>21</maven.compiler.target>
 
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 
-        <kotlin.version>1.8.0</kotlin.version>
+        <kotlin.version>2.2.0</kotlin.version>
         <full-artifact-name>target/${project.artifactId}-${project.version}.jar</full-artifact-name>
     </properties>
 

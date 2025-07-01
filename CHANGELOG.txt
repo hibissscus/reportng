@@ -1,3 +1,8 @@
+Changes in version 1.8.0
+------------------------
+* Kotlin 2.2.0
+
+
 Changes in version 1.7.7
 ------------------------
 * underline relevant stack trace message

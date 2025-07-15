@@ -1,37 +1,63 @@
 package testee.it.reportng.slack
 
-import org.springframework.http.ContentDisposition
-import org.springframework.http.HttpEntity
-import org.springframework.http.HttpHeaders
-import org.springframework.http.HttpMethod
-import org.springframework.http.MediaType
-import org.springframework.http.ResponseEntity
-import org.springframework.util.LinkedMultiValueMap
-import org.springframework.util.MultiValueMap
-import org.springframework.web.client.HttpClientErrorException
-import org.springframework.web.client.RestTemplate
-import testee.it.reportng.slack.model.Msg
-import testee.it.reportng.slack.model.Resp
+import com.slack.api.Slack
+import com.slack.api.methods.request.chat.ChatDeleteRequest
+import com.slack.api.methods.request.chat.ChatPostMessageRequest
+import com.slack.api.methods.request.conversations.ConversationsHistoryRequest
+import com.slack.api.methods.request.files.FilesDeleteRequest
+import com.slack.api.methods.request.files.FilesUploadRequest
+import testee.it.reportng.slack.model.*
 import java.io.File
 
-
-class SlackApi(val token: String) {
+class SlackApi(token: String) {
 
     enum class SlackColor(val color: String) {
         RED("#c0110f"), GREEN("#2eb886"), YELLOW("#ffef28"), GREY("#b4b7b8");
     }
 
+    private val slack = Slack.getInstance()
+    private val methods = slack.methods(token)
+
     /**
      * https://api.slack.com/methods/conversations.history/test
      */
     fun getHistory(channel: String, since: String = "1630140851"): Msg? {
-        return RestTemplate().getForObject(
-            "https://slack.com/api/conversations.history?" +
-                    "&token=$token" +
-                    "&channel=$channel" +
-                    "&limit=100" +
-                    "&oldest=$since",
-            Msg::class.java
+        val request = ConversationsHistoryRequest.builder()
+            .channel(channel)
+            .limit(100)
+            .oldest(since)
+            .build()
+
+        val response = methods.conversationsHistory(request)
+
+        if (!response.isOk) {
+            println("Error getting history: ${response.error}")
+            return null
+        }
+
+        // Convert from slack-api-client model to our model
+        val messages = response.messages.map { msg ->
+            Message(
+                text = msg.text,
+                username = msg.username,
+                bot_id = msg.botId,
+                attachments = msg.attachments?.map { att ->
+                    Attachment(
+                        text = att.text,
+                        id = att.id?.toInt(),
+                        fallback = att.fallback
+                    )
+                } ?: emptyList(),
+                type = msg.type,
+                subtype = msg.subtype,
+                ts = msg.ts
+            )
+        }
+
+        return Msg(
+            ok = response.isOk,
+            has_more = response.isHasMore,
+            messages = messages
         )
     }
 
@@ -39,14 +65,35 @@ class SlackApi(val token: String) {
      * https://api.slack.com/methods/chat.postMessage
      */
     fun postMessage(channel: String, text: String = "test"): Resp? {
-        return RestTemplate().postForObject(
-            "https://slack.com/api/chat.postMessage?" +
-                    "&token=$token" +
-                    "&channel=$channel" +
-                    "&text=$text" +
-                    "&pretty=1",
-            null,
-            Resp::class.java
+        val request = ChatPostMessageRequest.builder()
+            .channel(channel)
+            .text(text)
+            .build()
+
+        val response = methods.chatPostMessage(request)
+
+        if (!response.isOk) {
+            println("Error posting message: ${response.error}")
+            return null
+        }
+
+        // Convert from slack-api-client model to our model
+        val message = response.message?.let { msg ->
+            Message(
+                text = msg.text,
+                username = msg.username,
+                bot_id = msg.botId,
+                type = msg.type,
+                subtype = msg.subtype,
+                ts = msg.ts
+            )
+        }
+
+        return Resp(
+            ok = response.isOk,
+            channel = response.channel,
+            ts = response.ts,
+            message = message
         )
     }
 
@@ -54,14 +101,22 @@ class SlackApi(val token: String) {
      * https://api.slack.com/methods/chat.delete/test
      */
     fun deleteMessage(channel: String, ts: String): Resp? {
-        return RestTemplate().postForObject(
-            "https://slack.com/api/chat.delete?" +
-                    "&token=$token" +
-                    "&channel=$channel" +
-                    "&ts=$ts" +
-                    "&pretty=1",
-            null,
-            Resp::class.java
+        val request = ChatDeleteRequest.builder()
+            .channel(channel)
+            .ts(ts)
+            .build()
+
+        val response = methods.chatDelete(request)
+
+        if (!response.isOk) {
+            println("Error deleting message: ${response.error}")
+            return null
+        }
+
+        return Resp(
+            ok = response.isOk,
+            channel = response.channel,
+            ts = response.ts
         )
     }
 
@@ -69,51 +124,70 @@ class SlackApi(val token: String) {
      * https://slack.com/api/files.delete/test
      */
     fun deleteFile(file: String): Resp? {
-        return RestTemplate().postForObject(
-            "https://slack.com/api/files.delete?" +
-                    "&token=$token" +
-                    "&file=$file",
-            null,
-            Resp::class.java
+        val request = FilesDeleteRequest.builder()
+            .file(file)
+            .build()
+
+        val response = methods.filesDelete(request)
+
+        if (!response.isOk) {
+            println("Error deleting file: ${response.error}")
+            return null
+        }
+
+        return Resp(
+            ok = response.isOk
         )
     }
 
     /**
-     * https://api.slack.com/methods/files.upload
+     * Upload a file to Slack using the files.upload API
      */
     fun postFile(channel: String, title: String, filename: String, file: File): Resp? {
-        val headers = HttpHeaders()
-        headers.contentType = MediaType.MULTIPART_FORM_DATA
-        val fileMap: MultiValueMap<String, String> = LinkedMultiValueMap()
-        val contentDisposition = ContentDisposition
-            .builder("form-data")
-            .name("file")
-            .filename(filename)
-            .build()
-        fileMap.add(HttpHeaders.CONTENT_DISPOSITION, contentDisposition.toString())
-        val fileEntity = HttpEntity(file.readBytes(), fileMap)
-        val body: LinkedMultiValueMap<String, Any> = LinkedMultiValueMap<String, Any>()
-        body.add("file", fileEntity)
-        body.add("token", token)
-        body.add("channels", channel)
-        body.add("title", title)
-        val requestEntity: HttpEntity<MultiValueMap<String, Any>> = HttpEntity(body, headers)
         try {
-            val response: ResponseEntity<Resp> = RestTemplate().exchange(
-                "https://slack.com/api/files.upload",
-                HttpMethod.POST,
-                requestEntity,
-                Resp::class.java
+            val request = FilesUploadRequest.builder()
+                .channels(listOf(channel))
+                .title(title)
+                .filename(filename)
+                .file(file)
+                .build()
+
+            val response = methods.filesUpload(request)
+
+            if (!response.isOk) {
+                println("Error uploading file: ${response.error}")
+                return null
+            }
+
+            // Convert from slack-api-client model to our model
+            val slackFile = response.file?.let { f ->
+                File(
+                    id = f.id,
+                    created = f.created?.toString(),
+                    timestamp = f.timestamp?.toString(),
+                    name = f.name,
+                    title = f.title,
+                    mimetype = f.mimetype,
+                    filetype = f.filetype,
+                    pretty_type = f.prettyType,
+                    user = f.user,
+                    size = f.size?.toString(),
+                    original_w = f.originalWidth?.toString(),
+                    original_h = f.originalHeight?.toString()
+                )
+            }
+
+            return Resp(
+                ok = response.isOk,
+                file = slackFile
             )
-            return response.body
-        } catch (e: HttpClientErrorException) {
+        } catch (e: Exception) {
             e.printStackTrace()
+            return null
         }
-        return null
     }
 
     companion object {
-        @JvmStatic
         fun main(args: Array<String>) {
             val slackApi = SlackApi("xoxb-************-*************-************************")
             println(slackApi.postMessage("test", "test"))
@@ -121,5 +195,4 @@ class SlackApi(val token: String) {
             println(slackApi.postFile("test", "e2e.zip", "e2e.zip", File("e2e.zip")))
         }
     }
-
 }

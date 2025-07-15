@@ -7,7 +7,7 @@
     <name>ReportNG</name>
     <groupId>testee.it</groupId>
     <artifactId>reportng</artifactId>
-    <version>1.8.1</version>
+    <version>1.8.2</version>
     <packaging>jar</packaging>
 
     <properties>
@@ -159,13 +159,6 @@
             <artifactId>slf4j-simple</artifactId>
             <version>2.0.1</version>
         </dependency>
-        <!-- for slack integration -->
-        <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-web</artifactId>
-            <version>5.3.23</version>
-            <scope>compile</scope>
-        </dependency>
         <dependency>
             <groupId>com.google.code.gson</groupId>
             <artifactId>gson</artifactId>
@@ -178,6 +171,14 @@
             <version>5.1.0</version>
             <scope>compile</scope>
         </dependency>
+        <!-- Slack API Client -->
+        <dependency>
+            <groupId>com.slack.api</groupId>
+            <artifactId>slack-api-client</artifactId>
+            <version>1.29.2</version>
+            <scope>compile</scope>
+        </dependency>
+
         <!-- kotlin -->
         <dependency>
             <groupId>org.jetbrains.kotlin</groupId>

@@ -1,3 +1,8 @@
+Changes in version 1.8.2
+------------------------
+* Rewrote SlackApi to use the Java slack-api-client library instead of direct REST calls
+* Remove spring.web dependency
+
 Changes in version 1.8.1
 ------------------------
 * fix sortByValue

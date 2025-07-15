@@ -7,7 +7,7 @@
     <name>ReportNG</name>
     <groupId>testee.it</groupId>
     <artifactId>reportng</artifactId>
-    <version>1.8.2</version>
+    <version>1.8.3</version>
     <packaging>jar</packaging>
 
     <properties>
@@ -175,7 +175,7 @@
         <dependency>
             <groupId>com.slack.api</groupId>
             <artifactId>slack-api-client</artifactId>
-            <version>1.29.2</version>
+            <version>1.38.3</version>
             <scope>compile</scope>
         </dependency>
 

@@ -5,8 +5,12 @@ import com.slack.api.methods.request.chat.ChatDeleteRequest
 import com.slack.api.methods.request.chat.ChatPostMessageRequest
 import com.slack.api.methods.request.conversations.ConversationsHistoryRequest
 import com.slack.api.methods.request.files.FilesDeleteRequest
-import com.slack.api.methods.request.files.FilesUploadRequest
-import testee.it.reportng.slack.model.*
+import com.slack.api.methods.request.files.FilesUploadV2Request
+import com.slack.api.methods.request.files.FilesUploadV2Request.UploadFile
+import testee.it.reportng.slack.model.Attachment
+import testee.it.reportng.slack.model.Message
+import testee.it.reportng.slack.model.Msg
+import testee.it.reportng.slack.model.Resp
 import java.io.File
 
 class SlackApi(token: String) {
@@ -141,39 +145,66 @@ class SlackApi(token: String) {
     }
 
     /**
-     * Upload a file to Slack using the files.upload API
+     * Resolves a Slack channel ID from its name (e.g., "#general" → "C12345678").
+     *
+     * This function uses the `conversations.list` API to find a public or visible private channel
+     * by its name. The bot must have `channels:read` and/or `groups:read` scopes depending on
+     * channel visibility. The bot must also be a member of the private channel if applicable.
+     *
+     * @param name the Slack channel name (e.g., "#general" or "general")
+     * @return the channel ID as a string (e.g., "C12345678"), or `null` if not found
+     */
+    fun getChannelIdByName(name: String): String? {
+        val response = methods.conversationsList { it.excludeArchived(true).limit(1000) }
+
+        if (!response.isOk) {
+            println("Error fetching channels: ${response.error}")
+            return null
+        }
+
+        val targetName = name.removePrefix("#") // Remove '#' if provided
+
+        return response.channels?.firstOrNull { it.name == targetName }?.id
+    }
+
+    /**
+     * Upload a file to Slack using the filesUploadV2 API
      */
     fun postFile(channel: String, title: String, filename: String, file: File): Resp? {
         try {
-            val request = FilesUploadRequest.builder()
-                .channels(listOf(channel))
-                .title(title)
-                .filename(filename)
+            val uploadFile = UploadFile.builder()
                 .file(file)
+                .filename(filename)
+                .title(title)
                 .build()
 
-            val response = methods.filesUpload(request)
+            val request = FilesUploadV2Request.builder()
+                .channel(getChannelIdByName(channel))
+                .uploadFiles(listOf(uploadFile))
+                .build()
+
+            val response = methods.filesUploadV2(request)
 
             if (!response.isOk) {
                 println("Error uploading file: ${response.error}")
                 return null
             }
 
-            // Convert from slack-api-client model to our model
-            val slackFile = response.file?.let { f ->
-                File(
-                    id = f.id,
-                    created = f.created?.toString(),
-                    timestamp = f.timestamp?.toString(),
-                    name = f.name,
-                    title = f.title,
-                    mimetype = f.mimetype,
-                    filetype = f.filetype,
-                    pretty_type = f.prettyType,
-                    user = f.user,
-                    size = f.size?.toString(),
-                    original_w = f.originalWidth?.toString(),
-                    original_h = f.originalHeight?.toString()
+            val f = response.files?.firstOrNull()
+            val slackFile = f?.let {
+                testee.it.reportng.slack.model.File(
+                    id = it.id,
+                    created = it.created?.toString(),
+                    timestamp = it.timestamp?.toString(),
+                    name = it.name,
+                    title = it.title,
+                    mimetype = it.mimetype,
+                    filetype = it.filetype,
+                    pretty_type = it.prettyType,
+                    user = it.user,
+                    size = it.size?.toString(),
+                    original_w = it.originalWidth,
+                    original_h = it.originalHeight
                 )
             }
 

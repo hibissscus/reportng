@@ -1,3 +1,9 @@
+Changes in version 1.8.3
+------------------------
+* Migrate SlackApi filesUpload to V2
+* Updated slack-api-client to version 1.38.3
+
+
 Changes in version 1.8.2
 ------------------------
 * Rewrote SlackApi to use the Java slack-api-client library instead of direct REST calls

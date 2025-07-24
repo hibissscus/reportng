@@ -1,3 +1,8 @@
+Changes in version 1.8.4
+------------------------
+* screenshot: max-width:500px
+
+
 Changes in version 1.8.3
 ------------------------
 * Migrate SlackApi filesUpload to V2
